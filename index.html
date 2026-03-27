@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SY Software — Apps That Solve Real Problems</title>
+  <meta name="description" content="SY Software builds thoughtful mobile apps. Tasterly helps you remember what you love to eat. More apps coming soon.">
+  <meta property="og:title" content="SY Software">
+  <meta property="og:description" content="Apps that solve real problems. By Scott Yale.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/TasterlyAppIcon.png">
+  <style>
+    /* ─── Reset & Base ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e13;
+      --surface: #111920;
+      --surface-hover: #182028;
+      --border: #1e2a36;
+      --text: #e8f0f7;
+      --text-muted: #8a9db0;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.15);
+      --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.15);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.85; }
+
+    /* ─── Nav ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(10, 14, 19, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    .nav-brand span.sy { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); opacity: 1; }
+
+    /* ─── Hero ──────────────────────────────────────── */
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 140px 24px 80px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* ─── Apps Grid ─────────────────────────────────── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+
+    /* ─── App Card (Featured — Tasterly) ────────────── */
+    .app-card-featured {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .app-card-featured:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 8px 40px var(--accent-glow);
+    }
+
+    .app-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .app-card-content {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .app-icon-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .app-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .app-name {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .app-tagline {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .app-description {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .app-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .feature-pill {
+      padding: 6px 14px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    .app-links { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: #2563eb; color: white; opacity: 1; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--text-muted); opacity: 1; }
+
+    .app-card-screenshots {
+      display: flex;
+      gap: 12px;
+      padding: 32px 24px 32px 0;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .app-card-screenshots img {
+      height: 420px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+    }
+
+    .app-card-screenshots img:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ─── Coming Soon Cards ─────────────────────────── */
+    .apps-coming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .app-card-soon {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: border-color 0.3s;
+    }
+
+    .app-card-soon:hover { border-color: rgba(255,255,255,0.1); }
+
+    .soon-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--surface-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .soon-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .soon-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .soon-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ─── About / Footer ───────────────────────────── */
+    .about {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .about p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .about a { color: var(--accent); }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .contact-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .contact-row svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--text-muted); margin: 0 12px; }
+    footer a:hover { color: var(--text); }
+
+    /* ─── Responsive ───────────────────────────────── */
+    @media (max-width: 768px) {
+      .app-card-inner { grid-template-columns: 1fr; }
+
+      .app-card-content { padding: 32px 24px; }
+
+      .app-card-screenshots {
+        padding: 0 24px 32px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .app-card-screenshots img { height: 320px; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 32px; }
+
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 13px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .app-card-screenshots img { height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ──────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="sy">SY</span> Software
+      </div>
+      <div class="nav-links">
+        <a href="#apps">Apps</a>
+        <a href="#coming-soon">Coming Soon</a>
+        <a href="#about">About</a>
+        <a href="mailto:support@tasterly.app">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-badge">Independent App Studio</div>
+    <h1>Apps that solve<br><span class="highlight">real problems.</span></h1>
+    <p>SY Software builds thoughtful mobile apps for everyday life. No bloat, no ads, no tracking. Just tools that actually help.</p>
+  </section>
+
+  <!-- ─── Featured App: Tasterly ───────────────────── -->
+  <section class="section" id="apps">
+    <div class="section-label">Featured App</div>
+    <div class="section-title">Tasterly</div>
+    <div class="section-subtitle">Your personal food memory. Rate meals, track favorites, never order something you regret again.</div>
+
+    <div class="app-card-featured">
+      <div class="app-card-inner">
+        <div class="app-card-content">
+          <div class="app-icon-row">
+            <img src="assets/TasterlyAppIcon.png" alt="Tasterly app icon" class="app-icon">
+            <div>
+              <div class="app-name">Tasterly</div>
+              <div class="app-tagline">Decide What to Eat</div>
+            </div>
+          </div>
+
+          <p class="app-description">
+            Tired of forgetting what you loved at that restaurant? Tasterly tracks every meal you rate, builds your personal taste profile, and helps you decide where to eat in seconds. Swipe to rate, scan barcodes, spin the decision wheel when you can't choose.
+          </p>
+
+          <div class="app-features">
+            <span class="feature-pill">Swipe to Rate</span>
+            <span class="feature-pill">Barcode Scanner</span>
+            <span class="feature-pill">Taste Profile</span>
+            <span class="feature-pill">Decision Wheel</span>
+            <span class="feature-pill">Smart Lists</span>
+          </div>
+
+          <div class="app-links">
+            <a href="https://apps.apple.com/us/app/tasterly-decide-what-to-eat/id6751076458" class="btn btn-primary" target="_blank">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M15 8.5c-.685-.685-1.891-.51-2.696.296L12 9.1l-.304-.304C10.891 7.99 9.685 7.815 9 8.5c-.685.685-.51 1.891.296 2.696L12 13.9l2.704-2.704c.806-.805.981-2.011.296-2.696z"/></svg>
+              App Store
+            </a>
+            <a href="https://tasterly.app" class="btn btn-secondary" target="_blank">
+              Visit Website
+            </a>
+          </div>
+        </div>
+
+        <div class="app-card-screenshots">
+          <img src="assets/tasterly-screenshot-1.png" alt="Tasterly - rate food items">
+          <img src="assets/tasterly-screenshot-2.png" alt="Tasterly - food list">
+          <img src="assets/tasterly-screenshot-3.png" alt="Tasterly - taste profile">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Coming Soon ──────────────────────────────── -->
+  <section class="section" id="coming-soon">
+    <div class="section-label">In the Workshop</div>
+    <div class="section-title">Coming Soon</div>
+    <div class="section-subtitle">More apps are in development. Follow along as we build and ship.</div>
+
+    <div class="apps-coming-grid">
+      <div class="app-card-soon">
+        <div class="soon-icon">?</div>
+        <div class="soon-title">New App #2</div>
+        <div class="soon-desc">Something useful is brewing. Details coming soon.</div>
+        <span class="soon-badge">In Development</span>
+      </div>
+
+      <div class="app-card-soon">
+        <div class="soon-icon">?</div>
+        <div class="soon-title">New App #3</div>
+        <div class="soon-desc">Another idea taking shape. Stay tuned.</div>
+        <span class="soon-badge">Idea Stage</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── About ────────────────────────────────────── -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div>
+        <h2>About SY Software</h2>
+        <p>SY Software is an independent app studio founded by Scott Yale. We build apps that solve everyday problems — the kind of tools you wish existed, made with care and without the bloat.</p>
+        <p>Every app we ship is privacy-first: your data stays on your device, we don't track you, and we never sell your information.</p>
+        <p>Based in the US. Building in public.</p>
+      </div>
+
+      <div class="contact-card">
+        <h3>Get in Touch</h3>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+          <a href="mailto:support@tasterly.app">support@tasterly.app</a>
+        </div>
+        <div class="contact-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <a href="https://tasterly.app" target="_blank">tasterly.app</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Footer ───────────────────────────────────── -->
+  <footer>
+    <span>&copy; <span id="yr"></span> SY Software. All rights reserved.</span>
+    <br style="margin-bottom: 8px;">
+    <a href="https://tasterly.app/privacy.html">Privacy Policy</a>
+    <a href="mailto:support@tasterly.app">Contact</a>
+  </footer>
+
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sysoftware",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "D:\\AI\\Claude Code\\Tasterly Marketing\\sysoftware", "-p", "8090", "-c-1"],
+      "port": 8090
+    }
+  ]
+}
