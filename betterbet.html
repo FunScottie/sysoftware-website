@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetterBet — Track Every Win. Know Every Loss.</title>
+  <meta name="description" content="BetterBet is the ultimate casino session tracker for iOS. Log Line Pays, Bonuses, and Jackpots in real-time. Build your game history. Play smarter.">
+  <meta property="og:title" content="BetterBet — Track Every Win. Know Every Loss.">
+  <meta property="og:description" content="The smarter way to track your casino sessions. Available soon on the App Store.">
+  <meta property="og:image" content="assets/BetterBetAppIcon.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/BetterBetAppIcon.png">
+  <style>
+    /* ─── Reset & Base ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e13;
+      --surface: #111920;
+      --surface-hover: #182028;
+      --border: #1e2a36;
+      --text: #e8f0f7;
+      --text-muted: #8a9db0;
+      --accent: #3b82f6;
+      /* BetterBet brand colors */
+      --blue: #2666F2;
+      --blue-light: #4D8CFF;
+      --gold: #EBCA52;
+      --gold-light: #F5E080;
+      --amethyst: #9459E0;
+      --amethyst-light: #BD8AF5;
+      --cyan: #00C7D1;
+      --win-green: #1EAD61;
+      --loss-red: #E63340;
+      --gold-glow: rgba(235, 202, 82, 0.15);
+      --blue-glow: rgba(38, 102, 242, 0.2);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue-light); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; }
+
+    /* ─── Nav ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 14, 19, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-brand span.sy { color: var(--accent); }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .nav-center svg { width: 14px; height: 14px; opacity: 0.5; }
+
+    .nav-app-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .nav-app-name img { width: 24px; height: 24px; border-radius: 6px; }
+
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); opacity: 1; }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: var(--gold);
+      color: #07050E;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      transition: filter 0.2s;
+    }
+    .btn-nav:hover { filter: brightness(1.1); opacity: 1; }
+
+    /* ─── Hero ──────────────────────────────────────── */
+    .hero {
+      padding: 130px 24px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      background: rgba(235, 202, 82, 0.1);
+      border: 1px solid rgba(235, 202, 82, 0.22);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 20px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 700;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-hero.gold { background: var(--gold); color: #07050E; }
+    .btn-hero.gold:hover { filter: brightness(1.1); opacity: 1; }
+
+    .btn-hero.outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-hero.outline:hover { border-color: var(--text-muted); opacity: 1; }
+
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item .num {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .hero-meta-item .lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* Hero screenshot */
+    .hero-icon-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-screenshot {
+      max-height: 640px;
+      width: auto;
+      border-radius: 44px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(235, 202, 82, 0.12);
+      animation: float 6s ease-in-out infinite;
+      display: block;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .hero-store-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ─── Feature strip ──────────────────────────────── */
+    .feature-strip {
+      background: linear-gradient(90deg, var(--blue) 0%, var(--amethyst) 50%, var(--blue) 100%);
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .strip-inner {
+      display: inline-flex;
+      animation: ticker 30s linear infinite;
+    }
+
+    .strip-inner span {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0 28px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .strip-inner span::after {
+      content: '\2666';
+      margin-left: 28px;
+      opacity: 0.5;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── Sections ───────────────────────────────────── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* ─── Problem Cards ──────────────────────────────── */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .pain-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: border-color 0.3s;
+    }
+
+    .pain-card:hover { border-color: rgba(235, 202, 82, 0.25); }
+
+    .pain-card .emoji { font-size: 2rem; margin-bottom: 12px; display: block; }
+    .pain-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .pain-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── Feature Rows ───────────────────────────────── */
+    .feature-rows { display: flex; flex-direction: column; gap: 80px; }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .feature-row.flip { direction: rtl; }
+    .feature-row.flip > * { direction: ltr; }
+
+    .feature-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+
+    .badge-blue   { background: rgba(38, 102, 242, 0.15); color: var(--blue-light); }
+    .badge-gold   { background: rgba(235, 202, 82, 0.12); color: var(--gold); }
+    .badge-purple { background: rgba(148, 89, 224, 0.15); color: var(--amethyst-light); }
+    .badge-cyan   { background: rgba(0, 199, 209, 0.12);  color: var(--cyan); }
+
+    .feature-text h3 {
+      font-size: clamp(20px, 2.5vw, 28px);
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .feature-text p {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .feature-list li::before {
+      content: '';
+      display: inline-block;
+      width: 18px; height: 18px;
+      min-width: 18px;
+      border-radius: 50%;
+      margin-top: 2px;
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.2l-3.5-3.5 1.4-1.4L9 13.4l7.1-7.1 1.4 1.4z'/%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .feature-list li.gold-check::before { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2307050E'%3E%3Cpath d='M9 16.2l-3.5-3.5 1.4-1.4L9 13.4l7.1-7.1 1.4 1.4z'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
+    .feature-list li.purple-check::before { background: linear-gradient(135deg, var(--amethyst) 0%, var(--amethyst-light) 100%); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.2l-3.5-3.5 1.4-1.4L9 13.4l7.1-7.1 1.4 1.4z'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
+
+    /* ─── Feature screenshots ────────────────────────── */
+    .feature-visual {
+      display: flex;
+      justify-content: center;
+    }
+
+    .screenshot {
+      max-height: 580px;
+      width: auto;
+      max-width: 100%;
+      border-radius: 40px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: block;
+    }
+
+    .screenshot:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 36px 80px rgba(0,0,0,0.65);
+    }
+
+    /* ─── Steps ─────────────────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+
+    .steps-grid::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: calc(12.5% + 24px);
+      right: calc(12.5% + 24px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--blue), var(--amethyst), var(--blue));
+      opacity: 0.2;
+    }
+
+    .step { text-align: center; padding: 24px 12px; }
+
+    .step-num {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 auto 16px;
+    }
+
+    .step h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ─── Pricing ────────────────────────────────────── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      position: relative;
+      transition: border-color 0.3s;
+    }
+
+    .pricing-card.featured {
+      border-color: rgba(235, 202, 82, 0.35);
+      box-shadow: 0 0 40px rgba(235, 202, 82, 0.08);
+    }
+
+    .pricing-ribbon {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #07050E;
+      padding: 4px 16px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+
+    .pricing-tier {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .pricing-tier.gold-tier { color: var(--gold); }
+
+    .pricing-price {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price .sup { font-size: 22px; vertical-align: super; font-weight: 600; letter-spacing: 0; }
+
+    .pricing-period { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
+
+    .pricing-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .p-check {
+      width: 18px; height: 18px; min-width: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .p-check.blue   { background: rgba(38,102,242,0.2);  color: var(--blue-light); }
+    .p-check.gold   { background: rgba(235,202,82,0.15); color: var(--gold); }
+    .p-check.off    { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+
+    .btn-block {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-block.gold-btn { background: var(--gold); color: #07050E; }
+    .btn-block.gold-btn:hover { filter: brightness(1.1); opacity: 1; }
+
+    .btn-block.outline-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-block.outline-btn:hover { border-color: var(--text-muted); opacity: 1; }
+
+    /* ─── Privacy section ────────────────────────────── */
+    .privacy-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .privacy-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 16px; }
+
+    .privacy-section p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+      max-width: 680px;
+    }
+
+    .privacy-section h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 28px;
+      margin-bottom: 10px;
+      color: var(--blue-light);
+    }
+
+    .privacy-section ul {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.8;
+      margin: 0 0 12px 20px;
+    }
+
+    .privacy-highlight {
+      background: var(--surface);
+      border: 1px solid rgba(38, 102, 242, 0.2);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      max-width: 680px;
+    }
+
+    /* ─── Final CTA ──────────────────────────────────── */
+    .final-cta {
+      text-align: center;
+      padding: 100px 24px;
+      background: linear-gradient(180deg, transparent 0%, rgba(235,202,82,0.04) 50%, transparent 100%);
+    }
+
+    .final-cta h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .final-cta p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 440px;
+      margin: 0 auto 32px;
+    }
+
+    .final-cta-btns {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ─── Footer ─────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--text-muted); margin: 0 12px; }
+    footer a:hover { color: var(--text); }
+
+    /* ─── Reveal animation ───────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── Responsive ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin: 0 auto 32px; }
+      .hero-cta, .hero-meta { justify-content: center; }
+      .hero-icon-wrap { display: none; }
+      .pain-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .feature-row, .feature-row.flip { grid-template-columns: 1fr; direction: ltr; gap: 32px; }
+      .feature-visual { order: -1; }
+      .screenshot { max-height: 460px; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid::before { display: none; }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 380px; }
+      .nav-center { display: none; }
+    }
+
+    @media (max-width: 580px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .nav-links a:not(.btn-nav) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ──────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand"><span class="sy">SY</span> Software</a>
+      <div class="nav-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        <div class="nav-app-name">
+          <img src="assets/BetterBetAppIcon.png" alt="BetterBet">
+          BetterBet
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#download" class="btn-nav">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download Free
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow"><span class="dot"></span> Coming Soon to App Store</div>
+      <h1>Track Every Win.<br><span class="gold">Know Every Loss.</span></h1>
+      <p>Stop leaving the casino wondering what happened. BetterBet tracks your sessions, games, and jackpots in real-time — so you always know exactly where you stand.</p>
+      <div class="hero-cta">
+        <a href="#download" class="btn-hero gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download Free
+        </a>
+        <a href="#features" class="btn-hero outline">See Features</a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="num">Free</div>
+          <div class="lbl">To Download</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="num">iOS</div>
+          <div class="lbl">iPhone &amp; iPad</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="num">100%</div>
+          <div class="lbl">Private</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-icon-wrap">
+      <img src="assets/betterbet2.png" alt="BetterBet home screen" class="hero-screenshot">
+    </div>
+  </div>
+
+  <!-- ─── Feature strip ────────────────────────────── -->
+  <div class="feature-strip">
+    <div class="strip-inner">
+      <span>Live Sessions</span><span>Jackpot Logger</span><span>Bonus Tracker</span>
+      <span>Game Heat Scores</span><span>Win &amp; Loss History</span><span>Achievement Badges</span>
+      <span>Smart Dashboard</span><span>CSV Export</span><span>Community Insights</span>
+      <span>Live Sessions</span><span>Jackpot Logger</span><span>Bonus Tracker</span>
+      <span>Game Heat Scores</span><span>Win &amp; Loss History</span><span>Achievement Badges</span>
+      <span>Smart Dashboard</span><span>CSV Export</span><span>Community Insights</span>
+    </div>
+  </div>
+
+  <!-- ─── Problem ───────────────────────────────────── -->
+  <section class="section">
+    <div class="section-label reveal">Sound familiar?</div>
+    <div class="section-title reveal">Most players leave with a gut feeling — but no data.</div>
+    <div class="section-sub reveal">BetterBet changes that.</div>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="emoji">🤷</span>
+        <h3>"How much did I really spend?"</h3>
+        <p>Sessions blur together. Cash in, cash out, and the true P&L disappears by the time you hit the parking lot.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="emoji">🎰</span>
+        <h3>"Which machines actually pay for me?"</h3>
+        <p>You have a sense of your favorite games — but no proof. Stop guessing which slots are worth your bankroll.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="emoji">📉</span>
+        <h3>"Where did my bankroll go?"</h3>
+        <p>Chasing losses without knowing your real numbers is a recipe for overspending. Track it, see it, own it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Features ─────────────────────────────────── -->
+  <section class="section" id="features">
+    <div class="section-label reveal">Features</div>
+    <div class="section-title reveal">Everything you need to <span style="color:var(--blue-light);">play smarter</span></div>
+    <div class="section-sub reveal">Built for serious slot players who want more than a gut feeling.</div>
+
+    <div class="feature-rows">
+
+      <!-- Feature 1: Live Session Tracking -->
+      <div class="feature-row reveal">
+        <div class="feature-text">
+          <span class="feature-badge badge-blue">Core Feature</span>
+          <h3>Real-Time Session Tracking</h3>
+          <p>Log everything as it happens — Line Pays, Bonuses, and Jackpots — without breaking your flow. One tap and you're back in the game.</p>
+          <ul class="feature-list">
+            <li>Log Line Pays with quick presets ($50, $100, $200, $500)</li>
+            <li>Track bonus features with name, type, and outcome rating</li>
+            <li>Color-coded Jackpot tiers: Mini, Minor, Major, Grand</li>
+            <li>Running P&L updates live throughout your session</li>
+            <li>Notable Wins card highlights your biggest hit of the day</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/betterbet3.png" alt="BetterBet live session tracking screen" class="screenshot">
+        </div>
+      </div>
+
+      <!-- Feature 2: Dashboard -->
+      <div class="feature-row flip reveal">
+        <div class="feature-text">
+          <span class="feature-badge badge-gold">Analytics</span>
+          <h3>Dashboard That Tells the Truth</h3>
+          <p>See your complete casino history at a glance. Win rates, session trends, best and worst games — all the data you need to make smarter decisions.</p>
+          <ul class="feature-list">
+            <li class="gold-check">Total P&L across all sessions and locations</li>
+            <li class="gold-check">Win rate, average session, and best session ever</li>
+            <li class="gold-check">Visual bar chart showing session history at a glance</li>
+            <li class="gold-check">Calendar view — see every session mapped out</li>
+            <li class="gold-check">Export your full history as CSV for deeper analysis</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/betterbet5.png" alt="BetterBet insights dashboard screen" class="screenshot">
+        </div>
+      </div>
+
+      <!-- Feature 3: Game Intel -->
+      <div class="feature-row reveal">
+        <div class="feature-text">
+          <span class="feature-badge badge-cyan">Game Intel</span>
+          <h3>Know Your Best Games</h3>
+          <p>Track every game you play and see which ones actually perform for you. Heat scores, per-machine history, and AI-powered recommendations.</p>
+          <ul class="feature-list">
+            <li>Win/loss history tracked per game across all sessions</li>
+            <li>Heat score shows how hot a game is running for you</li>
+            <li>AI recommendations based on your personal play history</li>
+            <li>Add any game — manufacturer, denom, location, notes</li>
+            <li>Community insights show what's hitting for others nearby</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/betterbet6.png" alt="BetterBet games library screen" class="screenshot">
+        </div>
+      </div>
+
+      <!-- Feature 4: Session History -->
+      <div class="feature-row flip reveal">
+        <div class="feature-text">
+          <span class="feature-badge badge-purple">History</span>
+          <h3>Your Complete Session History</h3>
+          <p>Every session is saved with full detail — wins, losses, jackpots, and net result. Search, filter, and review your past play to find patterns and play smarter next time.</p>
+          <ul class="feature-list">
+            <li class="purple-check">Full session log with net winnings at a glance</li>
+            <li class="purple-check">Filter by wins, losses, jackpots, location, or game</li>
+            <li class="purple-check">Search across all sessions and casinos instantly</li>
+            <li class="purple-check">Tap any session to see every event logged that day</li>
+            <li class="purple-check">Export everything to CSV for your own spreadsheet analysis</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/betterbet4.png" alt="BetterBet session history screen" class="screenshot">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── How It Works ──────────────────────────────── -->
+  <section class="section" style="background:linear-gradient(180deg,transparent 0%,rgba(38,102,242,0.04) 50%,transparent 100%);">
+    <div class="section-label reveal">How It Works</div>
+    <div class="section-title reveal">Up and running in <span style="color:var(--blue-light);">60 seconds</span></div>
+    <div class="section-sub reveal">No setup hassle. Open the app, start a session, and you're tracking.</div>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Start a Session</h3>
+        <p>Pick your casino location, enter your starting bankroll, and hit Go.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Log as You Play</h3>
+        <p>Tap Line Pay, Bonus, or Jackpot when something happens. Takes two seconds.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>End &amp; Review</h3>
+        <p>Get your full session summary — P&L, biggest win, bonuses hit, and more.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <h3>Build Your History</h3>
+        <p>Every session adds to your profile. Watch your game intelligence grow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Pricing ───────────────────────────────────── -->
+  <section class="section" id="pricing">
+    <div class="section-label reveal">Pricing</div>
+    <div class="section-title reveal">Start free. <span style="color:var(--gold);">Go premium</span> when you're ready.</div>
+    <div class="section-sub reveal">Everything you need to track sessions is free. Upgrade for deeper intelligence.</div>
+
+    <div class="pricing-grid reveal">
+
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">$0</div>
+        <div class="pricing-period">Free forever</div>
+        <ul class="pricing-features">
+          <li><span class="p-check blue">✓</span> Live session tracking</li>
+          <li><span class="p-check blue">✓</span> Line Pay, Bonus &amp; Jackpot logging</li>
+          <li><span class="p-check blue">✓</span> Session history &amp; P&L summary</li>
+          <li><span class="p-check blue">✓</span> Game library (up to 10 games)</li>
+          <li><span class="p-check blue">✓</span> Basic dashboard stats</li>
+          <li><span class="p-check blue">✓</span> Achievements &amp; badges</li>
+          <li><span class="p-check off">–</span> <span style="color:var(--text-muted);">Community insights</span></li>
+          <li><span class="p-check off">–</span> <span style="color:var(--text-muted);">AI recommendations</span></li>
+          <li><span class="p-check off">–</span> <span style="color:var(--text-muted);">CSV export</span></li>
+        </ul>
+        <a href="#download" class="btn-block outline-btn">Download Free</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="pricing-ribbon">Most Popular</div>
+        <div class="pricing-tier gold-tier">Premium</div>
+        <div class="pricing-price"><span class="sup">$</span>2<span style="font-size:22px;">.99</span></div>
+        <div class="pricing-period">per month &nbsp;·&nbsp; $24.99 / year</div>
+        <ul class="pricing-features">
+          <li><span class="p-check gold">✓</span> Everything in Free</li>
+          <li><span class="p-check gold">✓</span> Unlimited games &amp; sessions</li>
+          <li><span class="p-check gold">✓</span> AI-powered game recommendations</li>
+          <li><span class="p-check gold">✓</span> Community insights &amp; hot games</li>
+          <li><span class="p-check gold">✓</span> Full CSV export</li>
+          <li><span class="p-check gold">✓</span> Advanced dashboard &amp; trends</li>
+          <li><span class="p-check gold">✓</span> Session calendar view</li>
+          <li><span class="p-check gold">✓</span> Priority feature updates</li>
+        </ul>
+        <a href="#download" class="btn-block gold-btn">Start Free Trial</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Privacy ───────────────────────────────────── -->
+  <section class="privacy-section" id="privacy">
+    <div class="section-label">Privacy Policy</div>
+    <h2>Your data stays on your device.</h2>
+
+    <div class="privacy-highlight">BetterBet is a personal casino session tracker. We do not sell, rent, or share your personal data.</div>
+
+    <p><strong>Effective date:</strong> April 1, 2026</p>
+
+    <h3>Who we are</h3>
+    <p>BetterBet is published by SY Software, an independent app studio founded by Scott Yale. For questions, contact <a href="mailto:support@sysoftware.com">support@sysoftware.com</a>.</p>
+
+    <h3>Information we collect</h3>
+    <ul>
+      <li>Session data you enter locally on your device — casino locations, game names, win/loss amounts, notes</li>
+      <li>Diagnostics automatically collected by Apple (crash logs), if you have sharing enabled in iOS settings</li>
+      <li>Anonymous, aggregated gameplay signals (e.g. game heat scores) if you opt in to Community Insights — no dollar amounts, session details, or personally identifiable information is ever transmitted</li>
+    </ul>
+
+    <h3>App permissions</h3>
+    <ul>
+      <li><strong>Camera</strong> and <strong>Photo Library</strong> — only when you attach photos to sessions or games</li>
+      <li><strong>Notifications</strong> — only if you enable session reminders in Settings</li>
+    </ul>
+    <p>No other device permissions are required.</p>
+
+    <h3>Sharing</h3>
+    <p>BetterBet does not sell, rent, or share your personal data. No third-party advertising libraries are used in this app.</p>
+
+    <h3>Data retention &amp; deletion</h3>
+    <p>All data is stored locally on your device. Deleting the app deletes all associated data. You may also remove individual sessions or games at any time within the app.</p>
+
+    <h3>Responsible gambling</h3>
+    <p>BetterBet is a tracking and awareness tool. If you or someone you know has concerns about gambling behavior, please visit <a href="https://www.ncpgambling.org" target="_blank" rel="noopener">ncpgambling.org</a> or call the National Problem Gambling Helpline at 1-800-522-4700.</p>
+
+    <h3>Children</h3>
+    <p>BetterBet is not directed to children under 17. The app is intended for adult casino patrons only.</p>
+
+    <h3>Contact</h3>
+    <p>Email: <a href="mailto:support@sysoftware.com">support@sysoftware.com</a></p>
+  </section>
+
+  <!-- ─── Final CTA ─────────────────────────────────── -->
+  <div class="final-cta" id="download">
+    <h2 class="reveal">Ready to play <span style="color:var(--gold);">smarter?</span></h2>
+    <p class="reveal">Download BetterBet free and start tracking your first session today.</p>
+    <div class="final-cta-btns reveal">
+      <a href="#" class="btn-hero gold">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on the App Store
+      </a>
+      <a href="index.html" class="btn-hero outline">← Back to SY Software</a>
+    </div>
+    <p style="margin-top:20px;font-size:12px;color:var(--text-muted);">Free to download &nbsp;·&nbsp; iOS 16+ &nbsp;·&nbsp; iPhone &amp; iPad &nbsp;·&nbsp; No ads, ever</p>
+  </div>
+
+  <!-- ─── Footer ────────────────────────────────────── -->
+  <footer>
+    <span>&copy; <span id="yr"></span> SY Software. All rights reserved.</span>
+    <br style="margin-bottom:8px;">
+    <a href="index.html">SY Software Home</a>
+    <a href="#privacy">Privacy Policy</a>
+    <a href="mailto:support@sysoftware.com">Contact</a>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
