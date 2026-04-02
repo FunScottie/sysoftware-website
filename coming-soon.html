@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetterBet — Coming Soon to the App Store</title>
+  <meta name="description" content="BetterBet is coming soon to the App Store. Track your casino sessions, log jackpots, and play smarter.">
+  <link rel="icon" type="image/png" href="assets/BetterBetAppIcon.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e13;
+      --surface: #111920;
+      --border: #1e2a36;
+      --text: #e8f0f7;
+      --text-muted: #8a9db0;
+      --gold: #EBCA52;
+      --gold-light: #F5E080;
+      --blue: #2666F2;
+      --blue-light: #4D8CFF;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(235, 202, 82, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(38, 102, 242, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 56px 48px;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 40px rgba(235, 202, 82, 0.12);
+      margin-bottom: 28px;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .coming-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      background: rgba(235, 202, 82, 0.1);
+      border: 1px solid rgba(235, 202, 82, 0.25);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 24px;
+    }
+
+    .coming-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    h1 .gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: default;
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .store-btn svg { width: 24px; height: 24px; opacity: 0.4; }
+
+    .store-btn-inner { text-align: left; }
+    .store-btn-inner .sub { font-size: 11px; font-weight: 400; opacity: 0.6; display: block; }
+    .store-btn-inner .main { font-size: 16px; font-weight: 700; }
+
+    .notify-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      opacity: 0.7;
+      margin-bottom: 0;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover { opacity: 0.75; }
+
+    .footer-links {
+      margin-top: 40px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img src="assets/BetterBetAppIcon.png" alt="BetterBet" class="app-icon">
+
+    <div class="coming-badge">
+      <span class="dot"></span> Coming Soon
+    </div>
+
+    <h1>BetterBet is almost <span class="gold">ready.</span></h1>
+    <p>We're putting the finishing touches on the app. BetterBet will be available on the App Store very soon — check back shortly.</p>
+
+    <div class="store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div class="store-btn-inner">
+        <span class="sub">Available soon on the</span>
+        <span class="main">App Store</span>
+      </div>
+    </div>
+
+    <p class="notify-note">No sign-up needed — just come back when you're ready to download.</p>
+
+    <div class="divider"></div>
+
+    <a href="betterbet.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to BetterBet
+    </a>
+  </div>
+
+  <div class="footer-links">
+    <a href="index.html">SY Software</a>
+    <a href="betterbet.html">BetterBet</a>
+    <a href="mailto:support@sysoftware.com">Contact</a>
+  </div>
+
+</body>
+</html>
