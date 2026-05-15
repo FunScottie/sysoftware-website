@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Lattice</title>
+  <meta name="description" content="Privacy policy for Lattice, a daily minesweeper roguelike by SY Software.">
+  <link rel="icon" type="image/png" href="assets/Lattice/home.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08061b;
+      --surface: #151235;
+      --border: rgba(168, 155, 255, 0.18);
+      --text: #fbfaff;
+      --text-muted: #b9b3d5;
+      --text-dim: #817b9d;
+      --cyan: #2ee8ff;
+      --pink: #f04fc9;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(180deg, #08061b 0%, #100a2a 50%, #08061b 100%);
+      color: var(--text);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      padding: 16px 0;
+      background: rgba(8, 6, 27, 0.94);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .mini-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      padding: 6px;
+      border-radius: 8px;
+      background: radial-gradient(circle at center, rgba(240,79,201,0.48), #090723 62%);
+      border: 1px solid rgba(46, 232, 255, 0.35);
+    }
+
+    .mini-icon span {
+      border: 1px solid var(--cyan);
+      border-radius: 2px;
+      box-shadow: 0 0 5px rgba(46,232,255,0.7);
+    }
+
+    .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .last-updated {
+      color: var(--text-dim);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: var(--cyan);
+      font-size: 17px;
+      font-weight: 900;
+      margin-top: 36px;
+      margin-bottom: 10px;
+    }
+
+    p, ul {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    p { margin-bottom: 14px; }
+
+    ul {
+      margin: 0 0 14px 22px;
+    }
+
+    li { margin-bottom: 8px; }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .highlight-box {
+      background: rgba(21, 18, 53, 0.88);
+      border: 1px solid rgba(46, 232, 255, 0.22);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+
+    .highlight-box p {
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    @media (max-width: 560px) {
+      nav .container { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="lattice.html" class="nav-brand">
+        <span class="mini-icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </span>
+        Lattice
+      </a>
+      <a href="lattice.html" class="back-link">&larr; Back to Lattice</a>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>Privacy Policy</h1>
+    <p class="last-updated">Effective date: May 15, 2026</p>
+
+    <div class="highlight-box">
+      <p>Lattice has no ads and no third-party advertising trackers. Your gameplay data is stored on your device.</p>
+    </div>
+
+    <h2>Who we are</h2>
+    <p>Lattice is published by SY Software, an independent app studio founded by Scott Yale. For questions, contact <a href="mailto:support@sysoftware.com">support@sysoftware.com</a>.</p>
+
+    <h2>Information we collect</h2>
+    <p>Lattice is designed to work without collecting personal information directly from you. The app may store the following information locally on your device:</p>
+    <ul>
+      <li>Gameplay progress, daily puzzle results, scores, stars, streaks, and run history</li>
+      <li>Game settings, preferences, input mode choices, and tutorial state</li>
+      <li>Lattice Pro purchase status, as provided by Apple&apos;s purchase system</li>
+    </ul>
+    <p>Apple may provide crash logs or diagnostics to developers if you have opted in to sharing analytics with app developers in iOS settings.</p>
+
+    <h2>Game Center</h2>
+    <p>If you choose to use Game Center features, Apple may process your Game Center profile, leaderboard scores, achievements, and related account information according to Apple&apos;s privacy practices. Lattice uses Game Center only to support leaderboards and related game features.</p>
+
+    <h2>Purchases</h2>
+    <p>Lattice Pro is a one-time in-app purchase handled by Apple. SY Software does not receive or store your payment card details. Purchase history and refund handling are managed by Apple.</p>
+
+    <h2>How we use information</h2>
+    <ul>
+      <li>To save your game progress, results, settings, and Lattice Pro entitlement</li>
+      <li>To show your scores and achievements through Game Center if you use those features</li>
+      <li>To improve app quality using crash reports or diagnostics shared through Apple</li>
+    </ul>
+
+    <h2>Sharing</h2>
+    <p>Lattice does not sell, rent, or share your personal data. The app does not include third-party advertising libraries. Game Center and purchases are handled by Apple when you use those features.</p>
+
+    <h2>Data retention and deletion</h2>
+    <p>Gameplay data is stored on your device. Deleting the app deletes the local data associated with Lattice. Game Center records and App Store purchase history are managed by Apple and may remain associated with your Apple account according to Apple&apos;s policies.</p>
+
+    <h2>Children</h2>
+    <p>Lattice is a puzzle game intended for general audiences. We do not knowingly collect personal information from children.</p>
+
+    <h2>Your rights</h2>
+    <p>Depending on where you live, you may have rights to access, correct, or delete personal data. Since Lattice stores gameplay data locally on your device, you can remove that data by deleting the app. For Apple-managed Game Center or purchase data, please use Apple&apos;s account and privacy tools.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>This policy may be updated from time to time. If significant changes are made, the effective date at the top will be updated.</p>
+
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:support@sysoftware.com">support@sysoftware.com</a></p>
+
+    <footer>
+      <p>Copyright &copy; 2026 SY Software &mdash; All Rights Reserved.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lattice — Minesweeper. Reinvented Daily.</title>
+  <meta name="description" content="Lattice reinvents minesweeper as a roguelike. Clear five boards, draft cards that reshape the run, and play the same daily puzzle as everyone in the world.">
+  <meta property="og:title" content="Lattice — Minesweeper. Reinvented Daily.">
+  <meta property="og:description" content="A daily minesweeper roguelike with card drafts, five-level runs, stars, leaderboards, and a one-time Pro unlock.">
+  <meta property="og:image" content="assets/Lattice/home.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/Lattice/home.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #08061b;
+      --surface: #151235;
+      --surface-soft: #211b4a;
+      --border: rgba(168, 155, 255, 0.18);
+      --text: #fbfaff;
+      --text-muted: #b9b3d5;
+      --text-dim: #817b9d;
+      --cyan: #2ee8ff;
+      --blue: #6d82ff;
+      --pink: #f04fc9;
+      --gold: #ffbf34;
+      --green: #45d58c;
+      --red: #ef476f;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background:
+        linear-gradient(180deg, #08061b 0%, #100a2a 46%, #08061b 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--cyan); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.82; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(8, 6, 27, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .nav-brand span { color: var(--cyan); }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .mini-icon {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      padding: 4px;
+      border-radius: 6px;
+      background: #090723;
+      border: 1px solid rgba(46, 232, 255, 0.35);
+    }
+
+    .mini-icon span {
+      border: 1px solid var(--cyan);
+      border-radius: 2px;
+      box-shadow: 0 0 5px rgba(46, 232, 255, 0.7);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn-nav {
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--blue), var(--pink));
+      color: white !important;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 128px 24px 76px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(240, 79, 201, 0.1);
+      border: 1px solid rgba(240, 79, 201, 0.25);
+      color: #ff8ee4;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 12px rgba(240, 79, 201, 0.8);
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.08;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--cyan), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      max-width: 560px;
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 800;
+      min-height: 50px;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--blue), var(--pink));
+      color: white;
+      box-shadow: 0 16px 40px rgba(240, 79, 201, 0.18);
+    }
+
+    .btn.outline {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .hero-meta .num {
+      color: var(--cyan);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .hero-meta .lbl {
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-weight: 800;
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-shot {
+      width: min(360px, 32vw);
+      max-height: 690px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 44px;
+      box-shadow: 0 36px 90px rgba(0,0,0,0.62), 0 0 70px rgba(46, 232, 255, 0.14);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: block;
+    }
+
+    .feature-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, rgba(46,232,255,0.14), rgba(240,79,201,0.16), rgba(255,191,52,0.12));
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .strip-inner {
+      display: inline-flex;
+      animation: ticker 32s linear infinite;
+    }
+
+    .strip-inner span {
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+    }
+
+    .strip-inner span::after {
+      content: '+';
+      margin-left: 26px;
+      color: var(--cyan);
+      opacity: 0.75;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 82px 24px;
+    }
+
+    .section-label {
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      line-height: 1.16;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      max-width: 620px;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 46px;
+    }
+
+    .twist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .twist-card, .pro-card {
+      background: rgba(21, 18, 53, 0.84);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 170px;
+    }
+
+    .twist-card h3, .pro-card h3 {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .twist-card p, .pro-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .twist-card .tag {
+      display: inline-block;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 58px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .feature-row:first-of-type { margin-top: 0; }
+    .feature-row.flip { direction: rtl; }
+    .feature-row.flip > * { direction: ltr; }
+
+    .feature-copy h3 {
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.18;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .feature-copy p {
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border-radius: 5px;
+      margin-top: 2px;
+      background: linear-gradient(135deg, var(--cyan), var(--pink));
+      box-shadow: 0 0 12px rgba(46,232,255,0.25);
+    }
+
+    .screenshot-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .screenshot {
+      width: min(390px, 100%);
+      max-height: 660px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 36px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.55);
+      display: block;
+    }
+
+    .levels {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .level {
+      text-align: center;
+      padding: 22px 12px;
+      border-radius: var(--radius);
+      background: rgba(21, 18, 53, 0.84);
+      border: 1px solid var(--border);
+    }
+
+    .level .num {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--pink));
+      font-weight: 900;
+    }
+
+    .level h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .level p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .pro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .pro-card strong {
+      display: block;
+      color: var(--gold);
+      font-size: 32px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .privacy-band {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 76px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .privacy-band h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+
+    .privacy-band p {
+      color: var(--text-muted);
+      max-width: 700px;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .final-cta {
+      text-align: center;
+      padding: 92px 24px;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid var(--border);
+    }
+
+    .final-cta h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .final-cta p {
+      color: var(--text-muted);
+      margin: 0 auto 28px;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      margin: 0 12px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 112px;
+      }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-cta, .hero-meta { justify-content: center; }
+      .phone-shot { width: min(360px, 76vw); max-height: 560px; }
+      .twist-grid, .pro-grid { grid-template-columns: 1fr; }
+      .feature-row, .feature-row.flip { grid-template-columns: 1fr; direction: ltr; gap: 34px; }
+      .screenshot-wrap { order: -1; }
+      .levels { grid-template-columns: repeat(2, 1fr); }
+      .nav-center { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links a:not(.btn-nav) { display: none; }
+      .hero { padding-left: 20px; padding-right: 20px; }
+      .btn { width: 100%; }
+      .levels { grid-template-columns: 1fr; }
+      footer a { display: inline-block; margin-top: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand"><span>SY</span> Software</a>
+      <div class="nav-center">
+        <div class="mini-icon" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        Lattice
+      </div>
+      <div class="nav-links">
+        <a href="#cards">Cards</a>
+        <a href="#daily">Daily</a>
+        <a href="#pro">Pro</a>
+        <a href="lattice-privacy.html">Privacy</a>
+        <a href="#download" class="btn-nav">Coming Soon</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> New from SY Software</div>
+        <h1>Minesweeper.<br><span class="gradient-text">Reinvented daily.</span></h1>
+        <p>Lattice turns minesweeper into a roguelike. Read the board, take the safe taps, and after every cleared level pick a card that changes everything.</p>
+        <div class="hero-cta">
+          <a href="#download" class="btn primary">Coming to the App Store</a>
+          <a href="#cards" class="btn outline">See the Twist</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <div class="num">5</div>
+            <div class="lbl">Daily Boards</div>
+          </div>
+          <div>
+            <div class="num">Cards</div>
+            <div class="lbl">Persistent Powers</div>
+          </div>
+          <div>
+            <div class="num">Pro</div>
+            <div class="lbl">One-Time Unlock</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img src="assets/Lattice/home.png" alt="Lattice home screen" class="phone-shot">
+      </div>
+    </section>
+
+    <div class="feature-strip" aria-hidden="true">
+      <div class="strip-inner">
+        <span>Daily Puzzle</span><span>Card Drafts</span><span>Five Levels</span><span>Stars</span><span>Leaderboards</span><span>No Ads</span>
+        <span>Daily Puzzle</span><span>Card Drafts</span><span>Five Levels</span><span>Stars</span><span>Leaderboards</span><span>No Ads</span>
+      </div>
+    </div>
+
+    <section class="section" id="cards">
+      <div class="section-label reveal">The Twist</div>
+      <div class="section-title reveal">Cards reshape the board.</div>
+      <div class="section-sub reveal">Clear a level, draft a card, and keep it for the rest of the run. Stacking powers turn the same logic puzzle into wildly different games.</div>
+      <div class="twist-grid">
+        <div class="twist-card reveal">
+          <span class="tag">Wildflag</span>
+          <h3>Flag with confidence.</h3>
+          <p>Correctly flag a mine and reveal 3 random safe cells.</p>
+        </div>
+        <div class="twist-card reveal">
+          <span class="tag">Sapper</span>
+          <h3>Survive one mistake.</h3>
+          <p>The first mine you trigger is defused, not detonated.</p>
+        </div>
+        <div class="twist-card reveal">
+          <span class="tag">Resonance</span>
+          <h3>Numbers echo outward.</h3>
+          <p>Revealed 4+ numbers open their safe neighbors.</p>
+        </div>
+        <div class="twist-card reveal">
+          <span class="tag">Cascade</span>
+          <h3>Flood clears go farther.</h3>
+          <p>Flood-reveals continue through 1s, not just blanks.</p>
+        </div>
+        <div class="twist-card reveal">
+          <span class="tag">Greedy Heart</span>
+          <h3>Score more. Risk more.</h3>
+          <p>Earn 1.5x score on every reveal, but boards gain extra mines.</p>
+        </div>
+        <div class="twist-card reveal">
+          <span class="tag">Sweep</span>
+          <h3>Clear the obvious.</h3>
+          <p>Long-press a fully flagged number to clear all its safe neighbors at once.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="feature-row reveal">
+        <div class="feature-copy">
+          <div class="section-label">Daily Run</div>
+          <h3>The same five boards for everyone.</h3>
+          <p>A fresh puzzle drops every day. Your route through it is yours: the taps you trust, the cards you draft, and the score you push for.</p>
+          <ul class="feature-list">
+            <li>Five escalating boards in every daily run</li>
+            <li>Clear all five for a 3-star result</li>
+            <li>Push for 4-star and 5-star scores</li>
+            <li>Trigger a mine without protection and the run ends</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="assets/Lattice/game-screen1.png" alt="Lattice board with reveal, mark, and flag controls" class="screenshot">
+        </div>
+      </div>
+
+      <div class="feature-row flip reveal" id="daily">
+        <div class="feature-copy">
+          <div class="section-label">Global Field</div>
+          <h3>Compare the same puzzle, not random luck.</h3>
+          <p>Everyone gets today&apos;s boards. Share the puzzle number and star rating, compare routes with friends, and chase Game Center leaderboards.</p>
+          <ul class="feature-list">
+            <li>Daily puzzle number and shareable result</li>
+            <li>Game Center leaderboards</li>
+            <li>Universal app for iPhone and iPad</li>
+            <li>Dark, focused interface with rich haptics</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="assets/Lattice/game-screen2.png" alt="Lattice cleared board and score prompt" class="screenshot">
+        </div>
+      </div>
+
+      <div class="feature-row reveal">
+        <div class="feature-copy">
+          <div class="section-label">Designed for Thinking</div>
+          <h3>Fast controls when logic gets tense.</h3>
+          <p>Switch between Reveal, Mark, and Flag with a tap. Long-press always flags, and one hint per run can flood-reveal a safe cell or auto-flag a mine.</p>
+          <ul class="feature-list">
+            <li>Three input modes: Reveal, Mark, and Flag</li>
+            <li>Long-press always flags, no matter the active mode</li>
+            <li>One hint per run in the free version</li>
+            <li>Cards persist through the rest of your run</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="assets/Lattice/cards.png" alt="Lattice card draft screen" class="screenshot">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label reveal">Five Levels, Five Stars</div>
+      <div class="section-title reveal">One run. No grinding back.</div>
+      <div class="section-sub reveal">Lattice is built around clean, complete attempts. Clear the run for stars, then come back tomorrow for a new global puzzle.</div>
+      <div class="levels">
+        <div class="level reveal"><div class="num">1</div><h3>Read</h3><p>Open the board and find the safe starts.</p></div>
+        <div class="level reveal"><div class="num">2</div><h3>Draft</h3><p>Pick a card that changes the run.</p></div>
+        <div class="level reveal"><div class="num">3</div><h3>Stack</h3><p>Let powers combine into new routes.</p></div>
+        <div class="level reveal"><div class="num">4</div><h3>Risk</h3><p>Push score without detonating the run.</p></div>
+        <div class="level reveal"><div class="num">5</div><h3>Share</h3><p>Post the puzzle number and star result.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="pro">
+      <div class="section-label reveal">Lattice Pro</div>
+      <div class="section-title reveal">A one-time unlock. No subscription. No ads.</div>
+      <div class="section-sub reveal">Pro gives you more strategic room inside the same daily puzzle, without changing the clean, focused feel of the game.</div>
+      <div class="pro-grid">
+        <div class="pro-card reveal">
+          <strong>3</strong>
+          <h3>Card options</h3>
+          <p>Choose from three cards after each cleared level instead of two.</p>
+        </div>
+        <div class="pro-card reveal">
+          <strong>3</strong>
+          <h3>Hints per run</h3>
+          <p>Use three hints per run instead of one when the board gets tight.</p>
+        </div>
+        <div class="pro-card reveal">
+          <strong>3</strong>
+          <h3>Undos per run</h3>
+          <p>Recover from three taps per run instead of one.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy-band">
+      <div class="section-label">Privacy</div>
+      <h2>Your puzzle data stays personal.</h2>
+      <p>Lattice has no ads and no third-party advertising trackers. Gameplay progress and settings are stored on your device. Game Center features are provided by Apple when you choose to use them.</p>
+      <a href="lattice-privacy.html">Read the Lattice Privacy Policy</a>
+    </section>
+
+    <section class="final-cta" id="download">
+      <h2 class="reveal">Built for minesweeper brains.</h2>
+      <p class="reveal">If you love minesweeper, daily puzzles, or deckbuilding roguelikes, Lattice was built for you.</p>
+      <a href="mailto:support@sysoftware.com?subject=Lattice%20launch" class="btn primary reveal">Ask About Launch</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; <span id="yr"></span> SY Software. All rights reserved.</span>
+    <br>
+    <a href="index.html">SY Software Home</a>
+    <a href="lattice-privacy.html">Privacy Policy</a>
+    <a href="mailto:support@sysoftware.com">Contact</a>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>

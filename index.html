@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SY Software — Apps That Solve Real Problems</title>
-  <meta name="description" content="SY Software builds thoughtful mobile apps. Tasterly helps you decide what to eat. BetterBet tracks your casino sessions. More coming soon.">
+  <meta name="description" content="SY Software builds thoughtful mobile apps. Lattice reinvents minesweeper as a roguelike. Tasterly helps you decide what to eat. BetterBet tracks your casino sessions.">
   <meta property="og:title" content="SY Software">
   <meta property="og:description" content="Apps that solve real problems. By Scott Yale.">
   <meta property="og:type" content="website">
@@ -26,6 +26,9 @@
       --green-glow: rgba(34, 197, 94, 0.15);
       --gold: #EBCA52;
       --gold-glow: rgba(235, 202, 82, 0.12);
+      --pink: #f04fc9;
+      --cyan: #2ee8ff;
+      --lattice-glow: rgba(240, 79, 201, 0.14);
       --radius: 16px;
       --radius-sm: 10px;
     }
@@ -181,7 +184,7 @@
     /* ─── Apps Grid ─────────────────────────────────── */
     .apps-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
 
@@ -204,6 +207,11 @@
     .app-card.betterbet:hover {
       border-color: rgba(235, 202, 82, 0.3);
       box-shadow: 0 8px 40px var(--gold-glow);
+    }
+
+    .app-card.lattice:hover {
+      border-color: rgba(240, 79, 201, 0.3);
+      box-shadow: 0 8px 40px var(--lattice-glow);
     }
 
     .app-status-badge {
@@ -232,6 +240,12 @@
       color: var(--gold);
     }
 
+    .app-status-badge.lattice-soon {
+      background: rgba(240, 79, 201, 0.1);
+      border: 1px solid rgba(240, 79, 201, 0.22);
+      color: var(--pink);
+    }
+
     .status-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
@@ -239,6 +253,7 @@
 
     .status-dot.green { background: var(--green); }
     .status-dot.gold  { background: var(--gold); animation: pulse-dot 2s ease-in-out infinite; }
+    .status-dot.pink  { background: var(--pink); animation: pulse-dot 2s ease-in-out infinite; }
 
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; }
@@ -256,6 +271,22 @@
       width: 64px; height: 64px;
       border-radius: 14px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .app-icon.lattice-icon {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 12px;
+      background: radial-gradient(circle at center, rgba(240,79,201,0.5), rgba(9,7,35,0.95) 58%);
+      border: 1px solid rgba(46,232,255,0.35);
+      box-shadow: 0 0 24px rgba(46,232,255,0.18), 0 4px 12px rgba(0,0,0,0.35);
+    }
+
+    .app-icon.lattice-icon span {
+      border: 1px solid var(--cyan);
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(46,232,255,0.65);
     }
 
     .app-name { font-size: 22px; font-weight: 700; }
@@ -295,6 +326,12 @@
       color: var(--gold);
     }
 
+    .feature-pill.lattice {
+      background: rgba(240, 79, 201, 0.1);
+      border: 1px solid rgba(46, 232, 255, 0.2);
+      color: var(--cyan);
+    }
+
     .app-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .btn {
@@ -316,6 +353,12 @@
 
     .btn-gold { background: var(--gold); color: #07050E; }
     .btn-gold:hover { filter: brightness(1.1); color: #07050E; opacity: 1; }
+
+    .btn-lattice {
+      background: linear-gradient(135deg, #7784ff, var(--pink));
+      color: white;
+    }
+    .btn-lattice:hover { filter: brightness(1.08); color: white; opacity: 1; }
 
     .btn-secondary {
       background: transparent;
@@ -427,7 +470,7 @@
     footer a:hover { color: var(--text); }
 
     /* ─── Responsive ───────────────────────────────── */
-    @media (max-width: 860px) {
+    @media (max-width: 980px) {
       .apps-grid { grid-template-columns: 1fr; }
     }
 
@@ -464,8 +507,8 @@
     <p>SY Software builds thoughtful mobile apps for everyday life. No bloat, no ads, no tracking. Just tools that actually help.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="num">2</div>
-        <div class="lbl">Apps Live</div>
+        <div class="num">3</div>
+        <div class="lbl">Apps Built</div>
       </div>
       <div class="hero-stat">
         <div class="num">iOS</div>
@@ -481,10 +524,42 @@
   <!-- ─── Apps ─────────────────────────────────────── -->
   <section class="section" id="apps">
     <div class="section-label">Our Apps</div>
-    <div class="section-title">Two apps. Two problems solved.</div>
+    <div class="section-title">Three apps. Three problems solved.</div>
     <div class="section-subtitle">Each app is built to do one thing really well — with privacy, simplicity, and care.</div>
 
     <div class="apps-grid">
+
+      <!-- Lattice -->
+      <div class="app-card lattice">
+        <div class="app-status-badge lattice-soon">
+          <span class="status-dot pink"></span> Releasing Soon
+        </div>
+        <div class="app-icon-row">
+          <div class="app-icon lattice-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <div class="app-name">Lattice</div>
+            <div class="app-tagline">Minesweeper. Reinvented daily.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Lattice turns minesweeper into a daily roguelike. Read the board, take the safe taps, then draft cards that reshape the rest of your five-level run.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill lattice">Daily Boards</span>
+          <span class="feature-pill lattice">Card Drafts</span>
+          <span class="feature-pill lattice">Five Levels</span>
+          <span class="feature-pill lattice">Stars</span>
+          <span class="feature-pill lattice">Game Center</span>
+        </div>
+        <div class="app-links">
+          <a href="lattice.html" class="btn btn-lattice">Learn More</a>
+          <a href="lattice-privacy.html" class="btn btn-secondary">Privacy</a>
+        </div>
+      </div>
 
       <!-- Tasterly -->
       <div class="app-card tasterly">
@@ -509,11 +584,11 @@
           <span class="feature-pill green">Smart Lists</span>
         </div>
         <div class="app-links">
-          <a href="https://apps.apple.com/us/app/tasterly-decide-what-to-eat/id6751076458" class="btn btn-primary" target="_blank">
+          <a href="https://apps.apple.com/us/app/tasterly-decide-what-to-eat/id6751076458" class="btn btn-primary" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             App Store
           </a>
-          <a href="https://tasterly.app" class="btn btn-secondary" target="_blank">Visit Website</a>
+          <a href="https://tasterly.app" class="btn btn-secondary" target="_blank" rel="noopener">Visit Website</a>
         </div>
       </div>
 
@@ -540,7 +615,7 @@
           <span class="feature-pill gold">Dashboard</span>
         </div>
         <div class="app-links">
-          <a href="https://apps.apple.com/us/app/betterbet-casino-tracker/id6759807714" class="btn btn-gold" target="_blank">
+          <a href="https://apps.apple.com/us/app/betterbet-casino-tracker/id6759807714" class="btn btn-gold" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             App Store
           </a>
@@ -590,7 +665,7 @@
         </div>
         <div class="contact-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-          <a href="https://tasterly.app" target="_blank">tasterly.app</a>
+          <a href="https://tasterly.app" target="_blank" rel="noopener">tasterly.app</a>
         </div>
       </div>
     </div>
@@ -602,6 +677,7 @@
     <br style="margin-bottom: 8px;">
     <a href="https://tasterly.app/privacy.html">Tasterly Privacy</a>
     <a href="betterbet-privacy.html">BetterBet Privacy</a>
+    <a href="lattice-privacy.html">Lattice Privacy</a>
     <a href="mailto:support@sysoftware.com">Contact</a>
   </footer>
 
