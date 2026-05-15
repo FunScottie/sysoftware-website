@@ -29,6 +29,9 @@
       --pink: #f04fc9;
       --cyan: #2ee8ff;
       --lattice-glow: rgba(240, 79, 201, 0.14);
+      --qubrix-aqua: #72e2ff;
+      --qubrix-violet: #a96cff;
+      --qubrix-glow: rgba(114, 226, 255, 0.14);
       --radius: 16px;
       --radius-sm: 10px;
     }
@@ -184,7 +187,7 @@
     /* ─── Apps Grid ─────────────────────────────────── */
     .apps-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
       gap: 24px;
     }
 
@@ -212,6 +215,11 @@
     .app-card.lattice:hover {
       border-color: rgba(240, 79, 201, 0.3);
       box-shadow: 0 8px 40px var(--lattice-glow);
+    }
+
+    .app-card.qubrix:hover {
+      border-color: rgba(114, 226, 255, 0.3);
+      box-shadow: 0 8px 40px var(--qubrix-glow);
     }
 
     .app-status-badge {
@@ -246,6 +254,12 @@
       color: var(--pink);
     }
 
+    .app-status-badge.qubrix-soon {
+      background: rgba(114, 226, 255, 0.1);
+      border: 1px solid rgba(114, 226, 255, 0.22);
+      color: var(--qubrix-aqua);
+    }
+
     .status-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
@@ -254,6 +268,7 @@
     .status-dot.green { background: var(--green); }
     .status-dot.gold  { background: var(--gold); animation: pulse-dot 2s ease-in-out infinite; }
     .status-dot.pink  { background: var(--pink); animation: pulse-dot 2s ease-in-out infinite; }
+    .status-dot.aqua  { background: var(--qubrix-aqua); animation: pulse-dot 2s ease-in-out infinite; }
 
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; }
@@ -287,6 +302,13 @@
       border: 1px solid var(--cyan);
       border-radius: 4px;
       box-shadow: 0 0 8px rgba(46,232,255,0.65);
+    }
+
+    .app-icon.qubrix-icon {
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid rgba(114, 226, 255, 0.28);
+      box-shadow: 0 0 24px rgba(169, 108, 255, 0.16), 0 4px 12px rgba(0,0,0,0.35);
     }
 
     .app-name { font-size: 22px; font-weight: 700; }
@@ -332,6 +354,12 @@
       color: var(--cyan);
     }
 
+    .feature-pill.qubrix {
+      background: rgba(114, 226, 255, 0.1);
+      border: 1px solid rgba(169, 108, 255, 0.22);
+      color: var(--qubrix-aqua);
+    }
+
     .app-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .btn {
@@ -359,6 +387,12 @@
       color: white;
     }
     .btn-lattice:hover { filter: brightness(1.08); color: white; opacity: 1; }
+
+    .btn-qubrix {
+      background: linear-gradient(135deg, var(--qubrix-aqua), var(--qubrix-violet));
+      color: #050612;
+    }
+    .btn-qubrix:hover { filter: brightness(1.08); color: #050612; opacity: 1; }
 
     .btn-secondary {
       background: transparent;
@@ -507,7 +541,7 @@
     <p>SY Software builds thoughtful mobile apps for everyday life. No bloat, no ads, no tracking. Just tools that actually help.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="num">3</div>
+        <div class="num">4</div>
         <div class="lbl">Apps Built</div>
       </div>
       <div class="hero-stat">
@@ -524,10 +558,38 @@
   <!-- ─── Apps ─────────────────────────────────────── -->
   <section class="section" id="apps">
     <div class="section-label">Our Apps</div>
-    <div class="section-title">Three apps. Three problems solved.</div>
+    <div class="section-title">Four apps. Four problems solved.</div>
     <div class="section-subtitle">Each app is built to do one thing really well — with privacy, simplicity, and care.</div>
 
     <div class="apps-grid">
+
+      <!-- Qubrix -->
+      <div class="app-card qubrix">
+        <div class="app-status-badge qubrix-soon">
+          <span class="status-dot aqua"></span> Releasing Soon
+        </div>
+        <div class="app-icon-row">
+          <img src="assets/qubrix/app-icon.png" alt="Qubrix app icon" class="app-icon qubrix-icon">
+          <div>
+            <div class="app-name">Qubrix</div>
+            <div class="app-tagline">3D Blocks. Daily Challenge.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          Qubrix turns color matching into a rotating 3D puzzle. Tap connected blocks, trigger bombs and rockets, chase daily scores, and clear the target before the board runs dry.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill qubrix">3D Cube</span>
+          <span class="feature-pill qubrix">Daily Puzzles</span>
+          <span class="feature-pill qubrix">Special Blocks</span>
+          <span class="feature-pill qubrix">Endless Mode</span>
+          <span class="feature-pill qubrix">Game Center</span>
+        </div>
+        <div class="app-links">
+          <a href="qubrix.html" class="btn btn-qubrix">Learn More</a>
+          <a href="qubrix-privacy.html" class="btn btn-secondary">Privacy</a>
+        </div>
+      </div>
 
       <!-- Lattice -->
       <div class="app-card lattice">
@@ -677,6 +739,7 @@
     <br style="margin-bottom: 8px;">
     <a href="https://tasterly.app/privacy.html">Tasterly Privacy</a>
     <a href="betterbet-privacy.html">BetterBet Privacy</a>
+    <a href="qubrix-privacy.html">Qubrix Privacy</a>
     <a href="/lattice/privacy/">Lattice Privacy</a>
     <a href="mailto:support@sysoftware.com">Contact</a>
   </footer>
