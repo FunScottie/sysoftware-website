@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SY Software — Apps That Solve Real Problems</title>
-  <meta name="description" content="SY Software builds thoughtful mobile apps. Lattice reinvents minesweeper as a roguelike. Tasterly helps you decide what to eat. BetterBet tracks your casino sessions.">
+  <title>SY Software — Useful Apps. Clever Games.</title>
+  <meta name="description" content="SY Software builds focused iOS apps and games. Play Qubrix and Lattice, decide what to eat with Tasterly, and track casino sessions with BetterBet.">
   <meta property="og:title" content="SY Software">
-  <meta property="og:description" content="Apps that solve real problems. By Scott Yale.">
+  <meta property="og:description" content="Useful apps and clever games for iPhone and iPad. By Scott Yale.">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="assets/TasterlyAppIcon.png">
   <style>
@@ -187,7 +187,7 @@
     /* ─── Apps Grid ─────────────────────────────────── */
     .apps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 24px;
     }
 
@@ -504,7 +504,7 @@
     footer a:hover { color: var(--text); }
 
     /* ─── Responsive ───────────────────────────────── */
-    @media (max-width: 980px) {
+    @media (max-width: 760px) {
       .apps-grid { grid-template-columns: 1fr; }
     }
 
@@ -526,8 +526,8 @@
     <div class="nav-inner">
       <div class="nav-brand"><span class="sy">SY</span> Software</div>
       <div class="nav-links">
-        <a href="#apps">Apps</a>
-        <a href="#coming-soon">Coming Soon</a>
+        <a href="#apps">Apps &amp; Games</a>
+        <a href="#coming-soon">In Development</a>
         <a href="#about">About</a>
         <a href="mailto:support@sysoftware.com">Contact</a>
       </div>
@@ -536,37 +536,37 @@
 
   <!-- ─── Hero ─────────────────────────────────────── -->
   <section class="hero">
-    <div class="hero-badge">Independent App Studio</div>
-    <h1>Apps that solve<br><span class="highlight">real problems.</span></h1>
-    <p>SY Software builds thoughtful mobile apps for everyday life. No bloat, no ads, no tracking. Just tools that actually help.</p>
+    <div class="hero-badge">Independent iOS Studio</div>
+    <h1>Useful apps.<br><span class="highlight">Clever games.</span></h1>
+    <p>SY Software builds focused iPhone and iPad experiences: practical tools for real life, puzzle games with daily hooks, and no advertising noise in the way.</p>
     <div class="hero-stats">
       <div class="hero-stat">
         <div class="num">4</div>
-        <div class="lbl">Apps Built</div>
+        <div class="lbl">Products Built</div>
       </div>
       <div class="hero-stat">
-        <div class="num">iOS</div>
-        <div class="lbl">Platform</div>
+        <div class="num">2</div>
+        <div class="lbl">Puzzle Games</div>
       </div>
       <div class="hero-stat">
         <div class="num">0</div>
-        <div class="lbl">Ads or Tracking</div>
+        <div class="lbl">Ad Trackers</div>
       </div>
     </div>
   </section>
 
   <!-- ─── Apps ─────────────────────────────────────── -->
   <section class="section" id="apps">
-    <div class="section-label">Our Apps</div>
-    <div class="section-title">Four apps. Four problems solved.</div>
-    <div class="section-subtitle">Each app is built to do one thing really well — with privacy, simplicity, and care.</div>
+    <div class="section-label">Apps &amp; Games</div>
+    <div class="section-title">Small products with a clear reason to exist.</div>
+    <div class="section-subtitle">Some help you make better decisions. Some give you a better puzzle to come back to tomorrow. All are built with focus, privacy, and a little personality.</div>
 
     <div class="apps-grid">
 
       <!-- Qubrix -->
       <div class="app-card qubrix">
         <div class="app-status-badge qubrix-soon">
-          <span class="status-dot aqua"></span> Releasing Soon
+          <span class="status-dot aqua"></span> Game Releasing Soon
         </div>
         <div class="app-icon-row">
           <img src="assets/qubrix/app-icon.png" alt="Qubrix app icon" class="app-icon qubrix-icon">
@@ -576,7 +576,7 @@
           </div>
         </div>
         <p class="app-description">
-          Qubrix turns color matching into a rotating 3D puzzle. Tap connected blocks, trigger bombs and rockets, chase daily scores, and clear the target before the board runs dry.
+          A rotating 3D block puzzle built for daily play. Clear connected colors, trigger bombs and rockets, and chase the target score before the cube runs out of moves.
         </p>
         <div class="app-features">
           <span class="feature-pill qubrix">3D Cube</span>
@@ -594,7 +594,7 @@
       <!-- Lattice -->
       <div class="app-card lattice">
         <div class="app-status-badge lattice-soon">
-          <span class="status-dot pink"></span> Releasing Soon
+          <span class="status-dot pink"></span> Game Releasing Soon
         </div>
         <div class="app-icon-row">
           <div class="app-icon lattice-icon" aria-hidden="true">
@@ -608,7 +608,7 @@
           </div>
         </div>
         <p class="app-description">
-          Lattice turns minesweeper into a daily roguelike. Read the board, take the safe taps, then draft cards that reshape the rest of your five-level run.
+          Minesweeper rebuilt as a daily roguelike. Read the board, survive the risky taps, then draft cards that reshape the rest of your five-level run.
         </p>
         <div class="app-features">
           <span class="feature-pill lattice">Daily Boards</span>
@@ -626,7 +626,7 @@
       <!-- Tasterly -->
       <div class="app-card tasterly">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Live on App Store
+          <span class="status-dot green"></span> Utility Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/TasterlyAppIcon.png" alt="Tasterly app icon" class="app-icon">
@@ -636,7 +636,7 @@
           </div>
         </div>
         <p class="app-description">
-          Tired of forgetting what you loved at that restaurant? Tasterly tracks every meal you rate, builds your personal taste profile, and helps you decide where to eat in seconds. Swipe to rate, scan barcodes, spin the decision wheel when you can't choose.
+          A personal taste memory for restaurants, meals, and grocery finds. Rate what you try, build a profile of what you actually like, and decide where to eat without the usual back-and-forth.
         </p>
         <div class="app-features">
           <span class="feature-pill green">Swipe to Rate</span>
@@ -657,7 +657,7 @@
       <!-- BetterBet -->
       <div class="app-card betterbet">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Live on App Store
+          <span class="status-dot green"></span> Utility Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/BetterBetAppIcon.png" alt="BetterBet app icon" class="app-icon">
@@ -667,7 +667,7 @@
           </div>
         </div>
         <p class="app-description">
-          Stop leaving the casino wondering what happened. BetterBet tracks your sessions, games, and jackpots in real-time. Log Line Pays, Bonuses, and Jackpots with a single tap — then review your full history to play smarter.
+          A casino session tracker for players who want a clear record. Log wins, losses, jackpots, and game notes in real time so every trip ends with better information.
         </p>
         <div class="app-features">
           <span class="feature-pill gold">Live Sessions</span>
@@ -691,20 +691,20 @@
   <!-- ─── Coming Soon ──────────────────────────────── -->
   <section class="section" id="coming-soon">
     <div class="section-label">In the Workshop</div>
-    <div class="section-title">More Coming</div>
-    <div class="section-subtitle">More apps are in development. Follow along as we build and ship.</div>
+    <div class="section-title">The roadmap stays focused.</div>
+    <div class="section-subtitle">New ideas only make the list when they have a strong use case, a clear audience, and a reason to be better than another generic app.</div>
 
     <div class="apps-coming-grid">
       <div class="app-card-soon">
         <div class="soon-icon">FC</div>
         <div class="soon-title">FlareCare</div>
-        <div class="soon-desc">A personalized health companion for tracking chronic pain, symptoms, and flare-ups so you can spot patterns and share clearer insights with your care team.</div>
+        <div class="soon-desc">A health companion for tracking chronic pain, symptoms, and flare-ups so patterns are easier to spot and easier to explain.</div>
         <span class="soon-badge">In Development</span>
       </div>
       <div class="app-card-soon">
         <div class="soon-icon">LS</div>
         <div class="soon-title">Life Sprints</div>
-        <div class="soon-desc">Change happens in sprints. Commit for 7 to 30 days, build momentum, and keep moving forward one focused stretch at a time.</div>
+        <div class="soon-desc">A behavior-change tool for short commitments: 7 to 30 day sprints, visible momentum, and a cleaner way to follow through.</div>
         <span class="soon-badge">In Development</span>
       </div>
     </div>
@@ -715,9 +715,9 @@
     <div class="about-inner">
       <div>
         <h2>About SY Software</h2>
-        <p>SY Software is an independent app studio founded by Scott Yale. We build apps that solve everyday problems — the kind of tools you wish existed, made with care and without the bloat.</p>
-        <p>Every app we ship is privacy-first: your data stays on your device, we don't track you, and we never sell your information.</p>
-        <p>Based in the US. Building in public.</p>
+        <p>SY Software is an independent iOS studio founded by Scott Yale. We build useful apps and clever games: focused products with sharp rules, clear interfaces, and no filler.</p>
+        <p>Every product is privacy-minded by default. We avoid advertising trackers, keep personal data local whenever possible, and never sell your information.</p>
+        <p>Based in the US. Building, shipping, and improving one focused product at a time.</p>
       </div>
       <div class="contact-card">
         <h3>Get in Touch</h3>
@@ -727,7 +727,7 @@
         </div>
         <div class="contact-row">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-          <a href="https://tasterly.app" target="_blank" rel="noopener">tasterly.app</a>
+          <a href="https://www.sysoftware.com" target="_blank" rel="noopener">sysoftware.com</a>
         </div>
       </div>
     </div>
