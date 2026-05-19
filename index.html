@@ -32,6 +32,10 @@
       --qubrix-aqua: #72e2ff;
       --qubrix-violet: #a96cff;
       --qubrix-glow: rgba(114, 226, 255, 0.14);
+      --teal: #06b6d4;
+      --teal-light: #22d3ee;
+      --emerald: #10b981;
+      --flarecare-glow: rgba(6, 182, 212, 0.14);
       --radius: 16px;
       --radius-sm: 10px;
     }
@@ -222,6 +226,11 @@
       box-shadow: 0 8px 40px var(--qubrix-glow);
     }
 
+    .app-card.flarecare:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: 0 8px 40px var(--flarecare-glow);
+    }
+
     .app-status-badge {
       display: inline-flex;
       align-items: center;
@@ -360,6 +369,12 @@
       color: var(--qubrix-aqua);
     }
 
+    .feature-pill.flarecare {
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.22);
+      color: var(--teal-light);
+    }
+
     .app-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .btn {
@@ -393,6 +408,12 @@
       color: #050612;
     }
     .btn-qubrix:hover { filter: brightness(1.08); color: #050612; opacity: 1; }
+
+    .btn-flarecare {
+      background: linear-gradient(135deg, var(--teal-light), var(--emerald));
+      color: white;
+    }
+    .btn-flarecare:hover { filter: brightness(1.08); color: white; opacity: 1; }
 
     .btn-secondary {
       background: transparent;
@@ -527,7 +548,6 @@
       <div class="nav-brand"><span class="sy">SY</span> Software</div>
       <div class="nav-links">
         <a href="#apps">Apps &amp; Games</a>
-        <a href="#coming-soon">In Development</a>
         <a href="#about">About</a>
         <a href="mailto:support@sysoftware.com">Contact</a>
       </div>
@@ -541,7 +561,7 @@
     <p>SY Software builds focused iPhone and iPad experiences: practical tools for real life, puzzle games with daily hooks, and no advertising noise in the way.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="num">4</div>
+        <div class="num">5</div>
         <div class="lbl">Products Built</div>
       </div>
       <div class="hero-stat">
@@ -685,28 +705,37 @@
         </div>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ─── Coming Soon ──────────────────────────────── -->
-  <section class="section" id="coming-soon">
-    <div class="section-label">In the Workshop</div>
-    <div class="section-title">The roadmap stays focused.</div>
-    <div class="section-subtitle">New ideas only make the list when they have a strong use case, a clear audience, and a reason to be better than another generic app.</div>
-
-    <div class="apps-coming-grid">
-      <div class="app-card-soon">
-        <div class="soon-icon">FC</div>
-        <div class="soon-title">FlareCare</div>
-        <div class="soon-desc">A health companion for tracking chronic pain, symptoms, and flare-ups so patterns are easier to spot and easier to explain.</div>
-        <span class="soon-badge">In Development</span>
+      <!-- FlareCare -->
+      <div class="app-card flarecare">
+        <div class="app-status-badge live">
+          <span class="status-dot green"></span> Health Tool Live on App Store
+        </div>
+        <div class="app-icon-row">
+          <div style="width: 64px; height: 64px; border-radius: 14px; background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(16,185,129,0.3)); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 1px solid rgba(6,182,212,0.3);">❤️</div>
+          <div>
+            <div class="app-name">FlareCare</div>
+            <div class="app-tagline">Track Pain. Understand Patterns.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          A health companion for tracking chronic pain, symptoms, and flare-ups. Log pain levels, identify triggers, visualize trends, and generate doctor-ready reports.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill flarecare">Body Map</span>
+          <span class="feature-pill flarecare">Symptom Logs</span>
+          <span class="feature-pill flarecare">Trend Charts</span>
+          <span class="feature-pill flarecare">PDF Reports</span>
+          <span class="feature-pill flarecare">Privacy First</span>
+        </div>
+        <div class="app-links">
+          <a href="https://apps.apple.com/us/app/flarecare-tracker/id6740129658" class="btn btn-flarecare" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
+          </a>
+          <a href="flarecare.html" class="btn btn-secondary">Learn More</a>
+        </div>
       </div>
-      <div class="app-card-soon">
-        <div class="soon-icon">LS</div>
-        <div class="soon-title">Life Sprints</div>
-        <div class="soon-desc">A behavior-change tool for short commitments: 7 to 30 day sprints, visible momentum, and a cleaner way to follow through.</div>
-        <span class="soon-badge">In Development</span>
-      </div>
+
     </div>
   </section>
 
@@ -741,6 +770,7 @@
     <a href="betterbet-privacy.html">BetterBet Privacy</a>
     <a href="qubrix-privacy.html">Qubrix Privacy</a>
     <a href="/lattice/privacy/">Lattice Privacy</a>
+    <a href="/flarecare/privacy/">FlareCare Privacy</a>
     <a href="mailto:support@sysoftware.com">Contact</a>
   </footer>
 

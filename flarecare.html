@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlareCare — Track Pain. Understand Patterns.</title>
+  <meta name="description" content="FlareCare Tracker is a health companion for tracking chronic pain, symptoms, and flare-ups. Log pain levels, identify triggers, visualize trends, and generate doctor-ready reports.">
+  <meta property="og:title" content="FlareCare — Track Pain. Understand Patterns.">
+  <meta property="og:description" content="A companion for tracking chronic pain and flare-ups so patterns are easier to spot and easier to explain to your healthcare team.">
+  <meta property="og:image" content="assets/FlareCare/bodymap.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/FlareCare/bodymap.png">
+  <style>
+    /* ─── Reset & Base ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e13;
+      --surface: #111920;
+      --surface-hover: #182028;
+      --border: #1e2a36;
+      --text: #e8f0f7;
+      --text-muted: #8a9db0;
+      --accent: #3b82f6;
+      /* FlareCare brand colors */
+      --teal: #06b6d4;
+      --teal-light: #22d3ee;
+      --emerald: #10b981;
+      --emerald-light: #34d399;
+      --rose: #f43f5e;
+      --rose-light: #fb7185;
+      --teal-glow: rgba(6, 182, 212, 0.15);
+      --emerald-glow: rgba(16, 185, 129, 0.15);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--teal-light); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.8; }
+
+    /* ─── Nav ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10, 14, 19, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-brand span.sy { color: var(--accent); }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .nav-center svg { width: 14px; height: 14px; opacity: 0.5; }
+
+    .nav-app-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .nav-app-name .app-icon { width: 24px; height: 24px; border-radius: 6px; }
+
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); opacity: 1; }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      background: linear-gradient(135deg, var(--teal), var(--emerald));
+      color: white !important;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 700;
+      transition: filter 0.2s;
+    }
+    .btn-nav:hover { filter: brightness(1.1); opacity: 1; }
+
+    /* ─── Hero ──────────────────────────────────────── */
+    .hero {
+      padding: 130px 24px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.22);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 20px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .teal {
+      background: linear-gradient(135deg, var(--teal-light), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 13px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), var(--emerald));
+      color: white;
+    }
+
+    .btn-primary:hover { filter: brightness(1.1); opacity: 1; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover { border-color: var(--text-muted); opacity: 1; }
+
+    .hero-image {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(6, 182, 212, 0.2);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─── Features Section ──────────────────────────── */
+    .features {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .features-header h2 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .features-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: 0 8px 40px var(--teal-glow);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(16, 185, 129, 0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── Screenshots ───────────────────────────────── */
+    .screenshots {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .screenshots-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .screenshots-header h2 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .screenshots-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .screenshot-item {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 50px rgba(6, 182, 212, 0.2);
+    }
+
+    .screenshot-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 9/20;
+      object-fit: cover;
+    }
+
+    /* ─── Footer ────────────────────────────────────── */
+    .cta-section {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .cta-section p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      margin: 0 12px;
+      transition: color 0.2s;
+    }
+
+    footer a:hover { color: var(--text); }
+
+    /* ─── Responsive ────────────────────────────────── */
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image {
+        max-width: 100%;
+        order: -1;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .screenshots-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Nav ──────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="sy">SY</span> Software</a>
+      <div class="nav-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        <span>FlareCare</span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#screenshots">Gallery</a>
+        <a href="/flarecare/privacy/" class="btn-nav">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          Privacy
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Hero ─────────────────────────────────────── -->
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="dot"></span> Released on iOS
+      </div>
+      <h1>Track pain. <span class="teal">Understand patterns.</span></h1>
+      <p>FlareCare Tracker is a health companion for managing chronic pain and flare-ups. Log daily symptoms, identify triggers, visualize trends, and generate doctor-ready reports to share with your care team.</p>
+      <div class="hero-cta">
+        <a href="https://apps.apple.com/us/app/flarecare-tracker/id6740129658" target="_blank" rel="noopener" class="btn-hero btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          App Store
+        </a>
+        <a href="/" class="btn-hero btn-secondary">&larr; Back to SY Software</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/FlareCare/bodymap.png" alt="FlareCare body map tracking interface">
+    </div>
+  </section>
+
+  <!-- ─── Features ─────────────────────────────────── -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <h2>Built for clarity.</h2>
+      <p>Every feature is designed to help you understand your pain patterns and explain them clearly to your healthcare team.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">🗺️</div>
+        <h3>Body Map Logging</h3>
+        <p>Tap any joint to instantly rate pain levels. Quickly log the quality of pain (sharp, aching, burning), plus energy, mood, stress, and sleep in seconds.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Trend Visualization</h3>
+        <p>View charts showing pain patterns across days and weeks. Toggle between overall pain and specific body parts to spot what triggers your flares.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Symptom Tracking</h3>
+        <p>Log comprehensive symptom data: pain location and intensity, triggers, medications, energy levels, mood, stress, and sleep quality all in one place.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>Doctor-Ready Reports</h3>
+        <p>Export PDF reports of your symptoms and patterns in seconds. Give your care team the data-backed information they need to make better treatment decisions.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Condition Profiles</h3>
+        <p>Personalized setup for rheumatoid arthritis, lupus, fibromyalgia, and other conditions. Pre-selected body parts and tracking recommendations tailored to your needs.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy First</h3>
+        <p>Your health data stays on your device. No ads, no trackers, no third-party data sharing. Complete control over your personal health information.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Screenshots ──────────────────────────────── -->
+  <section class="screenshots" id="screenshots">
+    <div class="screenshots-header">
+      <h2>Inside FlareCare.</h2>
+      <p>A visual walk through the app's core features and workflow.</p>
+    </div>
+
+    <div class="screenshots-grid">
+      <div class="screenshot-item">
+        <img src="assets/FlareCare/onboarding1.png" alt="FlareCare welcome screen">
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/FlareCare/bodymap.png" alt="FlareCare body map interface">
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/FlareCare/trends1.png" alt="FlareCare pain trend chart">
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/FlareCare/history1.png" alt="FlareCare symptom history">
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/FlareCare/insights.png" alt="FlareCare pattern insights">
+      </div>
+      <div class="screenshot-item">
+        <img src="assets/FlareCare/doctorreport.png" alt="FlareCare doctor report">
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ──────────────────────────────────────── -->
+  <section class="cta-section">
+    <h2>Start tracking today.</h2>
+    <p>Available now on iOS. Track your pain patterns and take control of your health.</p>
+    <div class="cta-buttons">
+      <a href="https://apps.apple.com/us/app/flarecare-tracker/id6740129658" target="_blank" rel="noopener" class="btn-hero btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="/flarecare/privacy/" class="btn-hero btn-secondary">Privacy Policy</a>
+    </div>
+  </section>
+
+  <!-- ─── Footer ───────────────────────────────────── -->
+  <footer>
+    <a href="/">← Back to SY Software</a>
+    <br style="margin-bottom: 8px;">
+    <a href="/flarecare/privacy/">Privacy Policy</a>
+    <a href="mailto:support@sysoftware.com">Support</a>
+    <p style="margin-top: 12px;">&copy; <span id="yr"></span> SY Software. All rights reserved.</p>
+  </footer>
+
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
