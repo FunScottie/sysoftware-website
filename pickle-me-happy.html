@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pickle Me Happy - Pickleball Scoring for iPhone and Apple Watch</title>
+  <meta name="description" content="Pickle Me Happy is a pickleball session tracker for iPhone and Apple Watch with wrist-based scoring, workout stats, history, insights, and Home Screen widgets.">
+  <meta property="og:title" content="Pickle Me Happy - Pickleball Scoring for iPhone and Apple Watch">
+  <meta property="og:description" content="Score from your wrist, track every game, and see your pickleball progress across sessions, history, insights, and widgets.">
+  <meta property="og:image" content="/assets/Pickle%20Me%20Happy/phone-mainpage-home.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="/assets/Pickle%20Me%20Happy/AppIcon-1024.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #030805;
+      --surface: #121815;
+      --surface-soft: #1a241f;
+      --border: rgba(48, 224, 104, 0.2);
+      --text: #f4fff7;
+      --text-muted: #aab9af;
+      --text-dim: #75847a;
+      --green: #32d765;
+      --green-soft: #21b957;
+      --blue: #1996ff;
+      --yellow: #f4c82f;
+      --red: #ff454f;
+      --purple: #8b57e8;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(50, 215, 101, 0.16), transparent 32%),
+        radial-gradient(circle at 84% 12%, rgba(25, 150, 255, 0.12), transparent 28%),
+        linear-gradient(180deg, #030805 0%, #06150d 52%, #030805 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; transition: opacity 0.2s; }
+    a:hover { opacity: 0.82; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(3, 8, 5, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      height: 64px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .nav-brand {
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .nav-brand span { color: var(--green); }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .mini-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: center;
+      box-shadow: 0 0 18px rgba(50, 215, 101, 0.2);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .btn-nav {
+      padding: 8px 18px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--green), var(--green-soft));
+      color: #041008 !important;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .hero {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 128px 24px 76px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      background: rgba(50, 215, 101, 0.1);
+      border: 1px solid rgba(50, 215, 101, 0.28);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(50, 215, 101, 0.8);
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 64px);
+      line-height: 1.06;
+      font-weight: 950;
+      margin-bottom: 22px;
+      letter-spacing: 0;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--green), #d4f871, var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      max-width: 590px;
+      color: var(--text-muted);
+      font-size: 18px;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .safety-line {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 900;
+      min-height: 50px;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--green), var(--green-soft));
+      color: #041008;
+      box-shadow: 0 16px 40px rgba(50, 215, 101, 0.16);
+    }
+
+    .btn.outline {
+      color: var(--text);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .hero-meta .num {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .hero-meta .lbl {
+      color: var(--text-dim);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      font-weight: 900;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      min-width: 420px;
+    }
+
+    .phone-shot {
+      width: min(330px, 30vw);
+      max-height: 680px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 44px;
+      box-shadow: 0 36px 90px rgba(0,0,0,0.62), 0 0 70px rgba(50, 215, 101, 0.14);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: block;
+    }
+
+    .watch-stack {
+      position: absolute;
+      left: -10px;
+      bottom: 52px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .watch-shot {
+      width: 152px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+      background: #000;
+    }
+
+    .feature-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, rgba(50,215,101,0.14), rgba(25,150,255,0.12), rgba(244,200,47,0.1));
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .strip-inner {
+      display: inline-flex;
+      animation: ticker 34s linear infinite;
+    }
+
+    .strip-inner span {
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px 26px;
+    }
+
+    .strip-inner span::after {
+      content: '+';
+      margin-left: 26px;
+      color: var(--green);
+      opacity: 0.75;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 82px 24px;
+    }
+
+    .section-label {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 42px);
+      line-height: 1.16;
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      max-width: 680px;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 46px;
+    }
+
+    .card-grid, .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .info-card, .faq-card {
+      background: rgba(18, 24, 21, 0.84);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 170px;
+    }
+
+    .info-card h3, .faq-card h3 {
+      font-size: 18px;
+      font-weight: 950;
+      margin-bottom: 8px;
+    }
+
+    .info-card p, .faq-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .info-card .tag {
+      display: inline-block;
+      color: var(--yellow);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 58px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .feature-row:first-of-type { margin-top: 0; }
+    .feature-row.flip { direction: rtl; }
+    .feature-row.flip > * { direction: ltr; }
+
+    .feature-copy h3 {
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.18;
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .feature-copy p {
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 22px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+      align-items: flex-start;
+    }
+
+    .feature-list li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border-radius: 5px;
+      margin-top: 2px;
+      background: linear-gradient(135deg, var(--green), var(--green-soft));
+      box-shadow: 0 0 12px rgba(50,215,101,0.25);
+    }
+
+    .screenshot-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .screenshot {
+      width: min(390px, 100%);
+      max-height: 660px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 36px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 28px 70px rgba(0,0,0,0.55);
+      display: block;
+    }
+
+    .screenshot.watch {
+      width: min(210px, 44vw);
+      border-radius: 32px;
+      background: #000;
+    }
+
+    .privacy-band {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 76px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .privacy-band h2 {
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+
+    .privacy-band p {
+      color: var(--text-muted);
+      max-width: 760px;
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    .final-cta {
+      text-align: center;
+      padding: 92px 24px;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid var(--border);
+    }
+
+    .final-cta h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .final-cta p {
+      color: var(--text-muted);
+      margin: 0 auto 28px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      margin: 0 12px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 112px;
+      }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-cta, .hero-meta { justify-content: center; }
+      .hero-visual { min-width: 0; }
+      .phone-shot { width: min(340px, 74vw); max-height: 560px; }
+      .watch-stack { left: 0; bottom: 34px; }
+      .watch-shot { width: 128px; }
+      .card-grid, .faq-grid { grid-template-columns: 1fr; }
+      .feature-row, .feature-row.flip { grid-template-columns: 1fr; direction: ltr; gap: 34px; }
+      .screenshot-wrap { order: -1; }
+      .nav-center { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .nav-links a:not(.btn-nav) { display: none; }
+      .hero { padding-left: 20px; padding-right: 20px; }
+      .btn { width: 100%; }
+      .watch-stack { position: static; grid-template-columns: repeat(2, 1fr); margin-right: -18px; }
+      .hero-visual { flex-direction: column; align-items: center; gap: 18px; }
+      .watch-shot { width: 118px; }
+      footer a { display: inline-block; margin-top: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand"><span>SY</span> Software</a>
+      <div class="nav-center">
+        <img src="/assets/Pickle%20Me%20Happy/AppIcon-1024.png" alt="" class="mini-icon">
+        Pickle Me Happy
+      </div>
+      <div class="nav-links">
+        <a href="#watch">Watch</a>
+        <a href="#insights">Insights</a>
+        <a href="#widgets">Widgets</a>
+        <a href="/pickle-me-happy/privacy/">Privacy</a>
+        <a href="#download" class="btn-nav">Coming Soon</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Pickleball for iPhone and Apple Watch</div>
+        <h1>Score the rally.<br><span class="gradient-text">Remember the session.</span></h1>
+        <p>Pickle Me Happy keeps pickleball scoring quick on Apple Watch and turns every match day into a clean iPhone record with games, win rate, time played, points, workout stats, and history.</p>
+        <div class="safety-line">Fast wrist scoring. Clean iPhone records. Optional Health stats.</div>
+        <div class="hero-cta">
+          <a href="#download" class="btn primary">Coming Soon on the App Store</a>
+          <a href="#watch" class="btn outline">See Watch Scoring</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <div class="num">Watch</div>
+            <div class="lbl">Live Scoring</div>
+          </div>
+          <div>
+            <div class="num">Stats</div>
+            <div class="lbl">Wins + Time</div>
+          </div>
+          <div>
+            <div class="num">Widgets</div>
+            <div class="lbl">Month + YTD</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="watch-stack" aria-hidden="true">
+          <img src="/assets/Pickle%20Me%20Happy/watch-startsession.png" alt="" class="watch-shot">
+          <img src="/assets/Pickle%20Me%20Happy/watch-gamescore.png" alt="" class="watch-shot">
+        </div>
+        <img src="/assets/Pickle%20Me%20Happy/phone-mainpage-home.png" alt="Pickle Me Happy Today screen with session score, games, win rate, time played, Apple Health, and game list" class="phone-shot">
+      </div>
+    </section>
+
+    <div class="feature-strip" aria-hidden="true">
+      <div class="strip-inner">
+        <span>Apple Watch Scoring</span><span>Game History</span><span>Win Rate</span><span>Workout Stats</span><span>Timer Alerts</span><span>Home Screen Widgets</span>
+        <span>Apple Watch Scoring</span><span>Game History</span><span>Win Rate</span><span>Workout Stats</span><span>Timer Alerts</span><span>Home Screen Widgets</span>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-label reveal">Built for the court</div>
+      <div class="section-title reveal">Keep your phone away and your score close.</div>
+      <div class="section-sub reveal">Pickleball scoring should not pull you out of the point. Pickle Me Happy puts the fast actions on your wrist, then saves the richer record where it belongs: your iPhone.</div>
+      <div class="card-grid">
+        <div class="info-card reveal">
+          <span class="tag">Fast scoring</span>
+          <h3>Tap or speak the score.</h3>
+          <p>Use Apple Watch for quick score entry, including live game score, serving side, timer, and voice-assisted recording.</p>
+        </div>
+        <div class="info-card reveal">
+          <span class="tag">Match day</span>
+          <h3>Every game rolls up.</h3>
+          <p>See the day at a glance with session result, games played, win rate, time, points for, and points against.</p>
+        </div>
+        <div class="info-card reveal">
+          <span class="tag">Progress</span>
+          <h3>Trends without homework.</h3>
+          <p>History, lifetime insights, streaks, and widgets help you see how much you are playing and how you are performing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="watch">
+      <div class="feature-row reveal">
+        <div class="feature-copy">
+          <div class="section-label">Apple Watch</div>
+          <h3>Start a session from your wrist and stay in the rally.</h3>
+          <p>Launch a pickleball workout, keep the session timer running, and update the live score without digging for your phone between points.</p>
+          <ul class="feature-list">
+            <li>One-tap session start on Apple Watch</li>
+            <li>Live session timer with calories and heart rate</li>
+            <li>Scoreboard for us/them, server, and game clock</li>
+            <li>Timer alerts for the minutes that matter to you</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="/assets/Pickle%20Me%20Happy/watch-session1.png" alt="Pickle Me Happy Apple Watch session timer with calories and heart rate" class="screenshot watch">
+          <img src="/assets/Pickle%20Me%20Happy/watch-timers.png" alt="Pickle Me Happy Apple Watch timer alerts screen" class="screenshot watch">
+        </div>
+      </div>
+
+      <div class="feature-row flip reveal">
+        <div class="feature-copy">
+          <div class="section-label">Today</div>
+          <h3>Finish a session with a record you can actually read.</h3>
+          <p>The Today view turns the messy middle of match day into a tidy summary: result, games, win rate, minutes played, points, Apple Health context, and editable game rows.</p>
+          <ul class="feature-list">
+            <li>Session score and game-by-game list</li>
+            <li>Points for and points against</li>
+            <li>Apple Health workout and step context when allowed</li>
+            <li>Edit games when the real court gets messy</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="/assets/Pickle%20Me%20Happy/phone-mainpage-home.png" alt="Pickle Me Happy Today screen showing match day summary and games" class="screenshot">
+        </div>
+      </div>
+
+      <div class="feature-row reveal" id="insights">
+        <div class="feature-copy">
+          <div class="section-label">Insights and History</div>
+          <h3>Know whether your game is getting happier.</h3>
+          <p>Lifetime cards, win/loss charts, streaks, averages, and dated session history make it easy to review your pickleball rhythm over weeks and months.</p>
+          <ul class="feature-list">
+            <li>Lifetime games, sessions, win rate, and time played</li>
+            <li>Wins, losses, ties, streaks, and averages</li>
+            <li>List and calendar-style history</li>
+            <li>Session details with games, duration, and points</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="/assets/Pickle%20Me%20Happy/phone-insights1.png" alt="Pickle Me Happy Insights screen with lifetime stats and win loss chart" class="screenshot">
+        </div>
+      </div>
+
+      <div class="feature-row flip reveal" id="widgets">
+        <div class="feature-copy">
+          <div class="section-label">Widgets</div>
+          <h3>Your month, year, and court time at a glance.</h3>
+          <p>Home Screen widgets give your pickleball progress a place to live outside the app, with session counts, time, court miles, and average heart rate.</p>
+          <ul class="feature-list">
+            <li>Monthly and year-to-date pickleball widgets</li>
+            <li>Session count, time, court miles, and average BPM</li>
+            <li>Compact and wide widget layouts</li>
+            <li>Designed to be glanceable before your next match</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="/assets/Pickle%20Me%20Happy/widgets.png" alt="Pickle Me Happy Home Screen widgets showing month and year pickleball progress" class="screenshot">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label reveal">FAQ</div>
+      <div class="section-title reveal">The quick trust questions.</div>
+      <div class="faq-grid">
+        <div class="faq-card reveal">
+          <h3>Do I need Apple Watch?</h3>
+          <p>No. The iPhone app keeps your sessions, games, history, and insights. Apple Watch makes live scoring and workout tracking faster on court.</p>
+        </div>
+        <div class="faq-card reveal">
+          <h3>Does it use Apple Health?</h3>
+          <p>Only with your permission. Health data can power workout context such as time, steps, calories, heart rate, and distance.</p>
+        </div>
+        <div class="faq-card reveal">
+          <h3>Is my score data shared?</h3>
+          <p>Pickle Me Happy is built around personal tracking. It does not sell your information or use third-party advertising trackers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="privacy-band">
+      <div class="section-label">Privacy</div>
+      <h2>Your rallies are yours.</h2>
+      <p>Pickle Me Happy stores pickleball sessions, game scores, history, settings, widget summaries, and optional Health-related workout data to provide app features. Microphone or speech features are used only when you choose to record scores by voice.</p>
+      <a href="/pickle-me-happy/privacy/">Read the Pickle Me Happy Privacy Policy</a>
+    </section>
+
+    <section class="final-cta" id="download">
+      <h2 class="reveal">Built for players who want to play, not babysit a scorecard.</h2>
+      <p class="reveal">Track the games, watch the trend, and let your iPhone and Apple Watch remember the match day details.</p>
+      <a href="mailto:support@sysoftware.com?subject=Pickle%20Me%20Happy%20launch" class="btn primary reveal">Ask About Launch</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; <span id="yr"></span> SY Software. All rights reserved.</span>
+    <br>
+    <a href="index.html">SY Software Home</a>
+    <a href="/pickle-me-happy/privacy/">Privacy Policy</a>
+    <a href="mailto:support@sysoftware.com">Contact</a>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
