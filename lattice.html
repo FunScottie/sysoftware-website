@@ -7,9 +7,9 @@
   <meta name="description" content="Lattice reinvents minesweeper as a roguelike. Clear five boards, draft cards that reshape the run, and play the same daily puzzle as everyone in the world.">
   <meta property="og:title" content="Lattice — Minesweeper. Reinvented Daily.">
   <meta property="og:description" content="A daily minesweeper roguelike with card drafts, five-level runs, stars, leaderboards, and a one-time Pro unlock.">
-  <meta property="og:image" content="assets/Lattice/home.png">
+  <meta property="og:image" content="assets/Lattice/app-icon.png">
   <meta property="og:type" content="website">
-  <link rel="icon" type="image/png" href="assets/Lattice/home.png">
+  <link rel="icon" type="image/png" href="assets/Lattice/app-icon.png">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -89,19 +89,10 @@
     .mini-icon {
       width: 24px;
       height: 24px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      padding: 4px;
       border-radius: 6px;
-      background: #090723;
+      object-fit: cover;
+      object-position: center;
       border: 1px solid rgba(46, 232, 255, 0.35);
-    }
-
-    .mini-icon span {
-      border: 1px solid var(--cyan);
-      border-radius: 2px;
-      box-shadow: 0 0 5px rgba(46, 232, 255, 0.7);
     }
 
     .nav-links {
@@ -559,11 +550,7 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-brand"><span>SY</span> Software</a>
       <div class="nav-center">
-        <div class="mini-icon" aria-hidden="true">
-          <span></span><span></span><span></span>
-          <span></span><span></span><span></span>
-          <span></span><span></span><span></span>
-        </div>
+        <img src="assets/Lattice/app-icon.png" alt="" class="mini-icon">
         Lattice
       </div>
       <div class="nav-links">

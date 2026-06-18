@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SY Software — Useful Apps. Clever Games.</title>
-  <meta name="description" content="SY Software builds focused iOS apps and games. Train for pickleball with PickleStrong, score with Pickle Me Happy, track Solana PnL with Gainerly, play Qubrix and Lattice, decide what to eat with Tasterly, and track casino sessions with BetterBet.">
+  <meta name="description" content="SY Software builds focused iOS apps and games with no advertising noise: pickleball tools, health trackers, puzzle games, food decisions, casino session tracking, and Solana PnL.">
   <meta property="og:title" content="SY Software">
   <meta property="og:description" content="Useful apps and clever games for iPhone and iPad. By Scott Yale.">
   <meta property="og:type" content="website">
-  <link rel="icon" type="image/png" href="assets/TasterlyAppIcon.png">
+  <link rel="icon" type="image/svg+xml" href="assets/sysoftware-icon.svg">
   <style>
     /* ─── Reset & Base ──────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -329,19 +329,10 @@
     }
 
     .app-icon.lattice-icon {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      padding: 12px;
-      background: radial-gradient(circle at center, rgba(240,79,201,0.5), rgba(9,7,35,0.95) 58%);
+      object-fit: cover;
+      object-position: center;
       border: 1px solid rgba(46,232,255,0.35);
       box-shadow: 0 0 24px rgba(46,232,255,0.18), 0 4px 12px rgba(0,0,0,0.35);
-    }
-
-    .app-icon.lattice-icon span {
-      border: 1px solid var(--cyan);
-      border-radius: 4px;
-      box-shadow: 0 0 8px rgba(46,232,255,0.65);
     }
 
     .app-icon.qubrix-icon {
@@ -623,7 +614,8 @@
     <div class="nav-inner">
       <div class="nav-brand"><span class="sy">SY</span> Software</div>
       <div class="nav-links">
-        <a href="#apps">Apps &amp; Games</a>
+        <a href="#available">Available Now</a>
+        <a href="#coming">Coming Soon</a>
         <a href="#about">About</a>
         <a href="mailto:support@sysoftware.com">Contact</a>
       </div>
@@ -634,7 +626,7 @@
   <section class="hero">
     <div class="hero-badge">Independent iOS Studio</div>
     <h1>Useful apps.<br><span class="highlight">Clever games.</span></h1>
-    <p>SY Software builds focused iPhone and iPad experiences: practical tools, daily puzzle games, and no advertising noise.</p>
+    <p>SY Software builds focused iPhone and iPad experiences: practical tools, daily puzzle games, no ads, and no tracking noise.</p>
     <div class="hero-stats">
       <div class="hero-stat">
         <div class="num">8</div>
@@ -652,45 +644,17 @@
   </section>
 
   <!-- ─── Apps ─────────────────────────────────────── -->
-  <section class="section" id="apps">
-    <div class="section-label">Apps &amp; Games</div>
-    <div class="section-title">Small products with a clear reason to exist.</div>
-    <div class="section-subtitle">Some help you make better decisions. Some give you a better puzzle to come back to tomorrow. All are built with focus, privacy, and a little personality.</div>
+  <section class="section" id="available">
+    <div class="section-label">Available Now</div>
+    <div class="section-title">Live apps with a clear reason to exist.</div>
+    <div class="section-subtitle">Download the shipped products here. Every app is built with focus, privacy, and no advertising trackers.</div>
 
     <div class="apps-grid">
-
-      <!-- PickleStrong -->
-      <div class="app-card pickle">
-        <div class="app-status-badge pickle-soon">
-          <span class="status-dot pickle"></span> Fitness Tool Coming Soon
-        </div>
-        <div class="app-icon-row">
-          <img src="assets/PickleStrong/app-icon.png" alt="PickleStrong app icon" class="app-icon pickle-icon">
-          <div>
-            <div class="app-name">PickleStrong</div>
-            <div class="app-tagline">Warm up, recover, and stay ready.</div>
-          </div>
-        </div>
-        <p class="app-description">
-          A pickleball fitness companion for iPhone. Get smart warm-ups, recovery routines, off-day strength work, soreness check-ins, progress tracking, and a daily court readiness score.
-        </p>
-        <div class="app-features">
-          <span class="feature-pill pickle">Readiness Score</span>
-          <span class="feature-pill pickle">Warm-Ups</span>
-          <span class="feature-pill pickle">Recovery</span>
-          <span class="feature-pill pickle">Strength</span>
-          <span class="feature-pill pickle">Health Optional</span>
-        </div>
-        <div class="app-links">
-          <a href="picklestrong.html" class="btn btn-pickle">Learn More</a>
-          <a href="/picklestrong/privacy/" class="btn btn-secondary">Privacy</a>
-        </div>
-      </div>
 
       <!-- Pickle Me Happy -->
       <div class="app-card pickle">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Sports Tool Live on App Store
+          <span class="status-dot green"></span> Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/Pickle%20Me%20Happy/AppIcon-1024.png" alt="Pickle Me Happy app icon" class="app-icon pickle-icon">
@@ -719,38 +683,10 @@
         </div>
       </div>
 
-      <!-- Gainerly -->
-      <div class="app-card gainerly">
-        <div class="app-status-badge gainerly-soon">
-          <span class="status-dot gainerly"></span> Finance Tool Coming Soon
-        </div>
-        <div class="app-icon-row">
-          <img src="assets/Gainerly/app-icon.png" alt="Gainerly app icon" class="app-icon gainerly-icon">
-          <div>
-            <div class="app-name">Gainerly</div>
-            <div class="app-tagline">Honest PnL for Solana traders.</div>
-          </div>
-        </div>
-        <p class="app-description">
-          A read-only Solana PnL tracker that turns any public wallet into a trading ledger, including closed positions, realized gains, losses, fees, NFTs, and wallet research signals.
-        </p>
-        <div class="app-features">
-          <span class="feature-pill gainerly">Closed PnL</span>
-          <span class="feature-pill gainerly">Wallet Watchlists</span>
-          <span class="feature-pill gainerly">NFTs</span>
-          <span class="feature-pill gainerly">Trader Intel</span>
-          <span class="feature-pill gainerly">Read-only</span>
-        </div>
-        <div class="app-links">
-          <a href="gainerly.html" class="btn btn-gainerly">Learn More</a>
-          <a href="/gainerly/privacy/" class="btn btn-secondary">Privacy</a>
-        </div>
-      </div>
-
       <!-- Qubrix -->
       <div class="app-card qubrix">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Game Live on App Store
+          <span class="status-dot green"></span> Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/qubrix/app-icon.png" alt="Qubrix app icon" class="app-icon qubrix-icon">
@@ -781,14 +717,10 @@
       <!-- Lattice -->
       <div class="app-card lattice">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Game Live on App Store
+          <span class="status-dot green"></span> Live on App Store
         </div>
         <div class="app-icon-row">
-          <div class="app-icon lattice-icon" aria-hidden="true">
-            <span></span><span></span><span></span>
-            <span></span><span></span><span></span>
-            <span></span><span></span><span></span>
-          </div>
+          <img src="assets/Lattice/app-icon.png" alt="Lattice app icon" class="app-icon lattice-icon">
           <div>
             <div class="app-name">Lattice</div>
             <div class="app-tagline">Minesweeper. Reinvented daily.</div>
@@ -805,7 +737,11 @@
           <span class="feature-pill lattice">Game Center</span>
         </div>
         <div class="app-links">
-          <a href="lattice.html" class="btn btn-lattice">Learn More</a>
+          <a href="https://apps.apple.com/us/app/lattice-daily-minesweeper/id6769152042" class="btn btn-lattice" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            App Store
+          </a>
+          <a href="lattice.html" class="btn btn-secondary">Learn More</a>
           <a href="/lattice/privacy/" class="btn btn-secondary">Privacy</a>
         </div>
       </div>
@@ -813,7 +749,7 @@
       <!-- Tasterly -->
       <div class="app-card tasterly">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Utility Live on App Store
+          <span class="status-dot green"></span> Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/TasterlyAppIcon.png" alt="Tasterly app icon" class="app-icon">
@@ -844,7 +780,7 @@
       <!-- BetterBet -->
       <div class="app-card betterbet">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Utility Live on App Store
+          <span class="status-dot green"></span> Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/BetterBetAppIcon.png" alt="BetterBet app icon" class="app-icon">
@@ -875,7 +811,7 @@
       <!-- FlareCare -->
       <div class="app-card flarecare">
         <div class="app-status-badge live">
-          <span class="status-dot green"></span> Health Tool Live on App Store
+          <span class="status-dot green"></span> Live on App Store
         </div>
         <div class="app-icon-row">
           <img src="assets/FlareCare/app-icon.png" alt="FlareCare app icon" class="app-icon flarecare-icon">
@@ -903,6 +839,70 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section class="section coming-section" id="coming">
+    <div class="section-label">Coming Soon</div>
+    <div class="section-title">Next in the queue.</div>
+    <div class="section-subtitle">A couple of products are still being shaped for release. Their pages stay public for privacy links, previews, and launch updates.</div>
+
+    <div class="apps-grid">
+      <!-- PickleStrong -->
+      <div class="app-card pickle">
+        <div class="app-status-badge pickle-soon">
+          <span class="status-dot pickle"></span> Coming Soon
+        </div>
+        <div class="app-icon-row">
+          <img src="assets/PickleStrong/app-icon.png" alt="PickleStrong app icon" class="app-icon pickle-icon">
+          <div>
+            <div class="app-name">PickleStrong</div>
+            <div class="app-tagline">Warm up, recover, and stay ready.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          A pickleball fitness companion for iPhone. Get smart warm-ups, recovery routines, off-day strength work, soreness check-ins, progress tracking, and a daily court readiness score.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill pickle">Readiness Score</span>
+          <span class="feature-pill pickle">Warm-Ups</span>
+          <span class="feature-pill pickle">Recovery</span>
+          <span class="feature-pill pickle">Strength</span>
+          <span class="feature-pill pickle">Health Optional</span>
+        </div>
+        <div class="app-links">
+          <a href="picklestrong.html" class="btn btn-pickle">Learn More</a>
+          <a href="/picklestrong/privacy/" class="btn btn-secondary">Privacy</a>
+        </div>
+      </div>
+
+      <!-- Gainerly -->
+      <div class="app-card gainerly">
+        <div class="app-status-badge gainerly-soon">
+          <span class="status-dot gainerly"></span> Coming Soon
+        </div>
+        <div class="app-icon-row">
+          <img src="assets/Gainerly/app-icon.png" alt="Gainerly app icon" class="app-icon gainerly-icon">
+          <div>
+            <div class="app-name">Gainerly</div>
+            <div class="app-tagline">Honest PnL for Solana traders.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          A read-only Solana PnL tracker that turns any public wallet into a trading ledger, including closed positions, realized gains, losses, fees, NFTs, and wallet research signals.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill gainerly">Closed PnL</span>
+          <span class="feature-pill gainerly">Wallet Watchlists</span>
+          <span class="feature-pill gainerly">NFTs</span>
+          <span class="feature-pill gainerly">Trader Intel</span>
+          <span class="feature-pill gainerly">Read-only</span>
+        </div>
+        <div class="app-links">
+          <a href="gainerly.html" class="btn btn-gainerly">Learn More</a>
+          <a href="/gainerly/privacy/" class="btn btn-secondary">Privacy</a>
+        </div>
+      </div>
     </div>
   </section>
 

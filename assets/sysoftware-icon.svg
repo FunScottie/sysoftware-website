@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="SY Software">
+  <defs>
+    <linearGradient id="bg" x1="40" y1="28" x2="216" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3b82f6"/>
+      <stop offset="0.55" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#0a0e13"/>
+  <rect x="18" y="18" width="220" height="220" rx="46" fill="url(#bg)"/>
+  <path d="M69 165c14 12 32 18 51 18 18 0 29-6 29-17 0-10-9-15-32-21-31-8-51-21-51-49 0-29 24-49 63-49 23 0 41 5 56 15l-16 34c-12-8-26-12-41-12-17 0-26 6-26 16 0 9 9 14 34 21 34 9 49 24 49 50 0 30-25 50-66 50-27 0-53-8-68-21l18-35Z" fill="white"/>
+</svg>
