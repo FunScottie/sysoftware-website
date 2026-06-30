@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pickle Me Happy - Pickleball Scoring for iPhone and Apple Watch</title>
-  <meta name="description" content="Pickle Me Happy is a pickleball session tracker for iPhone and Apple Watch with wrist-based scoring, workout stats, history, insights, and Home Screen widgets. Now available on the App Store.">
+  <meta name="description" content="Pickle Me Happy is a pickleball scoring and session tracker for iPhone and Apple Watch with wrist scoring, history, insights, widgets, and court weather forecasts for scheduled play days.">
   <meta property="og:title" content="Pickle Me Happy - Pickleball Scoring for iPhone and Apple Watch">
-  <meta property="og:description" content="Score from your wrist, track every game, and see your pickleball progress across sessions, history, insights, and widgets.">
-  <meta property="og:image" content="/assets/Pickle%20Me%20Happy/phone-mainpage-home.png">
+  <meta property="og:description" content="Score from your wrist, track every game, and know before you play with court weather forecasts matched to your scheduled pickleball days.">
+  <meta property="og:image" content="/assets/Pickle%20Me%20Happy/phone-forecast1.png">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="/assets/Pickle%20Me%20Happy/AppIcon-1024.png">
   <style>
@@ -545,6 +545,7 @@
         Pickle Me Happy
       </div>
       <div class="nav-links">
+        <a href="#forecast">Forecast</a>
         <a href="#watch">Watch</a>
         <a href="#insights">Insights</a>
         <a href="#widgets">Widgets</a>
@@ -559,13 +560,17 @@
       <div>
         <div class="eyebrow"><span class="dot"></span> Pickleball for iPhone and Apple Watch</div>
         <h1>Score the rally.<br><span class="gradient-text">Remember the session.</span></h1>
-        <p>Pickle Me Happy keeps pickleball scoring quick on Apple Watch and turns every match day into a clean iPhone record with games, win rate, time played, points, workout stats, and history.</p>
-        <div class="safety-line">Fast wrist scoring. Clean iPhone records. Optional Health stats.</div>
+        <p>Pickle Me Happy keeps pickleball scoring quick on Apple Watch, turns every match day into a clean iPhone record, and now helps you know whether the weather will cooperate before you step on court.</p>
+        <div class="safety-line">Fast wrist scoring. Court weather. Clean iPhone records.</div>
         <div class="hero-cta">
           <a href="https://apps.apple.com/us/app/pickle-me-happy/id6776400083" target="_blank" rel="noopener" class="btn primary">Download on the App Store</a>
-          <a href="#watch" class="btn outline">See Watch Scoring</a>
+          <a href="#forecast" class="btn outline">See Court Forecast</a>
         </div>
         <div class="hero-meta">
+          <div>
+            <div class="num">Forecast</div>
+            <div class="lbl">Court Weather</div>
+          </div>
           <div>
             <div class="num">Watch</div>
             <div class="lbl">Live Scoring</div>
@@ -573,10 +578,6 @@
           <div>
             <div class="num">Stats</div>
             <div class="lbl">Wins + Time</div>
-          </div>
-          <div>
-            <div class="num">Widgets</div>
-            <div class="lbl">Month + YTD</div>
           </div>
         </div>
       </div>
@@ -591,8 +592,8 @@
 
     <div class="feature-strip" aria-hidden="true">
       <div class="strip-inner">
-        <span>Apple Watch Scoring</span><span>Game History</span><span>Win Rate</span><span>Workout Stats</span><span>Timer Alerts</span><span>Home Screen Widgets</span>
-        <span>Apple Watch Scoring</span><span>Game History</span><span>Win Rate</span><span>Workout Stats</span><span>Timer Alerts</span><span>Home Screen Widgets</span>
+        <span>Court Forecast</span><span>Scheduled Play</span><span>Apple Watch Scoring</span><span>Game History</span><span>Win Rate</span><span>Workout Stats</span><span>Weather Widgets</span>
+        <span>Court Forecast</span><span>Scheduled Play</span><span>Apple Watch Scoring</span><span>Game History</span><span>Win Rate</span><span>Workout Stats</span><span>Weather Widgets</span>
       </div>
     </div>
 
@@ -612,14 +613,32 @@
           <p>See the day at a glance with session result, games played, win rate, time, points for, and points against.</p>
         </div>
         <div class="info-card reveal">
-          <span class="tag">Progress</span>
-          <h3>Trends without homework.</h3>
-          <p>History, lifetime insights, streaks, and widgets help you see how much you are playing and how you are performing.</p>
+          <span class="tag">Court forecast</span>
+          <h3>Know before you play.</h3>
+          <p>Add your upcoming play days and see whether temperature, rain, wind, and UV make the court look ready.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="watch">
+      <div class="feature-row reveal" id="forecast">
+        <div class="feature-copy">
+          <div class="section-label">Court Forecast</div>
+          <h3>Weather that knows when you plan to play.</h3>
+          <p>Pickle Me Happy now includes a built-in pickleball forecast. Add recurring play days, ladders, open play, or one-off events, and the app matches them against the 10-day court outlook so you can see if your next session looks ideal, good, or worth watching.</p>
+          <ul class="feature-list">
+            <li>10-day court outlook with high/low temps and playable verdicts</li>
+            <li>Scheduled play days marked directly inside the forecast</li>
+            <li>Upcoming play list with time, location, rain risk, and court-ready status</li>
+            <li>Forecast widgets for quick “can I play?” checks from the Home Screen</li>
+          </ul>
+        </div>
+        <div class="screenshot-wrap">
+          <img src="/assets/Pickle%20Me%20Happy/phone-forecast1.png" alt="Pickle Me Happy Forecast screen showing a 10-day court outlook matched with scheduled pickleball play days" class="screenshot">
+          <img src="/assets/Pickle%20Me%20Happy/phone-forecast2.png" alt="Pickle Me Happy upcoming play forecast showing scheduled pickleball events with playable weather verdicts" class="screenshot">
+        </div>
+      </div>
+
       <div class="feature-row reveal">
         <div class="feature-copy">
           <div class="section-label">Apple Watch</div>
@@ -675,13 +694,13 @@
       <div class="feature-row flip reveal" id="widgets">
         <div class="feature-copy">
           <div class="section-label">Widgets</div>
-          <h3>Your month, year, and court time at a glance.</h3>
-          <p>Home Screen widgets give your pickleball progress a place to live outside the app, with session counts, time, court miles, and average heart rate.</p>
+          <h3>Your progress and court forecast at a glance.</h3>
+          <p>Home Screen widgets give your pickleball life a place outside the app: monthly progress, year-to-date totals, and quick court weather checks before your next match.</p>
           <ul class="feature-list">
             <li>Monthly and year-to-date pickleball widgets</li>
             <li>Session count, time, court miles, and average BPM</li>
+            <li>Today and multi-day forecast widgets for court-ready weather</li>
             <li>Compact and wide widget layouts</li>
-            <li>Designed to be glanceable before your next match</li>
           </ul>
         </div>
         <div class="screenshot-wrap">
@@ -703,6 +722,10 @@
           <p>Only with your permission. Health data can power workout context such as time, steps, calories, heart rate, and distance.</p>
         </div>
         <div class="faq-card reveal">
+          <h3>How does Forecast work?</h3>
+          <p>Add the days you expect to play, then Pickle Me Happy compares the weather with pickleball-friendly conditions so upcoming sessions are easy to scan.</p>
+        </div>
+        <div class="faq-card reveal">
           <h3>Is my score data shared?</h3>
           <p>Pickle Me Happy is built around personal tracking. It does not sell your information or use third-party advertising trackers.</p>
         </div>
@@ -712,13 +735,13 @@
     <section class="privacy-band">
       <div class="section-label">Privacy</div>
       <h2>Your rallies are yours.</h2>
-      <p>Pickle Me Happy stores pickleball sessions, game scores, history, settings, widget summaries, and optional Health-related workout data to provide app features. Microphone or speech features are used only when you choose to record scores by voice.</p>
+      <p>Pickle Me Happy stores pickleball sessions, game scores, scheduled play days, history, settings, widget summaries, forecast preferences, and optional Health-related workout data to provide app features. Microphone or speech features are used only when you choose to record scores by voice.</p>
       <a href="/pickle-me-happy/privacy/">Read the Pickle Me Happy Privacy Policy</a>
     </section>
 
     <section class="final-cta" id="download">
       <h2 class="reveal">Built for players who want to play, not babysit a scorecard.</h2>
-      <p class="reveal">Track the games, watch the trend, and let your iPhone and Apple Watch remember the match day details.</p>
+      <p class="reveal">Track the games, watch the trend, and check the court forecast before the next match day.</p>
       <a href="https://apps.apple.com/us/app/pickle-me-happy/id6776400083" target="_blank" rel="noopener" class="btn primary reveal">Download on the App Store</a>
     </section>
   </main>
