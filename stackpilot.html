@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StackPilot - Premium Poker Tournament Director for iPad and iPhone</title>
+  <meta name="description" content="StackPilot is a premium poker tournament timer and director for iPad and iPhone with custom blinds, player tracking, payouts, seat draws, history, poker rules, and a nearby phone remote.">
+  <meta property="og:title" content="StackPilot - Run Poker Night Like the Main Event">
+  <meta property="og:description" content="A cinematic tournament clock, complete director tools, player history, live payouts, and a nearby iPhone remote.">
+  <meta property="og:image" content="assets/StackPilot/ipad-timer.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/StackPilot/app-icon.png">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #020806;
+      --felt: #05281d;
+      --felt-light: #0b3a2a;
+      --panel: #111a16;
+      --panel-light: #1a2721;
+      --line: rgba(229, 185, 62, 0.22);
+      --line-soft: rgba(218, 237, 226, 0.12);
+      --ivory: #f6f0dc;
+      --mist: #aabbb2;
+      --dim: #71847a;
+      --gold: #e5b93e;
+      --gold-deep: #a9781f;
+      --mint: #8eb8a9;
+      --red: #b85a55;
+      --radius: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+    html, body { overflow-x: hidden; }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--ivory);
+      background:
+        radial-gradient(circle at 82% 5%, rgba(18, 84, 59, 0.48), transparent 31%),
+        radial-gradient(circle at 10% 44%, rgba(38, 70, 50, 0.24), transparent 35%),
+        linear-gradient(180deg, #020705 0%, #05130d 48%, #020705 100%);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { opacity: 0.84; }
+
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 100;
+      background: rgba(2, 8, 6, 0.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      height: 68px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand, .nav-product, .nav-links { display: flex; align-items: center; }
+    .brand { color: var(--ivory); font-weight: 850; font-size: 17px; }
+    .brand span { color: var(--gold); margin-right: 4px; }
+    .nav-product { gap: 10px; color: var(--mist); font-weight: 750; font-size: 14px; }
+    .nav-product img { width: 30px; height: 30px; border-radius: 7px; }
+    .nav-links { gap: 24px; }
+    .nav-links a { color: var(--mist); font-size: 14px; font-weight: 700; }
+    .nav-links .nav-cta {
+      color: #100c03;
+      background: linear-gradient(135deg, #f0c94f, #bd8b28);
+      padding: 8px 16px;
+      border-radius: 6px;
+    }
+
+    .hero {
+      max-width: 1240px;
+      min-height: 790px;
+      margin: 0 auto;
+      padding: 138px 28px 72px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
+      gap: 62px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--gold); }
+
+    h1 {
+      font-family: "New York", Georgia, serif;
+      font-size: clamp(58px, 6vw, 84px);
+      line-height: 0.94;
+      font-weight: 650;
+      letter-spacing: 0;
+      margin-bottom: 26px;
+    }
+
+    .hero-lead {
+      max-width: 590px;
+      color: var(--mist);
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.72;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 34px; }
+    .button {
+      min-height: 50px;
+      padding: 13px 22px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-size: 14px;
+      font-weight: 850;
+    }
+    .button.primary { background: linear-gradient(135deg, #f0c94f, #b17c21); color: #100c03; }
+    .button.secondary { color: var(--ivory); border: 1px solid var(--line); background: rgba(255,255,255,0.025); }
+
+    .hero-notes { display: flex; flex-wrap: wrap; gap: 24px; color: var(--dim); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-notes span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-notes span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px rgba(229,185,62,0.48); }
+
+    .hero-stage { position: relative; min-width: 0; }
+    .hero-stage::before {
+      content: "";
+      position: absolute;
+      inset: 8% -10% -10% 6%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34, 106, 75, 0.34), transparent 68%);
+      filter: blur(28px);
+    }
+
+    .ipad-frame {
+      position: relative;
+      aspect-ratio: 1.28 / 1;
+      overflow: hidden;
+      background: #000;
+      border: 8px solid #171b19;
+      border-radius: 24px;
+      box-shadow: 0 42px 100px rgba(0,0,0,0.62), 0 0 0 1px rgba(255,255,255,0.09), 0 0 76px rgba(25, 93, 64, 0.24);
+      transform: perspective(1200px) rotateY(-3deg) rotateX(1deg);
+    }
+    .ipad-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .ipad-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,0.06), transparent 18% 78%, rgba(229,185,62,0.03)); pointer-events: none; }
+
+    .icon-medallion {
+      position: absolute;
+      right: -22px;
+      bottom: -32px;
+      width: 108px;
+      height: 108px;
+      border-radius: 25px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.58), 0 0 40px rgba(229,185,62,0.2);
+    }
+
+    .ticker {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(229,185,62,0.045);
+      overflow: hidden;
+    }
+    .ticker-inner { max-width: 1240px; min-height: 58px; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; }
+    .ticker span { color: var(--mint); text-align: center; font-size: 12px; font-weight: 850; letter-spacing: 0.11em; text-transform: uppercase; border-right: 1px solid var(--line-soft); }
+    .ticker span:last-child { border: 0; }
+
+    .band { padding: 104px 28px; }
+    .band-dark { background: rgba(0,0,0,0.19); border-block: 1px solid var(--line-soft); }
+    .section-inner { max-width: 1180px; margin: 0 auto; }
+    .section-heading { max-width: 760px; margin-bottom: 54px; }
+    .section-kicker { color: var(--gold); font-size: 12px; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { font-family: "New York", Georgia, serif; font-size: clamp(36px, 5vw, 58px); line-height: 1.08; font-weight: 600; margin-bottom: 18px; }
+    .section-heading p, .feature-copy p, .privacy-copy p { color: var(--mist); font-size: 17px; line-height: 1.75; }
+
+    .feature-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: center; }
+    .feature-grid.reverse { grid-template-columns: 1.2fr 0.8fr; }
+    .feature-grid.reverse .feature-copy { order: 2; }
+    .feature-copy h3 { font-family: "New York", Georgia, serif; font-size: clamp(30px, 4vw, 46px); line-height: 1.1; font-weight: 600; margin-bottom: 16px; }
+    .feature-list { list-style: none; margin-top: 26px; display: grid; gap: 13px; }
+    .feature-list li { color: var(--mist); display: flex; gap: 12px; font-size: 15px; }
+    .feature-list li::before { content: ""; width: 8px; height: 8px; margin-top: 8px; flex: 0 0 8px; border: 1px solid var(--gold); transform: rotate(45deg); }
+
+    .screen-frame {
+      overflow: hidden;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: #020604;
+      box-shadow: 0 34px 80px rgba(0,0,0,0.5), 0 0 58px rgba(18,76,53,0.13);
+    }
+    .screen-frame img { width: 100%; height: auto; display: block; }
+    .screen-frame.crop { aspect-ratio: 1.24 / 1; }
+    .screen-frame.crop img { height: 100%; object-fit: cover; object-position: top center; }
+
+    .triptych { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .triptych figure { min-width: 0; }
+    figure img { display: block; }
+    figcaption { color: var(--dim); margin-top: 13px; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    .remote-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 250px;
+      align-items: end;
+      gap: 26px;
+      padding: 34px;
+      border-block: 1px solid var(--line);
+      background: linear-gradient(120deg, rgba(229,185,62,0.045), rgba(10,53,37,0.32));
+    }
+    .remote-stage .screen-frame { border-radius: 16px; }
+    .phone-frame { padding: 7px; border-radius: 34px; background: #111513; box-shadow: 0 30px 76px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.12); }
+    .phone-frame img { width: 100%; border-radius: 27px; display: block; }
+
+    .feature-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line-soft); border-block: 1px solid var(--line-soft); }
+    .feature-card { background: #06110c; padding: 34px 26px; min-height: 218px; }
+    .feature-card .num { color: var(--gold); font-family: Georgia, serif; font-size: 36px; line-height: 1; margin-bottom: 26px; }
+    .feature-card h3 { font-size: 17px; margin-bottom: 8px; }
+    .feature-card p { color: var(--dim); font-size: 14px; line-height: 1.65; }
+
+    .pricing {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .price-column { padding: 38px; background: rgba(15, 25, 20, 0.78); }
+    .price-column + .price-column { border-left: 1px solid var(--line); background: linear-gradient(145deg, rgba(55,46,20,0.48), rgba(15,25,20,0.86)); }
+    .price-label { color: var(--gold); font-size: 11px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+    .price-column h3 { font-family: Georgia, serif; font-size: 30px; margin: 8px 0 10px; }
+    .price-column p { color: var(--mist); font-size: 14px; }
+
+    .privacy-layout { display: grid; grid-template-columns: 0.74fr 1.26fr; gap: 80px; align-items: center; }
+    .privacy-points { display: grid; gap: 1px; background: var(--line-soft); border-block: 1px solid var(--line-soft); }
+    .privacy-point { background: #06110c; padding: 22px 24px; display: flex; justify-content: space-between; gap: 20px; }
+    .privacy-point strong { font-size: 15px; }
+    .privacy-point span { color: var(--mint); font-size: 13px; text-align: right; }
+
+    .final-cta { padding: 116px 28px; text-align: center; position: relative; overflow: hidden; }
+    .final-cta::before { content: "S"; position: absolute; inset: -100px 0 auto; color: rgba(229,185,62,0.025); font-family: Georgia, serif; font-size: 520px; line-height: 1; pointer-events: none; }
+    .final-cta > * { position: relative; }
+    .final-cta h2 { max-width: 760px; margin: 0 auto 18px; }
+    .final-cta p { color: var(--mist); max-width: 600px; margin: 0 auto 28px; }
+
+    footer { border-top: 1px solid var(--line-soft); padding: 26px 28px; color: var(--dim); font-size: 13px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; }
+    footer a { color: var(--mist); margin-left: 18px; }
+
+    .reveal { opacity: 1; transform: none; }
+    .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; min-height: 0; text-align: center; padding-top: 126px; }
+      .hero-copy { max-width: 760px; margin: 0 auto; }
+      .hero-lead { margin-inline: auto; }
+      .hero-actions, .hero-notes { justify-content: center; }
+      .hero-stage { max-width: 760px; margin: 0 auto; width: 100%; }
+      .feature-grid, .feature-grid.reverse, .privacy-layout { grid-template-columns: 1fr; gap: 42px; }
+      .feature-grid.reverse .feature-copy { order: 0; }
+      .triptych { grid-template-columns: 1fr 1fr; }
+      .triptych figure:last-child { grid-column: 1 / -1; max-width: 58%; margin: 0 auto; }
+      .feature-cards { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .nav-product, .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding-inline: 18px; gap: 44px; }
+      h1 { font-size: clamp(54px, 18vw, 74px); }
+      .ipad-frame { border-width: 5px; border-radius: 15px; transform: none; }
+      .icon-medallion { width: 74px; height: 74px; right: -5px; bottom: -22px; border-radius: 18px; }
+      .ticker-inner { grid-template-columns: 1fr 1fr; padding: 10px 18px; }
+      .ticker span { padding: 10px 4px; }
+      .ticker span:nth-child(2) { border-right: 0; }
+      .band { padding: 76px 18px; }
+      .triptych { grid-template-columns: 1fr; }
+      .triptych figure:last-child { grid-column: auto; max-width: none; }
+      .remote-stage { grid-template-columns: 1fr 122px; gap: 12px; padding: 14px; }
+      .phone-frame { border-radius: 20px; padding: 4px; }
+      .phone-frame img { border-radius: 16px; }
+      .feature-cards, .pricing { grid-template-columns: 1fr; }
+      .price-column + .price-column { border-left: 0; border-top: 1px solid var(--line); }
+      .feature-card { min-height: 0; }
+      .privacy-point { flex-direction: column; }
+      .privacy-point span { text-align: left; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      footer a { margin: 0 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="brand"><span>SY</span> Software</a>
+      <div class="nav-product"><img src="assets/StackPilot/app-icon.png" alt=""> StackPilot</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#release" class="nav-cta">App Store Soon</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Premium poker tournament director</div>
+        <h1>StackPilot</h1>
+        <p class="hero-lead">Run poker night like the main event. StackPilot brings a cinematic tournament clock, complete director tools, live player management, and a nearby iPhone remote to every table.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#features">Explore StackPilot</a>
+          <a class="button secondary" href="stackpilot/privacy/">Privacy Policy</a>
+        </div>
+        <div class="hero-notes">
+          <span>Built for iPad</span>
+          <span>Works on iPhone</span>
+          <span>No account required</span>
+        </div>
+      </div>
+      <div class="hero-stage">
+        <div class="ipad-frame">
+          <img src="assets/StackPilot/ipad-timer.jpg" alt="StackPilot live tournament display on iPad showing the countdown clock, current blinds, next break, and tournament metrics">
+        </div>
+        <img src="assets/StackPilot/app-icon.png" alt="StackPilot app icon" class="icon-medallion">
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="StackPilot highlights">
+      <div class="ticker-inner">
+        <span>TV-ready clock</span>
+        <span>Custom blind structures</span>
+        <span>Nearby phone remote</span>
+        <span>Player history</span>
+      </div>
+    </div>
+
+    <section class="band" id="features">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="section-kicker">The room has a new centerpiece</div>
+          <h2>A tournament display players actually want to watch.</h2>
+          <p>The countdown clock stays unmistakable from across the room, while blinds, breaks, stack depth, prize money, and the next level remain clear without turning the screen into a spreadsheet.</p>
+        </div>
+        <div class="screen-frame crop reveal">
+          <img src="assets/StackPilot/ipad-paused.jpg" alt="StackPilot paused tournament display on iPad with a prominent paused state and current blind information">
+        </div>
+      </div>
+    </section>
+
+    <section class="band band-dark">
+      <div class="section-inner feature-grid">
+        <div class="feature-copy reveal">
+          <div class="section-kicker">A better opening deal</div>
+          <h3>Turn seat selection into part of the night.</h3>
+          <p>StackPilot replaces slips of paper and loose cards with a branded seat-draw ceremony. Reveal every player's seat, choose the first dealer, and begin with the table already organized.</p>
+          <ul class="feature-list">
+            <li>Animated, randomized seat assignments</li>
+            <li>Clear seating order and dealer position</li>
+            <li>Reshuffle before the tournament begins</li>
+          </ul>
+        </div>
+        <div class="screen-frame reveal">
+          <img src="assets/StackPilot/ipad-seat-draw.jpg" alt="StackPilot animated seat draw showing eight players around a poker table">
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Tournament director workspace</div>
+          <h2>Change the plan without stopping the game.</h2>
+          <p>Build the structure before cards fly, then adjust current or future levels during play. Track the money, the field, and the decisions that normally end up scattered across notes and calculators.</p>
+        </div>
+        <div class="triptych">
+          <figure class="reveal">
+            <div class="screen-frame"><img src="assets/StackPilot/ipad-blind-structure.jpg" alt="StackPilot custom blind structure editor"></div>
+            <figcaption>Blind structure</figcaption>
+          </figure>
+          <figure class="reveal">
+            <div class="screen-frame"><img src="assets/StackPilot/ipad-payouts.jpg" alt="StackPilot tournament payouts shown on the live display"></div>
+            <figcaption>Live payouts</figcaption>
+          </figure>
+          <figure class="reveal">
+            <div class="screen-frame"><img src="assets/StackPilot/ipad-players.jpg" alt="StackPilot player league and leaderboard"></div>
+            <figcaption>Player league</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band-dark">
+      <div class="section-inner feature-grid reverse">
+        <div class="feature-copy reveal">
+          <div class="section-kicker">Stay in the game</div>
+          <h3>Your iPhone becomes the tournament remote.</h3>
+          <p>Leave the iPad on display and control the essentials from your phone. Nearby peer-to-peer connectivity keeps the clock and status synchronized without an account or internet connection.</p>
+          <ul class="feature-list">
+            <li>Pause and resume the live clock</li>
+            <li>Adjust time and move between levels</li>
+            <li>Record player eliminations from the table</li>
+          </ul>
+        </div>
+        <div class="remote-stage reveal">
+          <div class="screen-frame crop"><img src="assets/StackPilot/ipad-timer.jpg" alt="StackPilot host tournament display on iPad"></div>
+          <div class="phone-frame"><img src="assets/StackPilot/iphone-remote.jpg" alt="StackPilot nearby remote screen on iPhone"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="section-inner feature-grid">
+        <div class="feature-copy reveal">
+          <div class="section-kicker">The league remembers</div>
+          <h3>Every poker night becomes part of the record.</h3>
+          <p>Build a reusable player group, select who made tonight's table, and keep tournament results together. StackPilot tracks investment, winnings, net result, cashes, finishes, and lifetime standings.</p>
+          <ul class="feature-list">
+            <li>Reusable player profiles and table order</li>
+            <li>Buy-ins, rebuys, add-ons, and paid status</li>
+            <li>Tournament history and leaderboard metrics</li>
+          </ul>
+        </div>
+        <div class="screen-frame reveal">
+          <img src="assets/StackPilot/ipad-history.jpg" alt="StackPilot tournament history on iPad">
+        </div>
+      </div>
+    </section>
+
+    <section class="feature-cards" aria-label="More StackPilot features">
+      <div class="feature-card"><div class="num">01</div><h3>Poker rules at the table</h3><p>Compare standard button movement and continuous house rotation with visual before-and-after blind placement.</p></div>
+      <div class="feature-card"><div class="num">02</div><h3>Breaks that behave properly</h3><p>Give the room a clear break state, then hold the next level until everyone is seated and ready.</p></div>
+      <div class="feature-card"><div class="num">03</div><h3>Sound with restraint</h3><p>Choose countdown cues and clear announcement voices, or disable sound entirely for a quieter table.</p></div>
+      <div class="feature-card"><div class="num">04</div><h3>Designed for the big screen</h3><p>Mirror the iPad to a television for an uncluttered display built to stay readable across the room.</p></div>
+    </section>
+
+    <section class="band band-dark" id="release">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="section-kicker">Start free. Upgrade once.</div>
+          <h2>The clock is always ready.</h2>
+          <p>StackPilot's core tournament timer and blind structures are free. A one-time Pro upgrade unlocks the complete tournament-director experience.</p>
+        </div>
+        <div class="pricing reveal">
+          <div class="price-column">
+            <div class="price-label">Included</div>
+            <h3>Tournament Clock</h3>
+            <p>Create a blind structure, run the live timer, manage breaks, and keep the essential tournament display on screen.</p>
+          </div>
+          <div class="price-column">
+            <div class="price-label">One-time Pro upgrade</div>
+            <h3>Full Director Tools</h3>
+            <p>Unlock player tracking, seat draws, payouts, rebuys, add-ons, templates, player history, and nearby remote control.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="privacy">
+      <div class="section-inner privacy-layout">
+        <div class="privacy-copy reveal">
+          <div class="section-kicker">Privacy by default</div>
+          <h2>Your game stays with your game.</h2>
+          <p>StackPilot does not require an account, does not include advertising trackers, and does not sell player or tournament information. Tournament records are stored locally on your device.</p>
+          <p><a href="stackpilot/privacy/">Read the complete privacy policy &rarr;</a></p>
+        </div>
+        <div class="privacy-points reveal">
+          <div class="privacy-point"><strong>Accounts</strong><span>Not required</span></div>
+          <div class="privacy-point"><strong>Advertising trackers</strong><span>None</span></div>
+          <div class="privacy-point"><strong>Tournament storage</strong><span>On your device</span></div>
+          <div class="privacy-point"><strong>Remote connection</strong><span>Nearby peer-to-peer</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="section-kicker">Coming to the App Store</div>
+      <h2>Make poker night feel like an event.</h2>
+      <p>StackPilot for iPad and iPhone is preparing for its App Store release. The table is ready.</p>
+      <a class="button primary" href="mailto:support@sysoftware.com?subject=StackPilot%20Launch">Get launch updates</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>&copy; <span id="year"></span> SY Software. All rights reserved.</span>
+      <span><a href="index.html">All Apps</a><a href="stackpilot/privacy/">Privacy</a><a href="mailto:support@sysoftware.com">Support</a></span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+  </script>
+</body>
+</html>
