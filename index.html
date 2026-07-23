@@ -294,12 +294,6 @@
       color: var(--qubrix-aqua);
     }
 
-    .app-status-badge.gainerly-soon {
-      background: rgba(34, 232, 133, 0.1);
-      border: 1px solid rgba(34, 232, 133, 0.22);
-      color: var(--gainerly-green);
-    }
-
     .app-status-badge.stackpilot-soon {
       background: rgba(229, 185, 62, 0.1);
       border: 1px solid rgba(229, 185, 62, 0.25);
@@ -321,7 +315,6 @@
     .status-dot.gold  { background: var(--gold); animation: pulse-dot 2s ease-in-out infinite; }
     .status-dot.pink  { background: var(--pink); animation: pulse-dot 2s ease-in-out infinite; }
     .status-dot.aqua  { background: var(--qubrix-aqua); animation: pulse-dot 2s ease-in-out infinite; }
-    .status-dot.gainerly { background: var(--gainerly-green); animation: pulse-dot 2s ease-in-out infinite; }
     .status-dot.pickle { background: var(--pickle-green); animation: pulse-dot 2s ease-in-out infinite; }
 
     @keyframes pulse-dot {
@@ -909,6 +902,34 @@
         </div>
       </div>
 
+      <!-- Gainerly -->
+      <div class="app-card gainerly">
+        <div class="app-status-badge live">
+          <span class="status-dot green"></span> Live on App Store
+        </div>
+        <div class="app-icon-row">
+          <img src="assets/Gainerly/app-icon.png" alt="Gainerly app icon" class="app-icon gainerly-icon">
+          <div>
+            <div class="app-name">Gainerly</div>
+            <div class="app-tagline">Honest PnL for Solana traders.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          A read-only Solana PnL tracker that turns any public wallet into a trading ledger, including closed positions, realized gains, losses, fees, NFTs, and wallet research signals.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill gainerly">Closed PnL</span>
+          <span class="feature-pill gainerly">Wallet Watchlists</span>
+          <span class="feature-pill gainerly">NFTs</span>
+          <span class="feature-pill gainerly">Trader Intel</span>
+          <span class="feature-pill gainerly">Read-only</span>
+        </div>
+        <div class="app-links">
+          <a href="https://apps.apple.com/us/app/gainerly/id6773934340" class="btn btn-gainerly" target="_blank" rel="noopener">App Store</a>
+          <a href="gainerly.html" class="btn btn-secondary">Learn More</a>
+          <a href="/gainerly/privacy/" class="btn btn-secondary">Privacy</a>
+        </div>
+      </div>
 
     </div>
   </section>
@@ -947,33 +968,6 @@
         </div>
       </div>
 
-      <!-- Gainerly -->
-      <div class="app-card gainerly">
-        <div class="app-status-badge gainerly-soon">
-          <span class="status-dot gainerly"></span> Coming Soon
-        </div>
-        <div class="app-icon-row">
-          <img src="assets/Gainerly/app-icon.png" alt="Gainerly app icon" class="app-icon gainerly-icon">
-          <div>
-            <div class="app-name">Gainerly</div>
-            <div class="app-tagline">Honest PnL for Solana traders.</div>
-          </div>
-        </div>
-        <p class="app-description">
-          A read-only Solana PnL tracker that turns any public wallet into a trading ledger, including closed positions, realized gains, losses, fees, NFTs, and wallet research signals.
-        </p>
-        <div class="app-features">
-          <span class="feature-pill gainerly">Closed PnL</span>
-          <span class="feature-pill gainerly">Wallet Watchlists</span>
-          <span class="feature-pill gainerly">NFTs</span>
-          <span class="feature-pill gainerly">Trader Intel</span>
-          <span class="feature-pill gainerly">Read-only</span>
-        </div>
-        <div class="app-links">
-          <a href="gainerly.html" class="btn btn-gainerly">Learn More</a>
-          <a href="/gainerly/privacy/" class="btn btn-secondary">Privacy</a>
-        </div>
-      </div>
     </div>
   </section>
 
