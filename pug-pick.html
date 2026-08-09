@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pug Pick — A Relaxing Pug Puzzle Game</title>
+  <meta name="description" content="Pug Pick is a relaxing silhouette puzzle game. Match charming pugs to their perfect places, reveal storybook scenes, and collect the whole pug album.">
+  <meta property="og:title" content="Pug Pick — Every pug has a perfect place.">
+  <meta property="og:description" content="A relaxing silhouette puzzle game from SY Software, coming soon to the App Store.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/Pug%20Pick/app-icon.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #4d4149;
+      --muted: #806f78;
+      --paper: #fff5ed;
+      --paper-deep: #f8e2ca;
+      --pink: #ef5b88;
+      --rose: #ff8ca9;
+      --plum: #5a4652;
+      --border: rgba(135, 91, 100, 0.17);
+      --shadow: 0 20px 60px rgba(102, 67, 73, 0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255, 208, 186, 0.82), transparent 24%),
+        radial-gradient(circle at 94% 38%, rgba(255, 224, 185, 0.65), transparent 27%),
+        linear-gradient(180deg, var(--paper) 0%, #fff9f3 58%, var(--paper-deep) 100%);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255, 245, 237, 0.86);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 1120px; min-height: 68px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand, .game-brand { display: flex; align-items: center; gap: 10px; font-weight: 850; }
+    .brand { font-size: 17px; }
+    .brand span { color: var(--pink); }
+    .game-brand { font-size: 14px; color: var(--muted); }
+    .game-brand img { width: 30px; height: 30px; border-radius: 9px; box-shadow: 0 3px 10px rgba(118, 69, 86, 0.2); }
+    .nav-links { display: flex; align-items: center; gap: 22px; font-size: 14px; font-weight: 750; color: var(--muted); }
+    .nav-links a:hover { color: var(--pink); }
+    .pill { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border: 1px solid rgba(239, 91, 136, 0.25); border-radius: 999px; color: var(--pink); background: rgba(255,255,255,0.58); font-size: 11px; font-weight: 850; letter-spacing: 0.07em; text-transform: uppercase; }
+    .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 4px rgba(239, 91, 136, 0.12); }
+    .hero { max-width: 1120px; margin: 0 auto; padding: 94px 24px 82px; display: grid; grid-template-columns: 1fr minmax(290px, 400px); gap: 70px; align-items: center; }
+    h1 { margin: 18px 0 20px; max-width: 620px; font-size: clamp(48px, 6vw, 76px); line-height: 0.98; letter-spacing: -0.055em; font-weight: 950; }
+    .pink { color: var(--pink); }
+    .hero-copy { max-width: 560px; color: var(--muted); font-size: 18px; line-height: 1.72; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 20px; border-radius: 14px; font-size: 14px; font-weight: 850; transition: transform .2s, box-shadow .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.primary { color: white; background: linear-gradient(135deg, var(--rose), var(--pink)); box-shadow: 0 12px 28px rgba(239, 91, 136, 0.28); }
+    .btn.secondary { color: var(--plum); border: 1px solid var(--border); background: rgba(255,255,255,0.63); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 36px; }
+    .hero-meta strong { display: block; color: var(--pink); font-size: 22px; font-weight: 950; }
+    .hero-meta span { color: var(--muted); font-size: 11px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .hero-art { position: relative; min-height: 560px; display: grid; place-items: center; }
+    .hero-art::before { content: ""; position: absolute; width: 86%; aspect-ratio: 1; border-radius: 50%; background: linear-gradient(135deg, #ffd6c9, #ffe7b9); filter: blur(2px); }
+    .phone { position: relative; width: min(82%, 315px); border-radius: 37px; box-shadow: 0 30px 80px rgba(91, 62, 69, 0.26); border: 7px solid #3e373b; }
+    .floating-pug { position: absolute; width: 150px; right: -27px; bottom: 25px; filter: drop-shadow(0 18px 17px rgba(102, 67, 73, 0.2)); transform: rotate(6deg); }
+    .section { max-width: 1120px; margin: 0 auto; padding: 88px 24px; }
+    .eyebrow { color: var(--pink); font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin-top: 9px; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.04em; font-weight: 950; }
+    .intro { max-width: 680px; margin-top: 16px; color: var(--muted); font-size: 17px; }
+    .how-grid { margin-top: 42px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .how-card { min-height: 220px; padding: 27px; border: 1px solid var(--border); border-radius: 24px; background: rgba(255,255,255,.52); box-shadow: 0 10px 30px rgba(117, 79, 79, 0.05); }
+    .how-card b { display: inline-grid; place-items: center; width: 38px; height: 38px; margin-bottom: 24px; border-radius: 13px; background: #fff0e9; color: var(--pink); font-size: 16px; }
+    .how-card h3 { font-size: 19px; letter-spacing: -.025em; }
+    .how-card p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .feature { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(260px, .75fr); gap: clamp(36px, 7vw, 100px); align-items: center; padding: 82px 0; border-top: 1px solid var(--border); }
+    .feature.reverse { grid-template-columns: minmax(260px, .75fr) minmax(0, 1.05fr); }
+    .feature.reverse .feature-copy { order: 2; }
+    .feature-copy h2 { font-size: clamp(30px, 3.5vw, 44px); }
+    .feature-copy p { margin-top: 16px; color: var(--muted); font-size: 16px; }
+    .checklist { display: grid; gap: 11px; margin-top: 25px; color: var(--plum); font-size: 14px; font-weight: 700; list-style: none; }
+    .checklist li::before { content: "✓"; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 9px; border-radius: 50%; color: white; background: var(--pink); font-size: 12px; }
+    .shot-wrap { justify-self: center; position: relative; }
+    .shot-wrap::after { content: ""; position: absolute; inset: 10% -12%; z-index: -1; border-radius: 50%; background: #ffe5c8; }
+    .screen { display: block; width: min(100%, 300px); border-radius: 36px; border: 7px solid #433d40; box-shadow: 0 28px 60px rgba(102, 67, 73, .23); }
+    .screen.wide { width: min(100%, 340px); }
+    .album { background: linear-gradient(135deg, #fce2d7, #ffefc9); border-top: 1px solid rgba(135,91,100,.09); border-bottom: 1px solid rgba(135,91,100,.09); }
+    .album-inner { max-width: 1120px; margin: 0 auto; padding: 82px 24px; display: grid; grid-template-columns: 1fr minmax(280px, 390px); gap: 70px; align-items: center; }
+    .album .screen { transform: rotate(3deg); }
+    .final { max-width: 760px; margin: 0 auto; padding: 110px 24px; text-align: center; }
+    .final p { max-width: 570px; margin: 18px auto 28px; color: var(--muted); font-size: 17px; }
+    footer { padding: 30px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; text-align: center; }
+    footer a { color: var(--pink); font-weight: 700; }
+    @media (max-width: 760px) {
+      .nav-inner { padding: 0 18px; } .game-brand, .nav-links a:not(.privacy-link) { display: none; }
+      .nav-links { gap: 0; } .hero { grid-template-columns: 1fr; gap: 35px; padding: 64px 22px 68px; text-align: center; }
+      .hero-copy { margin: 0 auto; } .cta-row, .hero-meta { justify-content: center; } .hero-art { min-height: 470px; }
+      .how-grid, .feature, .feature.reverse, .album-inner { grid-template-columns: 1fr; } .feature, .feature.reverse { gap: 38px; }
+      .feature.reverse .feature-copy { order: initial; } .section { padding: 64px 22px; } .album-inner { padding: 66px 22px; gap: 42px; }
+      .album-inner > div { text-align: center; } .album .intro { margin-left: auto; margin-right: auto; } .checklist { text-align: left; width: fit-content; margin-left: auto; margin-right: auto; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="brand"><span>SY</span> Software</a>
+      <div class="game-brand"><img src="assets/Pug%20Pick/app-icon.png" alt=""> Pug Pick</div>
+      <div class="nav-links"><a href="#play">How it plays</a><a href="#album">Album</a><a class="privacy-link" href="/pug-pick/privacy/">Privacy</a></div>
+    </div>
+  </nav>
+  <main>
+    <section class="hero">
+      <div>
+        <span class="pill">Coming soon to the App Store</span>
+        <h1>Pug Pick.<br><span class="pink">Every pug has a perfect place.</span></h1>
+        <p class="hero-copy">A relaxing puzzle game where every charming pug belongs somewhere in the scene. Find the right silhouette, make the match, and watch a little storybook world come together.</p>
+        <div class="cta-row"><a class="btn primary" href="#play">See how it plays</a><a class="btn secondary" href="/pug-pick/privacy/">Privacy policy</a></div>
+        <div class="hero-meta"><div><strong>30+</strong><span>Handcrafted scenes</span></div><div><strong>41</strong><span>Pugs to collect</span></div><div><strong>0</strong><span>Timers or scores</span></div></div>
+      </div>
+      <div class="hero-art"><img src="assets/Pug%20Pick/home.png" alt="Pug Pick home screen" class="phone"><img src="assets/Pug%20Pick/birthday-pug.png" alt="Birthday pug character" class="floating-pug"></div>
+    </section>
+
+    <section class="section" id="play">
+      <div class="eyebrow">A simple, satisfying puzzle</div>
+      <h2>Pick a pug. Find its place. Reveal the scene.</h2>
+      <p class="intro">Each scene starts as one big silhouette. Choose from the Pug Parade below, then place every character exactly where it belongs. There is no clock to beat—just a cheerful puzzle waiting to click into place.</p>
+      <div class="how-grid">
+        <article class="how-card"><b>1</b><h3>See the silhouette</h3><p>Look closely at the complete shape and notice the spaces each pug is meant to fill.</p></article>
+        <article class="how-card"><b>2</b><h3>Choose from the parade</h3><p>Browse a cast of costumed, playful pugs and pick the one you want to place next.</p></article>
+        <article class="how-card"><b>3</b><h3>Complete the picture</h3><p>Each perfect match reveals more of the scene, then unlocks a new storybook puzzle.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="feature">
+        <div class="feature-copy"><div class="eyebrow">Puzzle at your pace</div><h2>Easy to begin. Lovely to finish.</h2><p>Every correct placement locks into the scene with a little burst of joy. Work in any order, take your time, and enjoy the finished picture before moving on.</p><ul class="checklist"><li>Relaxed silhouette-matching gameplay</li><li>Handcrafted scenes that grow in complexity</li><li>Progress that saves right where you leave off</li></ul></div>
+        <div class="shot-wrap"><img src="assets/Pug%20Pick/solve.png" alt="Pug Pick silhouette puzzle with the Pug Parade" class="screen"></div>
+      </div>
+      <div class="feature reverse">
+        <div class="shot-wrap"><img src="assets/Pug%20Pick/costume-closet.png" alt="Completed Costume Closet puzzle in Pug Pick" class="screen wide"></div>
+        <div class="feature-copy"><div class="eyebrow">A growing storybook</div><h2>From garden greetings to costume closets.</h2><p>Every level brings a new setting, a fresh arrangement, and more of the pug cast. Familiar faces return in surprising new scenes as your collection grows.</p><ul class="checklist"><li>Original storybook-style pug art</li><li>Playful costumes, props, and personalities</li><li>More levels and characters on the way</li></ul></div>
+      </div>
+    </section>
+
+    <section class="album" id="album"><div class="album-inner"><div><div class="eyebrow">Meet the whole pack</div><h2>Build your Pug Album.</h2><p class="intro">Every solved scene can add a new pug to your album. Keep playing to meet the whole cast, from bee costumes and party pugs to sleepy snugglers and more.</p><div class="cta-row"><a class="btn secondary" href="#play">Start with the first puzzle</a></div></div><div class="shot-wrap"><img src="assets/Pug%20Pick/cosy-gathering.png" alt="Pug Pick Cozy Gathering puzzle" class="screen wide"></div></div></section>
+
+    <section class="final"><span class="pill">Coming soon</span><h2>Take your time. The pugs are waiting.</h2><p>Pug Pick is an original, gentle puzzle game for players who love charming characters, satisfying matches, and a little more joy in their day.</p><a class="btn primary" href="/pug-pick/privacy/">Read the privacy policy</a></section>
+  </main>
+  <footer>&copy; <span id="yr"></span> SY Software. All rights reserved. &nbsp; <a href="index.html">SY Software Home</a> &nbsp; <a href="/pug-pick/privacy/">Privacy Policy</a> &nbsp; <a href="mailto:support@sysoftware.com">Contact</a></footer>
+  <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
