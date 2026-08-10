@@ -46,6 +46,10 @@
       --stackpilot-gold: #e5b93e;
       --stackpilot-green: #0f4a35;
       --stackpilot-glow: rgba(229, 185, 62, 0.14);
+      --kitchen-gold: #ffca48;
+      --kitchen-aqua: #34e6dc;
+      --kitchen-coral: #ff7767;
+      --kitchen-glow: rgba(255, 202, 72, 0.16);
       --pug-pink: #ef5b88;
       --pug-rose: #ff8ca9;
       --pug-glow: rgba(239, 91, 136, 0.16);
@@ -264,6 +268,11 @@
       box-shadow: 0 8px 40px var(--pug-glow);
     }
 
+    .app-card.kitchen:hover {
+      border-color: rgba(255, 202, 72, 0.34);
+      box-shadow: 0 8px 40px var(--kitchen-glow);
+    }
+
     .app-status-badge {
       display: inline-flex;
       align-items: center;
@@ -320,6 +329,12 @@
       color: var(--pug-rose);
     }
 
+    .app-status-badge.kitchen-soon {
+      background: rgba(255, 202, 72, 0.1);
+      border: 1px solid rgba(52, 230, 220, 0.22);
+      color: var(--kitchen-gold);
+    }
+
     .status-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
@@ -331,6 +346,7 @@
     .status-dot.aqua  { background: var(--qubrix-aqua); animation: pulse-dot 2s ease-in-out infinite; }
     .status-dot.pickle { background: var(--pickle-green); animation: pulse-dot 2s ease-in-out infinite; }
     .status-dot.pug { background: var(--pug-pink); animation: pulse-dot 2s ease-in-out infinite; }
+    .status-dot.kitchen { background: var(--kitchen-gold); animation: pulse-dot 2s ease-in-out infinite; }
 
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; }
@@ -397,6 +413,13 @@
       object-position: center;
       border: 1px solid rgba(255, 140, 169, 0.36);
       box-shadow: 0 0 26px rgba(239, 91, 136, 0.19), 0 4px 12px rgba(0,0,0,0.35);
+    }
+
+    .app-icon.kitchen-icon {
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid rgba(255, 202, 72, 0.34);
+      box-shadow: 0 0 28px rgba(52, 230, 220, 0.16), 0 4px 12px rgba(0,0,0,0.35);
     }
 
     .app-name { font-size: 22px; font-weight: 700; }
@@ -478,6 +501,12 @@
       color: var(--pug-rose);
     }
 
+    .feature-pill.kitchen {
+      background: rgba(255, 202, 72, 0.1);
+      border: 1px solid rgba(52, 230, 220, 0.21);
+      color: var(--kitchen-gold);
+    }
+
     .app-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .btn {
@@ -541,6 +570,12 @@
       color: white;
     }
     .btn-pug-pick:hover { filter: brightness(1.06); color: white; opacity: 1; }
+
+    .btn-kitchen {
+      background: linear-gradient(135deg, #ffe778, var(--kitchen-gold), #b67616);
+      color: #120d02;
+    }
+    .btn-kitchen:hover { filter: brightness(1.08); color: #120d02; opacity: 1; }
 
     .btn-secondary {
       background: transparent;
@@ -689,12 +724,12 @@
     <p>SY Software builds focused iPhone and iPad experiences: practical tools, daily puzzle games, no ads, and no tracking noise.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="num">10</div>
+        <div class="num">11</div>
         <div class="lbl">Products Built</div>
       </div>
       <div class="hero-stat">
-        <div class="num">3</div>
-        <div class="lbl">Puzzle Games</div>
+        <div class="num">4</div>
+        <div class="lbl">Games</div>
       </div>
       <div class="hero-stat">
         <div class="num">0</div>
@@ -974,6 +1009,34 @@
     <div class="section-subtitle">Products preparing for release. Their pages stay public for privacy links, previews, and launch updates.</div>
 
     <div class="apps-grid">
+      <!-- Kitchen King -->
+      <div class="app-card kitchen">
+        <div class="app-status-badge kitchen-soon">
+          <span class="status-dot kitchen"></span> Preparing for App Store
+        </div>
+        <div class="app-icon-row">
+          <img src="assets/KitchenKing/app-icon.png" alt="Kitchen King app icon" class="app-icon kitchen-icon">
+          <div>
+            <div class="app-name">Kitchen King</div>
+            <div class="app-tagline">Pickleball party slots for fun.</div>
+          </div>
+        </div>
+        <p class="app-description">
+          A free entertainment-only pickleball slot game with virtual credits, bright symbols, Hold & Spin bonuses, Royal Match, Dink Rally free games, and no real-money wagering.
+        </p>
+        <div class="app-features">
+          <span class="feature-pill kitchen">Free Play</span>
+          <span class="feature-pill kitchen">Virtual Credits</span>
+          <span class="feature-pill kitchen">Bonus Rounds</span>
+          <span class="feature-pill kitchen">No Ads</span>
+          <span class="feature-pill kitchen">No Purchases</span>
+        </div>
+        <div class="app-links">
+          <a href="kitchen-king.html" class="btn btn-kitchen">Explore Kitchen King</a>
+          <a href="/kitchen-king/privacy/" class="btn btn-secondary">Privacy</a>
+        </div>
+      </div>
+
       <!-- Pug Pick -->
       <div class="app-card pug-pick">
         <div class="app-status-badge pug-soon">
@@ -1069,6 +1132,7 @@
     <a href="/lattice/privacy/">Lattice Privacy</a>
     <a href="/flarecare/privacy/">FlareCare Privacy</a>
     <a href="stackpilot/privacy/">StackPilot Privacy</a>
+    <a href="/kitchen-king/privacy/">Kitchen King Privacy</a>
     <a href="/pug-pick/privacy/">Pug Pick Privacy</a>
     <a href="mailto:support@sysoftware.com">Contact</a>
   </footer>
