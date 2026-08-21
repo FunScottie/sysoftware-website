@@ -674,3 +674,80 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
   .nav-links.open { display: flex; }
   .nav-burger { display: block; z-index: 101; }
 }
+
+/* ============================================================
+   V2 — lighter direction (C2 / Cornerstone reference pass)
+   Additive only: does not alter existing selectors above.
+   ============================================================ */
+
+/* light-toned hero, full-bleed photo with a soft bottom gradient
+   instead of a heavy navy scrim, so the image reads as bright and
+   open rather than moody */
+.hero-join-v2 { min-height: 92vh; display: flex; align-items: flex-end; position: relative; }
+.hero-join-v2 .bg {
+  position: absolute; inset: 0;
+  background: url("../assets/photo_cliff_vantage.jpg") center 38% / cover no-repeat;
+}
+.hero-join-v2 .scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(4,30,43,0.92) 0%, rgba(4,30,43,0.55) 38%, rgba(4,30,43,0.08) 70%, rgba(4,30,43,0) 100%);
+}
+.hero-join-v2 .wrap { position: relative; z-index: 1; padding-top: 140px; padding-bottom: 64px; }
+.hero-join-v2 .kicker { color: var(--cyan-bright); }
+
+/* light section: the C2/Cornerstone default — white or near-white,
+   navy used as text/accent rather than a fill */
+.section-lt { background: var(--white); }
+.section-lt.tint { background: var(--paper); }
+.section-lt .kicker { color: var(--cyan); }
+.section-lt .h2, .section-lt h2 { color: var(--ink); }
+.section-lt .lede { color: #3f6274; }
+.section-lt .lede.on-dark-swap { color: var(--ice); }
+
+/* pain cards on light background */
+.pain-lt {
+  background: var(--white);
+  border: 1px solid #dfe9ef;
+  border-radius: var(--radius-sm);
+  padding: 24px 26px;
+  box-shadow: var(--shadow-md);
+}
+.pain-lt h3 { color: var(--ink); font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.pain-lt p { color: #4a6b7a; font-size: 0.88rem; }
+
+/* feature icon circles tuned for light backgrounds */
+.section-lt .feature .f-icon { background: rgba(0,128,171,0.1); border: 1px solid rgba(0,128,171,0.3); }
+.section-lt .feature .f-icon svg { stroke: var(--cyan); }
+.section-lt .feature h3 { color: var(--ink); }
+.section-lt .feature p { color: #4a6b7a; }
+
+/* bold stat block — the one deliberately dark section, echoing how
+   every reference deck keeps ONE high-contrast panel for emphasis */
+.stat-block {
+  background:
+    radial-gradient(900px 500px at 85% 0%, rgba(15,163,216,0.22), transparent 60%),
+    linear-gradient(160deg, var(--navy-950) 0%, var(--navy-900) 100%);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 56px 48px;
+  color: var(--white);
+}
+.stat-block-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 2.2rem;
+}
+.stat-block-grid .n { font-size: clamp(2rem, 3.4vw, 2.6rem); font-weight: 800; color: var(--cyan-bright); line-height: 1; }
+.stat-block-grid .l { font-size: 0.82rem; color: var(--ice); margin-top: 0.4rem; font-weight: 600; }
+
+/* state chips tuned for light background */
+.state-chips-lt span {
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em;
+  padding: 8px 14px; border-radius: 999px;
+  background: rgba(0,128,171,0.08); border: 1px solid rgba(0,128,171,0.3);
+  color: var(--ink);
+}
+
+@media (max-width: 960px) {
+  .stat-block-grid { grid-template-columns: repeat(2, 1fr); }
+}
