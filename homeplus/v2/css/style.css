@@ -790,5 +790,11 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
 .nav.nav-on-photo:not(.scrolled) .nav-links a:hover,
 .nav.nav-on-photo:not(.scrolled) .nav-links a.active { color: var(--white); }
 .nav.nav-on-photo:not(.scrolled) .nav-phone { color: var(--white) !important; }
-.nav.nav-on-photo:not(.scrolled) .nav-logo .logo-white { display: inline-block; }
-.nav.nav-on-photo:not(.scrolled) .nav-logo .logo-color { display: none; }
+.nav.nav-on-photo:not(.scrolled) .nav-logo {
+  background: rgba(255,255,255,0.94);
+  padding: 8px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px -6px rgba(4,30,43,0.35);
+}
+.nav.nav-on-photo:not(.scrolled) .nav-logo .logo-white { display: none; }
+.nav.nav-on-photo:not(.scrolled) .nav-logo .logo-color { display: inline-block; }
