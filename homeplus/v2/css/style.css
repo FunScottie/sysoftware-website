@@ -480,7 +480,7 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
     radial-gradient(1000px 500px at 85% -20%, rgba(15, 163, 216, 0.12), transparent 60%),
     var(--white);
   color: var(--ink);
-  padding: 170px 0 84px;
+  padding: 170px 0 48px;
 }
 .page-hero .kicker { color: var(--cyan); }
 .page-hero .display { color: var(--ink); }
