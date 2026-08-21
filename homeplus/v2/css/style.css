@@ -163,12 +163,16 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
 .hero {
   position: relative;
   background:
-    radial-gradient(1100px 600px at 82% -10%, rgba(15, 163, 216, 0.28), transparent 60%),
-    radial-gradient(900px 700px at -10% 110%, rgba(0, 128, 171, 0.22), transparent 55%),
-    linear-gradient(160deg, var(--navy-950) 0%, var(--navy-900) 55%, var(--navy-850) 100%);
-  color: var(--white);
+    radial-gradient(1100px 600px at 82% -10%, rgba(15, 163, 216, 0.14), transparent 60%),
+    radial-gradient(900px 700px at -10% 110%, rgba(0, 128, 171, 0.08), transparent 55%),
+    var(--white);
+  color: var(--ink);
   overflow: hidden;
 }
+.hero .kicker { color: var(--cyan); }
+.hero .display { color: var(--ink); }
+.hero .lede { color: #4a6b7a; }
+.hero .hero-trust { color: #4a6b7a; }
 .hero::after {
   /* faint roofline motif */
   content: "";
@@ -213,10 +217,11 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
 
 /* ---------- badge marquee ---------- */
 .trustbar {
-  background: var(--navy-950);
+  background: var(--paper);
   padding: 26px 0;
-  border-top: 1px solid rgba(201, 221, 233, 0.08);
+  border-top: 1px solid #dfe9ef;
 }
+.trustbar .tb-label { color: #7a97a6; }
 .trustbar-inner {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -374,6 +379,7 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
 }
 .review-platforms img { height: 24px; width: auto; }
 .review-platforms .on-light { filter: invert(62%) sepia(12%) saturate(1200%) hue-rotate(155deg) brightness(0.5); }
+.badge-dark, .trustbar img.badge-dark { filter: invert(1) brightness(0.75) contrast(1.15); }
 
 /* ---------- CTA band ---------- */
 .cta-band {
@@ -471,11 +477,14 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
 /* ---------- inner-page hero ---------- */
 .page-hero {
   background:
-    radial-gradient(1000px 500px at 85% -20%, rgba(15, 163, 216, 0.25), transparent 60%),
-    linear-gradient(160deg, var(--navy-950) 0%, var(--navy-900) 70%, var(--navy-850) 100%);
-  color: var(--white);
+    radial-gradient(1000px 500px at 85% -20%, rgba(15, 163, 216, 0.12), transparent 60%),
+    var(--white);
+  color: var(--ink);
   padding: 170px 0 84px;
 }
+.page-hero .kicker { color: var(--cyan); }
+.page-hero .display { color: var(--ink); }
+.page-hero .lede { color: #4a6b7a; }
 .page-hero .display { font-size: clamp(2.2rem, 4.6vw, 3.4rem); }
 .page-hero .lede { margin-top: 1.3rem; max-width: 56ch; }
 
@@ -755,15 +764,31 @@ h1, h2, h3 { line-height: 1.12; letter-spacing: -0.02em; }
 }
 
 /* ============================================================
-   V2 only: scrolled nav goes light, revealing the true-color
-   HomePlus logo (blue/gray) instead of the white reversed mark.
-   This is Phil's actual brand mark, not a redesigned one.
+   V2: nav is light by default (matches the now-light heroes on
+   9 of 10 pages), showing the true-color HomePlus logo (blue/gray)
+   instead of the white reversed mark — Phil's actual brand mark,
+   not a redesigned one. join-the-team.html keeps a full-bleed photo
+   hero, so its nav gets the "nav-on-photo" class to stay
+   transparent+white until scrolled, then converges to this default.
    ============================================================ */
 .nav-logo { display: inline-flex; }
-.nav-logo .logo-color { display: none; }
-.nav.scrolled { background: rgba(255,255,255,0.92); box-shadow: 0 8px 24px -12px rgba(4,30,43,0.25); }
-.nav.scrolled .nav-links a { color: var(--ink); }
-.nav.scrolled .nav-links a:hover, .nav.scrolled .nav-links a.active { color: var(--cyan); }
-.nav.scrolled .nav-phone { color: var(--ink) !important; }
-.nav.scrolled .nav-logo .logo-white { display: none; }
-.nav.scrolled .nav-logo .logo-color { display: inline-block; }
+.nav, .nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px -12px rgba(4,30,43,0.18);
+}
+.nav .nav-links a { color: var(--ink); }
+.nav .nav-links a:hover, .nav .nav-links a.active { color: var(--cyan); }
+.nav .nav-phone { color: var(--ink) !important; }
+.nav-logo .logo-white { display: none; }
+.nav-logo .logo-color { display: inline-block; }
+
+.nav.nav-on-photo:not(.scrolled) {
+  background: transparent; backdrop-filter: none; box-shadow: none;
+}
+.nav.nav-on-photo:not(.scrolled) .nav-links a { color: var(--ice); }
+.nav.nav-on-photo:not(.scrolled) .nav-links a:hover,
+.nav.nav-on-photo:not(.scrolled) .nav-links a.active { color: var(--white); }
+.nav.nav-on-photo:not(.scrolled) .nav-phone { color: var(--white) !important; }
+.nav.nav-on-photo:not(.scrolled) .nav-logo .logo-white { display: inline-block; }
+.nav.nav-on-photo:not(.scrolled) .nav-logo .logo-color { display: none; }
