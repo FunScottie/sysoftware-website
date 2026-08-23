@@ -256,17 +256,30 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
 .boundaries-copy p:last-child { margin-bottom: 0; }
 
 .pricing-section { background: var(--cream-deep); }
-.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-.pricing-card { padding: 30px 26px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 14px 34px rgba(53,32,47,0.06); }
-.pricing-card-highlight { color: white; background: var(--plum); border-color: var(--plum); }
-.pricing-label { margin: 0 0 12px; color: var(--sage); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.pricing-card-highlight .pricing-label { color: #d9c8d2; }
-.pricing-amount { margin: 0 0 10px; font-family: var(--serif); font-size: 40px; font-weight: 400; line-height: 1; }
-.pricing-amount span { margin-left: 4px; color: var(--muted); font-family: var(--sans); font-size: 15px; font-weight: 600; }
-.pricing-card-highlight .pricing-amount span { color: rgba(255,255,255,0.7); }
-.pricing-detail { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
-.pricing-card-highlight .pricing-detail { color: rgba(255,255,255,0.78); }
-.pricing-note { max-width: 720px; margin: 26px 0 0; color: var(--muted); font-size: 14px; }
+.rate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.rate-card { position: relative; display: flex; flex-direction: column; padding: 38px 34px 34px; background: var(--paper); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 16px 40px rgba(53,32,47,0.07); transition: transform 220ms ease, box-shadow 220ms ease; }
+.rate-card:hover { transform: translateY(-6px); box-shadow: 0 26px 56px rgba(53,32,47,0.13); }
+.rate-card-featured { color: white; background: var(--plum); border-color: var(--plum); box-shadow: 0 24px 54px rgba(53,32,47,0.22); }
+.rate-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); padding: 7px 16px; color: white; background: var(--rose); border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 8px 20px rgba(181,111,104,0.4); }
+.rate-label { margin: 0 0 16px; color: var(--sage); font-size: 12px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
+.rate-card-featured .rate-label { color: #d9c8d2; }
+.rate-price { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; font-family: var(--serif); font-size: 56px; font-weight: 400; line-height: 0.95; letter-spacing: -0.02em; }
+.rate-price span { color: var(--muted); font-family: var(--sans); font-size: 14px; font-weight: 600; }
+.rate-card-featured .rate-price span { color: rgba(255,255,255,0.68); }
+.rate-chip { align-self: flex-start; margin: 0 0 24px; padding: 7px 14px; color: #52604f; background: var(--sage-soft); border-radius: 999px; font-size: 12px; font-weight: 700; }
+.rate-card-featured .rate-chip { color: #f0e2ea; background: rgba(255,255,255,0.13); }
+.rate-list { margin: auto 0 0; padding: 22px 0 0; display: grid; gap: 11px; border-top: 1px solid var(--line); list-style: none; }
+.rate-card-featured .rate-list { border-top-color: rgba(255,255,255,0.18); }
+.rate-list li { position: relative; padding-left: 19px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.rate-list li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; background: var(--rose); border-radius: 50%; }
+.rate-card-featured .rate-list li { color: rgba(255,255,255,0.82); }
+.rate-card-featured .rate-list li::before { background: #dec3d0; }
+.rate-intro { margin-top: 30px; padding: 26px 32px; display: flex; align-items: center; justify-content: space-between; gap: 34px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; }
+.rate-intro p { margin: 0; color: var(--muted); font-size: 15px; }
+.rate-intro p strong { color: var(--ink); }
+.rate-intro .text-link { flex: 0 0 auto; white-space: nowrap; }
+.rate-footnote { display: flex; gap: 10px; max-width: 760px; margin: 22px 4px 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.rate-footnote span { color: var(--rose); }
 
 .gift-callout { margin-top: 55px; padding: 46px 50px; display: flex; align-items: center; justify-content: space-between; gap: 40px; background: var(--sage); border-radius: 26px; box-shadow: 0 20px 46px rgba(53,32,47,0.1); }
 .gift-callout-copy { max-width: 560px; }
@@ -327,7 +340,9 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
   .photo-caption { right: -20px; }
   .faq-grid { gap: 60px; }
   .contact-card { padding: 56px; gap: 50px; }
-  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .rate-grid { gap: 16px; }
+  .rate-card { padding: 32px 26px 28px; }
+  .rate-price { font-size: 46px; }
   .gift-callout { flex-direction: column; align-items: flex-start; padding: 38px; }
 }
 
@@ -343,6 +358,11 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
   .site-nav .nav-cta { margin-top: 5px; text-align: center; }
   .hero { padding: 48px 0 82px; }
   .hero-grid, .section-heading, .families-grid, .about-grid, .boundaries-grid, .faq-grid, .contact-card { grid-template-columns: 1fr; }
+  .rate-grid { grid-template-columns: 1fr; gap: 26px; }
+  .rate-card { padding: 36px 30px 32px; }
+  .rate-price { font-size: 52px; }
+  .rate-card-featured { order: -1; }
+  .rate-intro { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px 26px; }
   .hero-copy { padding-bottom: 0; }
   h1 { font-size: clamp(53px, 15vw, 78px); }
   .hero-portrait-wrap { justify-self: center; width: min(88%, 470px); margin-top: 12px; }
@@ -385,7 +405,6 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
   .portrait-card p { font-size: 12px; }
   .service-grid { grid-template-columns: 1fr; }
   .service-card { min-height: auto; padding: 36px 29px; }
-  .pricing-grid { grid-template-columns: 1fr; }
   .gift-callout { padding: 30px 24px; border-radius: 20px; }
   .gift-callout .button { width: 100%; }
   .families-quote blockquote { font-size: 38px; }
