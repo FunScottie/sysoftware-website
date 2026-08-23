@@ -8,7 +8,9 @@
   <meta property="og:title" content="SY Software">
   <meta property="og:description" content="Useful apps and clever games for iPhone and iPad. By Scott Yale.">
   <meta property="og:type" content="website">
-  <link rel="icon" type="image/svg+xml" href="assets/sysoftware-icon.svg">
+  <meta property="og:image" content="https://sysoftware.com/assets/brand/sy-mark-1024.png">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/sy-mark.svg">
+  <link rel="apple-touch-icon" href="assets/brand/sy-mark-1024.png">
   <style>
     /* ─── Reset & Base ──────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -93,13 +95,17 @@
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--text);
+      height: 46px;
+      transition: opacity 0.2s;
     }
 
-    .nav-brand span.sy { color: var(--accent); }
+    .nav-brand:hover { opacity: 0.88; }
+
+    .nav-brand img {
+      display: block;
+      width: auto;
+      height: 46px;
+    }
 
     .nav-links { display: flex; gap: 28px; }
     .nav-links a {
@@ -707,7 +713,9 @@
   <!-- ─── Nav ──────────────────────────────────────── -->
   <nav>
     <div class="nav-inner">
-      <div class="nav-brand"><span class="sy">SY</span> Software</div>
+      <a class="nav-brand" href="index.html" aria-label="SY Software home">
+        <img src="assets/brand/sy-logo-dark.svg" alt="SY Software">
+      </a>
       <div class="nav-links">
         <a href="#available">Available Now</a>
         <a href="#coming">Coming Soon</a>
