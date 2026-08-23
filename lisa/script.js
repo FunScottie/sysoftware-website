@@ -1,3 +1,6 @@
+// TODO: replace with Lisa's real inbox before treating inquiries as live.
+const LISA_CONTACT_EMAIL = 'REPLACE-WITH-LISAS-EMAIL@example.com';
+
 const menuButton = document.querySelector('[data-menu-button]');
 const navigation = document.querySelector('[data-nav]');
 const header = document.querySelector('[data-header]');
@@ -35,8 +38,25 @@ window.addEventListener('scroll', updateHeader, { passive: true });
 
 prototypeForm?.addEventListener('submit', (event) => {
   event.preventDefault();
-  const name = new FormData(prototypeForm).get('name')?.toString().trim();
-  formStatus.textContent = `Thanks${name ? `, ${name}` : ''}. This is a private prototype, so your information was not sent or stored.`;
+  const data = new FormData(prototypeForm);
+  const name = data.get('name')?.toString().trim() || '';
+  const contact = data.get('contact')?.toString().trim() || '';
+  const helpFor = data.get('help-for')?.toString().trim() || '';
+  const message = data.get('message')?.toString().trim() || '';
+
+  const subject = `Here With Lisa — inquiry from ${name || 'a website visitor'}`;
+  const body = [
+    `Name: ${name}`,
+    `Best way to reach them: ${contact}`,
+    `Looking for help for: ${helpFor}`,
+    '',
+    message || '(no additional details provided)',
+  ].join('\n');
+
+  const mailtoUrl = `mailto:${LISA_CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  formStatus.textContent = `Thanks${name ? `, ${name}` : ''} — opening an email to Lisa with your details. Prefer to talk right now? Call or text (619) 376-5343.`;
+  window.location.href = mailtoUrl;
 });
 
 document.querySelectorAll('[data-year]').forEach((element) => {

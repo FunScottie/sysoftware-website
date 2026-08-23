@@ -110,6 +110,7 @@ button, input, select, textarea { font: inherit; }
 .site-nav { display: flex; align-items: center; gap: 30px; }
 .site-nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; }
 .site-nav a:hover, .site-nav a:focus-visible { color: var(--plum); }
+.site-nav .nav-phone { color: var(--plum); font-weight: 700; white-space: nowrap; }
 .site-nav .nav-cta { padding: 11px 19px; color: white; background: var(--plum); border-radius: 999px; }
 .site-nav .nav-cta:hover, .site-nav .nav-cta:focus-visible { color: white; background: var(--plum-dark); }
 
@@ -254,6 +255,27 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
 .boundaries-copy p { margin: 0 0 15px; color: var(--muted); font-size: 15px; }
 .boundaries-copy p:last-child { margin-bottom: 0; }
 
+.pricing-section { background: var(--cream-deep); }
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.pricing-card { padding: 30px 26px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 14px 34px rgba(53,32,47,0.06); }
+.pricing-card-highlight { color: white; background: var(--plum); border-color: var(--plum); }
+.pricing-label { margin: 0 0 12px; color: var(--sage); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.pricing-card-highlight .pricing-label { color: #d9c8d2; }
+.pricing-amount { margin: 0 0 10px; font-family: var(--serif); font-size: 40px; font-weight: 400; line-height: 1; }
+.pricing-amount span { margin-left: 4px; color: var(--muted); font-family: var(--sans); font-size: 15px; font-weight: 600; }
+.pricing-card-highlight .pricing-amount span { color: rgba(255,255,255,0.7); }
+.pricing-detail { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.pricing-card-highlight .pricing-detail { color: rgba(255,255,255,0.78); }
+.pricing-note { max-width: 720px; margin: 26px 0 0; color: var(--muted); font-size: 14px; }
+
+.gift-callout { margin-top: 55px; padding: 46px 50px; display: flex; align-items: center; justify-content: space-between; gap: 40px; background: var(--sage); border-radius: 26px; box-shadow: 0 20px 46px rgba(53,32,47,0.1); }
+.gift-callout-copy { max-width: 560px; }
+.gift-callout .eyebrow { color: rgba(255,255,255,0.7); }
+.gift-callout h3 { margin: 0 0 12px; color: white; font-family: var(--serif); font-size: clamp(28px, 3.4vw, 36px); font-weight: 400; }
+.gift-callout-copy > p:last-child { margin: 0; color: rgba(255,255,255,0.85); font-size: 15px; }
+.gift-callout .button-primary { flex: 0 0 auto; background: var(--plum-dark); }
+.gift-callout .button-primary:hover { background: #241521; }
+
 .faq-section { background: var(--paper); }
 .faq-grid { display: grid; grid-template-columns: 0.74fr 1fr; gap: 100px; align-items: start; }
 .faq-intro { position: sticky; top: 130px; }
@@ -272,6 +294,9 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
 .contact-copy > p { color: rgba(255,255,255,0.7); }
 .contact-assurances { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 9px; }
 .contact-assurances span { padding: 8px 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; color: rgba(255,255,255,0.78); font-size: 11px; font-weight: 600; }
+.contact-phone { margin: 24px 0 0; font-size: 15px; }
+.contact-phone a { color: white; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.contact-area { margin: 8px 0 0; color: rgba(255,255,255,0.6); font-size: 13px; }
 .contact-form { display: grid; gap: 17px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .contact-form label { display: grid; gap: 8px; color: rgba(255,255,255,0.84); font-size: 12px; font-weight: 700; }
@@ -302,6 +327,8 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
   .photo-caption { right: -20px; }
   .faq-grid { gap: 60px; }
   .contact-card { padding: 56px; gap: 50px; }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .gift-callout { flex-direction: column; align-items: flex-start; padding: 38px; }
 }
 
 @media (max-width: 800px) {
@@ -358,6 +385,9 @@ h2 { margin-bottom: 22px; font-family: var(--serif); font-size: clamp(42px, 5vw,
   .portrait-card p { font-size: 12px; }
   .service-grid { grid-template-columns: 1fr; }
   .service-card { min-height: auto; padding: 36px 29px; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .gift-callout { padding: 30px 24px; border-radius: 20px; }
+  .gift-callout .button { width: 100%; }
   .families-quote blockquote { font-size: 38px; }
   .photo-caption { right: -10px; width: 210px; font-size: 17px; }
   .signature-block { align-items: flex-start; flex-direction: column; gap: 5px; }
