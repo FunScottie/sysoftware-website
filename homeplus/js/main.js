@@ -40,9 +40,11 @@
           ${item("contact.html", "Contact")}
         </div>
       </div>
-      <a class="nav-primary-link${active(["join-the-team.html"])}" href="${root}join-the-team.html">Join the Team</a>
+      <a class="nav-quote-link" href="${quoteUrl}">Get a Free Quote</a>
       <a class="nav-phone" href="tel:8008107587">800.810.PLUS</a>
-      <a class="btn btn-primary nav-cta" href="${quoteUrl}">Get a Free Quote</a>`;
+      <a class="nav-join-cta${active(["join-the-team.html"])}" href="${root}join-the-team.html">
+        <span>Join the Team</span><span class="nav-join-arrow" aria-hidden="true">→</span>
+      </a>`;
   }
 
   document.querySelectorAll("a").forEach((link) => {
