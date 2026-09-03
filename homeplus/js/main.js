@@ -30,11 +30,11 @@
       <a class="nav-primary-link${active(["resources.html"])}" href="${root}resources.html">Resources</a>
       <div class="nav-group">
         <button class="nav-group-trigger${active(companyPages)}" type="button" aria-expanded="false">
-          <span>Company</span><i aria-hidden="true"></i>
+          <span>About Us</span><i aria-hidden="true"></i>
         </button>
-        <div class="nav-dropdown" aria-label="Company">
+        <div class="nav-dropdown" aria-label="About Us">
+          ${item("about-us.html", "Company Information")}
           ${item("why-homeplus.html", "Why HomePlus")}
-          ${item("about-us.html", "About Us")}
           ${item("team.html", "Our Team")}
           ${item("reviews.html", "Reviews")}
           ${item("contact.html", "Contact")}
