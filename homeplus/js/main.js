@@ -88,7 +88,7 @@
           <div>
             <h4>Company</h4>
             <ul>
-              <li><a href="${root}about-us.html">About Us</a></li>
+              <li><a href="${root}about-us.html">Company Information</a></li>
               <li><a href="${root}team.html">Our Team</a></li>
               <li><a href="${root}reviews.html">Reviews</a></li>
               <li><a href="${root}join-the-team.html">Join the Team</a></li>
