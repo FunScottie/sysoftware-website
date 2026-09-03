@@ -1397,7 +1397,13 @@ a.contact-method:hover { border-color: rgba(0, 128, 171, 0.55); box-shadow: 0 12
 }
 .page-hero-photo .display,
 .page-hero-photo .lede { max-width: 54%; }
-.page-hero-buy::after { background-image: url("../assets/photo_couple_home_sunny.jpg"); background-position: 48% 38%; }
+.page-hero-buy::after {
+  background-image: url("../assets/photo_couple_home_sunny.jpg");
+  background-position: 48% 38%;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.38) 15%, rgba(0, 0, 0, 0.86) 40%, #000 68%);
+  opacity: 0.4;
+  width: min(52%, 820px);
+}
 .page-hero-refinance::after { background-image: url("../assets/photo_laptop_desk.png"); background-position: 48% 46%; }
 .page-hero-why::after { background-image: url("../assets/photo_suit_phone.png"); background-position: 54% 32%; }
 
@@ -1457,6 +1463,7 @@ a.contact-method:hover { border-color: rgba(0, 128, 171, 0.55); box-shadow: 0 12
 
 @media (max-width: 960px) {
   .page-hero-photo::after { opacity: 0.14; width: 58%; }
+  .page-hero-buy::after { opacity: 0.27; width: 60%; }
   .page-hero-photo .display,
   .page-hero-photo .lede { max-width: 68%; }
   .page-hero:not(.page-hero-photo)::before,
