@@ -3,15 +3,46 @@
   const quoteUrl = "https://home-plus-mortgage.secure-clix.com/";
   const isProfile = window.location.pathname.includes("/team/");
   const root = isProfile ? "../" : "";
+  const page = window.location.pathname.split("/").pop() || "index.html";
 
   // Keep repeated navigation/footer content consistent across every static page.
   const navLinks = document.querySelector(".nav-links");
-  if (navLinks && !navLinks.querySelector('a[href$="team.html"]')) {
-    const reviewsLink = navLinks.querySelector('a[href$="reviews.html"]');
-    const teamLink = document.createElement("a");
-    teamLink.href = root + "team.html";
-    teamLink.textContent = "Our Team";
-    reviewsLink ? navLinks.insertBefore(teamLink, reviewsLink) : navLinks.prepend(teamLink);
+  if (navLinks) {
+    const loanPages = ["buy-a-home.html", "refinance.html", "loan-options.html", "compare-rates.html"];
+    const companyPages = ["why-homeplus.html", "about-us.html", "team.html", "reviews.html", "contact.html"];
+    const active = (pages) => (pages.includes(page) || (isProfile && pages.includes("team.html"))) ? " active" : "";
+    const item = (href, label, pages = [href]) =>
+      `<a class="nav-dropdown-link${active(pages)}" href="${root}${href}">${label}</a>`;
+
+    navLinks.setAttribute("aria-label", "Primary navigation");
+    navLinks.innerHTML = `
+      <div class="nav-group">
+        <button class="nav-group-trigger${active(loanPages)}" type="button" aria-expanded="false">
+          <span>Loans</span><i aria-hidden="true"></i>
+        </button>
+        <div class="nav-dropdown" aria-label="Loans">
+          ${item("buy-a-home.html", "Buy a Home")}
+          ${item("refinance.html", "Refinance")}
+          ${item("loan-options.html", "Loan Options")}
+          ${item("compare-rates.html", "Compare Rates")}
+        </div>
+      </div>
+      <a class="nav-primary-link${active(["resources.html"])}" href="${root}resources.html">Resources</a>
+      <div class="nav-group">
+        <button class="nav-group-trigger${active(companyPages)}" type="button" aria-expanded="false">
+          <span>Company</span><i aria-hidden="true"></i>
+        </button>
+        <div class="nav-dropdown" aria-label="Company">
+          ${item("why-homeplus.html", "Why HomePlus")}
+          ${item("about-us.html", "About Us")}
+          ${item("team.html", "Our Team")}
+          ${item("reviews.html", "Reviews")}
+          ${item("contact.html", "Contact")}
+        </div>
+      </div>
+      <a class="nav-primary-link${active(["join-the-team.html"])}" href="${root}join-the-team.html">Join the Team</a>
+      <a class="nav-phone" href="tel:8008107587">800.810.PLUS</a>
+      <a class="btn btn-primary nav-cta" href="${quoteUrl}">Get a Free Quote</a>`;
   }
 
   document.querySelectorAll("a").forEach((link) => {
@@ -89,15 +120,49 @@
   const burger = document.querySelector(".nav-burger");
   const links = document.querySelector(".nav-links");
   if (burger && links) {
+    const groups = [...links.querySelectorAll(".nav-group")];
+    const closeGroups = (except) => groups.forEach((group) => {
+      if (group === except) return;
+      group.classList.remove("open");
+      group.querySelector(".nav-group-trigger")?.setAttribute("aria-expanded", "false");
+    });
+
+    groups.forEach((group) => {
+      const trigger = group.querySelector(".nav-group-trigger");
+      trigger?.addEventListener("click", () => {
+        const open = !group.classList.contains("open");
+        closeGroups(group);
+        group.classList.toggle("open", open);
+        trigger.setAttribute("aria-expanded", String(open));
+      });
+    });
+
     burger.addEventListener("click", () => {
       const open = links.classList.toggle("open");
+      document.body.classList.toggle("menu-open", open);
       burger.setAttribute("aria-expanded", String(open));
       burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      if (!open) closeGroups();
     });
     links.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
       links.classList.remove("open");
+      document.body.classList.remove("menu-open");
       burger.setAttribute("aria-expanded", "false");
+      burger.setAttribute("aria-label", "Open menu");
+      closeGroups();
     }));
+
+    document.addEventListener("click", (event) => {
+      if (!links.contains(event.target) && event.target !== burger) closeGroups();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      closeGroups();
+      links.classList.remove("open");
+      document.body.classList.remove("menu-open");
+      burger.setAttribute("aria-expanded", "false");
+      burger.setAttribute("aria-label", "Open menu");
+    });
   }
 
   // reveal on scroll
