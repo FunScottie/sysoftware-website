@@ -2092,8 +2092,27 @@ a.contact-method:hover { border-color: rgba(0, 128, 171, 0.55); box-shadow: 0 12
 .join-tech-category { color: #6a8795; display: block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em; margin: 0; text-transform: uppercase; }
 .join-tech-card h3 { font-size: clamp(1.35rem, 2vw, 1.75rem); letter-spacing: -0.035em; margin: 0 0 0.65rem; }
 .join-tech-card p { color: #557586; font-size: 0.82rem; line-height: 1.65; max-width: 56ch; }
-.join-tech-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 1.7rem; }
-.join-tech-tools span { background: #f4fafc; border: 1px solid #cee5ee; border-radius: 999px; color: var(--navy-850); font-size: 0.68rem; font-weight: 800; letter-spacing: -0.01em; padding: 8px 12px; }
+.join-tech-tools { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 1.55rem; }
+.join-tech-logo {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #d5e6ed;
+  border-radius: 12px;
+  box-shadow: 0 9px 22px -18px rgba(4, 30, 43, 0.58);
+  display: inline-flex;
+  height: 58px;
+  justify-content: center;
+  min-width: 148px;
+  padding: 11px 16px;
+}
+.join-tech-logo img { display: block; height: 29px; max-width: 190px; object-fit: contain; width: auto; }
+.join-tech-logo.logo-loansifter { min-width: 220px; }
+.join-tech-logo.logo-loansifter img { height: 32px; }
+.join-tech-logo.logo-bonzo img { height: 33px; }
+.join-tech-logo.logo-mmi img { height: 31px; }
+.join-tech-logo.logo-monitorbase { min-width: 180px; }
+.join-tech-logo.logo-monitorbase img { height: 30px; }
+.join-tech-logo.logo-stikkum img { height: 31px; }
 .join-tech-note { color: #6d8996; font-size: 0.7rem; line-height: 1.6; margin: 1.5rem auto 0; max-width: 72ch; text-align: center; }
 
 .join-reach-section {
