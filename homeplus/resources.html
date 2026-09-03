@@ -90,18 +90,33 @@
     </section>
 
     <section id="prepare" class="section">
-      <div class="wrap">
-        <div class="section-head reveal">
+      <div class="wrap preapproval-layout">
+        <div class="preapproval-copy reveal">
           <span class="kicker">Prepare for pre-approval</span>
-          <h2 class="h2">A little preparation goes a long way.</h2>
-          <p class="resource-intro">Requirements vary, but these steps help your loan officer understand your goals and financial picture.</p>
+          <h2 class="h2">Know what to have ready.</h2>
+          <p class="resource-intro">Use this private checklist to organize the basic information a loan professional will typically discuss with you. Your exact requirements will depend on your circumstances and loan program.</p>
+          <div class="checklist-progress" aria-live="polite">
+            <div><span>Your progress</span><strong id="preapprovalProgressText">0 of 8 ready</strong></div>
+            <div class="checklist-progress-track" aria-hidden="true"><span id="preapprovalProgressBar"></span></div>
+          </div>
+          <p class="preapproval-privacy"><strong>Private by design.</strong> Your selections stay in this browser and are not sent to HomePlus.</p>
+          <button class="checklist-reset" id="preapprovalReset" type="button">Clear checklist</button>
         </div>
-        <div class="resource-card-grid">
-          <article class="resource-card reveal"><span>01</span><h3>Define the goal</h3><p>Purchase or refinance, property type, preferred location, expected timing, and a comfortable monthly budget.</p></article>
-          <article class="resource-card reveal"><span>02</span><h3>Review your finances</h3><p>Know your approximate income, recurring debts, available funds, and whether any major financial changes are approaching.</p></article>
-          <article class="resource-card reveal"><span>03</span><h3>Avoid sudden changes</h3><p>Before closing, ask your loan officer before opening credit, changing employment, moving money, or making a large purchase.</p></article>
-          <article class="resource-card reveal"><span>04</span><h3>Ask about tradeoffs</h3><p>Compare rate, APR, fees, cash required, monthly payment, loan term, and how long you expect to keep the property.</p></article>
-        </div>
+        <fieldset class="preapproval-checklist reveal" id="preapprovalChecklist">
+          <legend>Pre-approval readiness checklist</legend>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Goal and timing</strong><small>Purchase or refinance, property type, preferred area, and expected timeline.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Comfortable budget</strong><small>A target price range, down payment, and monthly payment you can sustain.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Identity and address history</strong><small>Government-issued identification and approximately two years of residence history.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Employment and income</strong><small>Current employment details and the income sources you expect to use to qualify.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Assets and available funds</strong><small>Approximate balances available for down payment, closing costs, and reserves.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Monthly obligations</strong><small>Recurring debts such as housing, auto, student-loan, and credit-card payments.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Financial changes</strong><small>Note any recent or upcoming job, credit, asset, or large-purchase changes.</small></span></label>
+          <label class="preapproval-item"><input type="checkbox" data-checklist-item /><span class="preapproval-check" aria-hidden="true"></span><span><strong>Questions for your loan officer</strong><small>Write down what you want to compare: payment, cash required, rate, APR, fees, or term.</small></span></label>
+          <div class="preapproval-next-step">
+            <span><strong>Ready for a conversation?</strong><small>A HomePlus professional can review your complete financial picture and confirm what is needed.</small></span>
+            <a class="btn btn-primary" href="https://home-plus-mortgage.secure-clix.com/">Start a Secure Quote <span class="arrow">→</span></a>
+          </div>
+        </fieldset>
       </div>
     </section>
 
@@ -202,6 +217,29 @@
       };
       ids.forEach((id) => fields[id].addEventListener("input", calculate));
       calculate();
+
+      const checklist = document.getElementById("preapprovalChecklist");
+      const checklistItems = [...checklist.querySelectorAll("[data-checklist-item]")];
+      const progressText = document.getElementById("preapprovalProgressText");
+      const progressBar = document.getElementById("preapprovalProgressBar");
+      const storageKey = "homeplus-preapproval-checklist-v1";
+      const updateChecklist = () => {
+        const complete = checklistItems.filter((item) => item.checked).length;
+        progressText.textContent = `${complete} of ${checklistItems.length} ready`;
+        progressBar.style.width = `${(complete / checklistItems.length) * 100}%`;
+        try { localStorage.setItem(storageKey, JSON.stringify(checklistItems.map((item) => item.checked))); } catch (_) {}
+      };
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+        checklistItems.forEach((item, index) => { item.checked = Boolean(saved[index]); });
+      } catch (_) {}
+      checklistItems.forEach((item) => item.addEventListener("change", updateChecklist));
+      document.getElementById("preapprovalReset").addEventListener("click", () => {
+        checklistItems.forEach((item) => { item.checked = false; });
+        updateChecklist();
+        checklistItems[0].focus();
+      });
+      updateChecklist();
     })();
   </script>
 </body>

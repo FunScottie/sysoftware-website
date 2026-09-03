@@ -49,8 +49,9 @@
 
   document.querySelectorAll("a").forEach((link) => {
     const label = link.textContent.trim().toLowerCase();
+    const href = link.getAttribute("href") || "";
     const isMortgageAction = /quote|pre-approval|preapproved|pre-approved|check my rate|run my numbers|start here/.test(label);
-    if (isMortgageAction && !link.closest(".team-card")) link.href = quoteUrl;
+    if (isMortgageAction && !href.startsWith("#") && !link.closest(".team-card")) link.href = quoteUrl;
   });
 
   const footer = document.querySelector(".footer");
