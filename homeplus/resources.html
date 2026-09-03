@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mortgage Resources | HomePlus Mortgage</title>
+  <meta name="description" content="Estimate a monthly mortgage payment, prepare for pre-approval, and understand the HomePlus mortgage process." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mortgage Resources | HomePlus Mortgage" />
+  <meta property="og:description" content="Practical mortgage tools, preparation checklists, and a clear guide to the loan process." />
+  <meta property="og:image" content="/homeplus/assets/og-homeplus.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mortgage Resources | HomePlus Mortgage" />
+  <meta name="twitter:description" content="Practical mortgage tools, preparation checklists, and a clear guide to the loan process." />
+  <meta name="twitter:image" content="/homeplus/assets/og-homeplus.png" />
+  <link rel="icon" href="https://homeplusmortgage.com/wp-content/uploads/2021/04/homeplus-icon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav scrolled">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html"><img class="logo-white" src="assets/logo_white.png" alt="HomePlus Mortgage" /><img class="logo-color" src="assets/logo_color.png" alt="HomePlus Mortgage" /></a>
+      <button class="nav-burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="loan-options.html">Loan Options</a>
+        <a href="resources.html" class="active">Resources</a>
+        <a href="why-homeplus.html">Why HomePlus</a>
+        <a href="team.html">Our Team</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="join-the-team.html">Join the Team</a>
+        <a class="nav-phone" href="tel:8008107587">800.810.PLUS</a>
+        <a class="btn btn-primary nav-cta" href="https://home-plus-mortgage.secure-clix.com/">Get a Free Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="kicker">Mortgage resources</span>
+        <h1 class="display">Know what to expect.<br />Move with confidence.</h1>
+        <p class="lede">Estimate a payment, prepare your documents, and understand the path from first conversation to closing.</p>
+      </div>
+    </section>
+
+    <nav class="resource-jump" aria-label="Resource sections">
+      <div class="wrap">
+        <a href="#calculator">Payment estimator</a>
+        <a href="#prepare">Pre-approval checklist</a>
+        <a href="#documents">Documents</a>
+        <a href="#process">Loan process</a>
+      </div>
+    </nav>
+
+    <section id="calculator" class="section section-lt tint">
+      <div class="wrap calculator-layout">
+        <div class="reveal">
+          <span class="kicker">Payment estimator</span>
+          <h2 class="h2">Start with a useful estimate.</h2>
+          <p class="resource-intro">Adjust the assumptions below to estimate monthly principal, interest, property taxes, homeowners insurance, and HOA dues.</p>
+          <form class="calculator-form" id="paymentCalculator">
+            <label>Home price <span><b>$</b><input id="homePrice" type="number" min="0" step="1000" value="650000" inputmode="decimal" /></span></label>
+            <label>Down payment <span><b>$</b><input id="downPayment" type="number" min="0" step="1000" value="130000" inputmode="decimal" /></span></label>
+            <label>Interest rate <span><input id="interestRate" type="number" min="0" max="30" step="0.125" value="6.5" inputmode="decimal" /><b>%</b></span></label>
+            <label>Loan term <span><select id="loanTerm"><option value="30">30 years</option><option value="20">20 years</option><option value="15">15 years</option></select></span></label>
+            <label>Annual property tax <span><b>$</b><input id="propertyTax" type="number" min="0" step="100" value="7800" inputmode="decimal" /></span></label>
+            <label>Annual homeowners insurance <span><b>$</b><input id="insurance" type="number" min="0" step="100" value="1800" inputmode="decimal" /></span></label>
+            <label>Monthly HOA dues <span><b>$</b><input id="hoa" type="number" min="0" step="25" value="0" inputmode="decimal" /></span></label>
+          </form>
+        </div>
+        <aside class="payment-result reveal" aria-live="polite">
+          <span class="kicker">Estimated monthly payment</span>
+          <strong id="totalPayment">$0</strong>
+          <dl>
+            <div><dt>Principal &amp; interest</dt><dd id="principalInterest">$0</dd></div>
+            <div><dt>Property tax</dt><dd id="monthlyTax">$0</dd></div>
+            <div><dt>Homeowners insurance</dt><dd id="monthlyInsurance">$0</dd></div>
+            <div><dt>HOA dues</dt><dd id="monthlyHoa">$0</dd></div>
+            <div><dt>Estimated loan amount</dt><dd id="loanAmount">$0</dd></div>
+          </dl>
+          <p>This estimate does not include mortgage insurance, closing costs, prepaid items, or other property-specific expenses. It is not a quote, approval, or commitment to lend.</p>
+          <a class="btn btn-primary" href="https://home-plus-mortgage.secure-clix.com/">Request a Personalized Quote <span class="arrow">→</span></a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="prepare" class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker">Prepare for pre-approval</span>
+          <h2 class="h2">A little preparation goes a long way.</h2>
+          <p class="resource-intro">Requirements vary, but these steps help your loan officer understand your goals and financial picture.</p>
+        </div>
+        <div class="resource-card-grid">
+          <article class="resource-card reveal"><span>01</span><h3>Define the goal</h3><p>Purchase or refinance, property type, preferred location, expected timing, and a comfortable monthly budget.</p></article>
+          <article class="resource-card reveal"><span>02</span><h3>Review your finances</h3><p>Know your approximate income, recurring debts, available funds, and whether any major financial changes are approaching.</p></article>
+          <article class="resource-card reveal"><span>03</span><h3>Avoid sudden changes</h3><p>Before closing, ask your loan officer before opening credit, changing employment, moving money, or making a large purchase.</p></article>
+          <article class="resource-card reveal"><span>04</span><h3>Ask about tradeoffs</h3><p>Compare rate, APR, fees, cash required, monthly payment, loan term, and how long you expect to keep the property.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="documents" class="section section-lt tint">
+      <div class="wrap split light">
+        <div class="reveal">
+          <span class="kicker">Document checklist</span>
+          <h2 class="h2">Common items your loan team may request.</h2>
+          <p class="resource-intro">Your exact list depends on employment, income, assets, loan program, and property. Submit sensitive documents only through the secure link provided by your loan professional.</p>
+        </div>
+        <div class="checklist-card reveal">
+          <ul>
+            <li>Government-issued identification</li>
+            <li>Recent income documentation</li>
+            <li>Recent bank and asset statements</li>
+            <li>Employment and residence history</li>
+            <li>Tax returns when applicable</li>
+            <li>Purchase contract when available</li>
+            <li>Homeowners insurance information</li>
+            <li>Additional program-specific documentation</li>
+          </ul>
+          <a href="team.html">Find your loan professional →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="section process-section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker">The loan process</span>
+          <h2 class="h2">Seven understandable stages.</h2>
+          <p class="resource-intro">A HomePlus professional remains your point of contact while the team coordinates documentation, processing, and communication with the parties involved.</p>
+        </div>
+        <ol class="process-timeline">
+          <li class="reveal"><span>1</span><div><h3>Conversation</h3><p>Discuss your property, goals, timing, and financial picture.</p></div></li>
+          <li class="reveal"><span>2</span><div><h3>Application</h3><p>Provide accurate information through the secure application process.</p></div></li>
+          <li class="reveal"><span>3</span><div><h3>Documentation</h3><p>Submit requested supporting information through a secure channel.</p></div></li>
+          <li class="reveal"><span>4</span><div><h3>Processing</h3><p>The loan file is organized, reviewed, and prepared for underwriting.</p></div></li>
+          <li class="reveal"><span>5</span><div><h3>Underwriting</h3><p>The lender evaluates the application, property, and program requirements.</p></div></li>
+          <li class="reveal"><span>6</span><div><h3>Approval &amp; signing</h3><p>Final requirements are addressed and closing documents are prepared.</p></div></li>
+          <li class="reveal"><span>7</span><div><h3>Funding &amp; closing</h3><p>After conditions and signed documents are accepted, funds are disbursed and the transaction closes.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap reveal">
+        <h2 class="h2">A calculator starts the conversation.<br />A person helps finish it.</h2>
+        <p class="lede" style="margin-inline:auto">Connect with HomePlus for a personalized review of your property, goals, and available options.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://home-plus-mortgage.secure-clix.com/">Start a Secure Quote <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="tel:8008107587">Call 800.810.PLUS (7587)</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" data-shared-footer>
+    <div class="wrap">
+      <div class="footer-mission"><img class="f-logo" src="assets/logo_white.png" alt="HomePlus Mortgage" /><p>Our mission is to provide our customers with the highest level of customer service and a competitive mortgage rate and term.</p></div>
+      <div class="footer-top">
+        <div><h4>Corporate Headquarters</h4><p>HomePlus Corporation<br />9655 Granite Ridge Drive, Suite 200<br />San Diego, CA 92123</p></div>
+        <div><h4>Contact</h4><ul><li><a href="tel:8008107587">800-810-PLUS (7587)</a></li><li><a href="tel:6193258282">619-325-8282</a></li><li>Fax: 800-378-6031</li><li><a href="mailto:approvaldept@homeplusmortgage.com">approvaldept@homeplusmortgage.com</a></li></ul></div>
+        <div><h4>Loans</h4><ul><li><a href="buy-a-home.html">Buy a Home</a></li><li><a href="refinance.html">Refinance</a></li><li><a href="loan-options.html">Loan Options</a></li><li><a href="compare-rates.html">Compare Rates</a></li><li><a href="resources.html">Resources</a></li></ul></div>
+        <div><h4>Company</h4><ul><li><a href="about-us.html">About Us</a></li><li><a href="team.html">Our Team</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="join-the-team.html">Join the Team</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      </div>
+      <div class="footer-legal">
+        <p>© 2026 HomePlus Corporation dba HomePlus Mortgage · NMLS 78669 · Real Estate Broker, CA DRE License #01426454</p>
+        <div class="footer-legal-links"><a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener">NMLS Consumer Access</a><a href="https://homeplusmortgage.com/legal/" target="_blank" rel="noopener">State &amp; Federal Disclosures / Licenses</a><a href="https://homeplusmortgage.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a><a href="https://homeplusmortgage.com/wp-content/uploads/2018/01/Consumer-Complaint-and-Recovery-Fund-Notice.pdf" target="_blank" rel="noopener">Texas Complaint / Recovery Fund Notice</a></div>
+        <div class="ehl" aria-label="Equal Housing Lender"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 10h2v12h7v-7h4v7h7V10h2L12 2zm0 5.7 4.5 3.3H7.5L12 7.7zM8.2 12.5h7.6v1.6H8.2v-1.6zm0 3h7.6v1.6H8.2v-1.6z"/></svg>HOMEPLUS CORPORATION IS AN EQUAL HOUSING LENDER</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    (() => {
+      const ids = ["homePrice", "downPayment", "interestRate", "loanTerm", "propertyTax", "insurance", "hoa"];
+      const fields = Object.fromEntries(ids.map((id) => [id, document.getElementById(id)]));
+      const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+      const value = (field) => Math.max(0, Number(field.value) || 0);
+      const calculate = () => {
+        const principal = Math.max(0, value(fields.homePrice) - value(fields.downPayment));
+        const months = value(fields.loanTerm) * 12;
+        const monthlyRate = value(fields.interestRate) / 100 / 12;
+        const principalInterest = principal && months
+          ? monthlyRate ? principal * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1) : principal / months
+          : 0;
+        const tax = value(fields.propertyTax) / 12;
+        const insurance = value(fields.insurance) / 12;
+        const hoa = value(fields.hoa);
+        document.getElementById("principalInterest").textContent = money.format(principalInterest);
+        document.getElementById("monthlyTax").textContent = money.format(tax);
+        document.getElementById("monthlyInsurance").textContent = money.format(insurance);
+        document.getElementById("monthlyHoa").textContent = money.format(hoa);
+        document.getElementById("loanAmount").textContent = money.format(principal);
+        document.getElementById("totalPayment").textContent = money.format(principalInterest + tax + insurance + hoa);
+      };
+      ids.forEach((id) => fields[id].addEventListener("input", calculate));
+      calculate();
+    })();
+  </script>
+</body>
+</html>
