@@ -19,6 +19,7 @@ IMAGE_DIR = ROOT / "assets" / "team"
 DATA_PATH = ROOT / "team-data.json"
 QUOTE_URL = "https://home-plus-mortgage.secure-clix.com/"
 PREVIEW_ORIGIN = "https://www.sysoftware.com/homeplus/v3"
+LIVE_HOME_URL = "https://homeplusmortgage.com/"
 
 
 def slugify(value):
@@ -523,12 +524,25 @@ def render_contact_card(person):
     address_lines = [line.strip() for line in address.splitlines() if line.strip()]
     address_markup = "".join(f"<span>{escape(line)}</span>" for line in address_lines)
 
+    qr_url = escape(LIVE_HOME_URL, quote=True)
+
     return f'''<aside class="profile-contact-card profile-contact-inline">
             <div class="contact-card-heading">
               <span class="contact-eyebrow">Direct contact</span>
               <h2>Contact {first_name}</h2>
             </div>
             <div class="contact-method-grid">{''.join(method_markup)}</div>
+            <div class="profile-qr-share">
+              <a class="profile-qr-link" href="{qr_url}" target="_blank" rel="noopener" aria-label="Visit the HomePlus Mortgage website">
+                <img src="../assets/homeplus-home-qr.svg" alt="QR code linking to the HomePlus Mortgage website" loading="lazy" />
+              </a>
+              <div class="profile-qr-copy">
+                <span class="contact-eyebrow">HomePlus on the go</span>
+                <h3>Take HomePlus with you.</h3>
+                <p>Scan to explore loan options, resources, and more.</p>
+                <a href="{qr_url}" target="_blank" rel="noopener">homeplusmortgage.com <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
             <div class="contact-office">
               <span class="contact-eyebrow">Office</span>
               <address class="contact-address">{address_markup}</address>

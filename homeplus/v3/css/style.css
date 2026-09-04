@@ -896,6 +896,54 @@ a.contact-method:hover { border-color: rgba(0, 128, 171, 0.55); box-shadow: 0 12
 .contact-method strong { color: var(--ink); font-size: 0.9rem; font-weight: 750; line-height: 1.35; }
 .contact-method-email { grid-column: 1 / -1; }
 .contact-method-email strong { color: var(--cyan); }
+.profile-qr-share {
+  align-items: center;
+  background:
+    radial-gradient(circle at 93% 8%, rgba(65, 196, 229, 0.2), transparent 32%),
+    linear-gradient(135deg, var(--navy-950), #0a4a61);
+  border: 1px solid rgba(101, 202, 228, 0.2);
+  border-radius: 18px;
+  box-shadow: 0 18px 38px -30px rgba(4, 30, 43, 0.9);
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 112px minmax(0, 1fr);
+  margin: 0 30px 24px;
+  overflow: hidden;
+  padding: 18px 20px;
+  position: relative;
+}
+.profile-qr-link {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+  box-shadow: 0 14px 28px -18px rgba(0, 0, 0, 0.72);
+  display: flex;
+  height: 112px;
+  justify-content: center;
+  padding: 8px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 112px;
+  z-index: 1;
+}
+.profile-qr-link:hover {
+  box-shadow: 0 18px 32px -18px rgba(0, 0, 0, 0.86);
+  transform: translateY(-2px);
+}
+.profile-qr-link:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+.profile-qr-link img { display: block; height: 100%; width: 100%; }
+.profile-qr-copy { min-width: 0; position: relative; z-index: 1; }
+.profile-qr-copy .contact-eyebrow { color: var(--cyan-bright); margin-bottom: 0.45rem; }
+.profile-qr-copy h3 { color: var(--white); font-size: 1.1rem; line-height: 1.25; }
+.profile-qr-copy p { color: #c8dce5; font-size: 0.8rem; line-height: 1.5; margin: 0.45rem 0 0.7rem; }
+.profile-qr-copy > a {
+  color: #ff7b3d;
+  font-size: 0.76rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.profile-qr-copy > a:hover { color: #ff9b6b; }
 .contact-office {
   background: linear-gradient(135deg, var(--navy-950), var(--navy-900));
   border-radius: 16px;
@@ -982,6 +1030,9 @@ a.contact-method:hover { border-color: rgba(0, 128, 171, 0.55); box-shadow: 0 12
   .contact-card-heading { padding: 24px 22px 18px; }
   .contact-method-grid { grid-template-columns: 1fr; padding: 20px 22px; }
   .contact-method-email { grid-column: auto; }
+  .profile-qr-share { gap: 16px; grid-template-columns: 96px minmax(0, 1fr); margin: 0 22px 20px; padding: 16px; }
+  .profile-qr-link { border-radius: 12px; height: 96px; padding: 7px; width: 96px; }
+  .profile-qr-copy h3 { font-size: 1rem; }
   .contact-office { margin: 0 22px 22px; padding: 20px; }
 }
 
